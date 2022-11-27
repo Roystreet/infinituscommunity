@@ -1,5 +1,12 @@
 :root{
   box-sizing: content-box;
+  background: #fafafa;
+}
+.container-main{
+  width: 100vw;
+  height: calc(100vh - 50px - 60px);
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .center {
  display: flex;

@@ -24,7 +24,7 @@ function App() {
           <Route path="/preventa" element={<Presale />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/paquetes" element={<Package />} />
-          <Route path="*" element={<Error />} />
+          <Route path="/error" element={<Error />} />
         </Routes>
       </Layout>
     </>

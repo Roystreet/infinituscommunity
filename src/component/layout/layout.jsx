@@ -6,12 +6,12 @@ import { Box } from "@mui/material";
 export default function Layout({ children }) {
   return (
     <>
+      <Header />
       <Message />
-      <Navbar />
-      <Box component="main" sx={{}}>
+      <Box component="div" className="container-main">
         {children}
       </Box>
-      <Header />
+      <Navbar />
     </>
   );
 }
