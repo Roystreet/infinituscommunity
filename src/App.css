@@ -1,6 +1,22 @@
 :root{
   box-sizing: content-box;
 }
+.center {
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ align-items: center;
+ justify-items: center;
+}
+.container-message{
+ background: #FFFFFF;
+ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+ border-radius: 14px;
+ width: auto;
+ padding: 40px;
+ height: 271px;
+
+}
 @media screen and (min-width: 769px) { 
   .hidden-message {
     position: absolute;
@@ -10,10 +26,14 @@
     background: #fafafa;
     top: 0px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
 @media screen and (max-width: 768px) {
   .hidden-message {
-    display: none;
+    display: none !important;
   }
  }
