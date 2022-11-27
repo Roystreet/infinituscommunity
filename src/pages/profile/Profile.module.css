@@ -10,3 +10,61 @@
 .titleW{
   font-size: 32px;
 }
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  background-color: beige;
+  margin: auto;
+  margin-top: 2vh;
+}
+.contImgNom{
+  background-color: aquamarine;
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items:center ;
+}
+.name{
+  font-size: 24px;
+}
+
+.contDataCuenta{
+  display: flex;
+  flex-direction: column;
+}
+.contDataCuenta h3{
+  font-size: 16px;
+}
+.contData{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  align-items: center;
+  
+}
+.data{
+  width: 90%;
+  margin-left: 1vh;
+}
+
+.contCards{
+  display: flex;
+  flex-direction: column;
+}
+.contCards h3{
+  font-size: 20px;
+}
+.card{
+  height: 78px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3vh;
+  border-radius: 8px;
+  background-color: #C7DDFF;
+}

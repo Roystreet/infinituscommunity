@@ -8,28 +8,32 @@ export default function Profile() {
       <div className={style.contWel}>
         <h1 className={style.titleW}>Welcome!</h1>
       </div>
-      <div>
-        <div>
-          <p>imagen</p>
-          <h2>Nombre</h2>
+      <div className={style.container}>
+        <div className={style.contImgNom}>
+          <p >Avatar</p>
+          <h2 className={style.name}>Nombre</h2>
         </div>
-        <div>
+        <div className={style.contDataCuenta}>
           <h3>Cuenta</h3>
-          <div>
-            <span>numero hasheados</span>
+          <div className={style.contData}>
+            <span className={style.data}>4da44354gfDFGdfgdf45</span>
             <p>cop</p>
           </div>
         </div>
-        <div>
+        <div className={style.contCards}>
           <h3>Balances</h3>
-          <div>
-            <h4>Busd Token</h4>
-            <span>6511</span>
+          <div className={style.card}>
+           <div>
+             <h4>Busd Token</h4>
+             <span>6511</span>
+           </div>
           </div>
-          <div>
-            <h4>Infinitus Token</h4>
-            <span>6511</span>
-            <span>Icon</span>
+          <div className={style.card}>
+           <div>
+              <h4>Infinitus Token</h4>
+              <span>6511 </span>
+           </div>
+           <div><span>Icon</span></div>
           </div>
         </div>
         
