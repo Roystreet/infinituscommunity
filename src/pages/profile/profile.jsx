@@ -1,9 +1,12 @@
+import style from "./Profile.module.css"
+
+
 export default function Profile() {
   return(
     <>
 
-      <div>
-        <h1>Welcome!</h1>
+      <div className={style.contWel}>
+        <h1 className={style.titleW}>Welcome!</h1>
       </div>
       <div>
         <div>
