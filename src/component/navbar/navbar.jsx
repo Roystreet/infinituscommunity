@@ -54,20 +54,62 @@ export default function Navbar() {
           sx={{
             background:
             "linear-gradient(262.41deg, #690879 -10.12%, #50BADB 62.5%)",
-            height: 65
+            height: 65,
+            padding: '.5rem 0 .5rem 0'
           }}
         >
 
-          <BottomNavigationAction label="Ticket" sx={{color: '#B9DDFF'}} value={1}  className={style.itemNavigate} icon={<TicketIcon sx={{fontSize:'2rem', color: '#B9DDFF'}}/>}/> 
+          <BottomNavigationAction 
+            label="Ticket" 
+            sx={{color: '#B9DDFF',
+              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+                color: "#fff"
+              }
+            }} 
+            value={1}  
+            className={style.itemNavigate} 
+            icon={<TicketIcon sx={{fontSize:'2rem', color: '#B9DDFF', marginBottom: '.5rem'}}/>}/> 
           
         
-          <BottomNavigationAction label="Colab room" sx={{color: '#B9DDFF'}} value={2} className={style.itemNavigate} icon={<ColabIcon sx={{fontSize:'2rem',color: '#B9DDFF'}}/>} />
+          <BottomNavigationAction 
+            label="Colab room" 
+            sx={{color: '#B9DDFF',
+              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+                color: "#fff"
+              }
+            }} 
+            value={2} 
+            className={style.itemNavigate} 
+            icon={<ColabIcon sx={{fontSize:'2rem',color: '#B9DDFF', marginBottom: '.5rem'}}/>} />
         
       
-          <BottomNavigationAction label="Ranking" sx={{color: '#B9DDFF'}} value={3} className={style.itemNavigate} icon={<RankingIcon sx={{fontSize:'2rem', color: '#B9DDFF'}}/>}/>
+          <BottomNavigationAction 
+            label="Ranking" 
+            sx={{color: '#B9DDFF',
+              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+                color: "#fff"
+              }
+            }} 
+            value={3} 
+            className={style.itemNavigate} 
+            icon={<RankingIcon sx={{fontSize:'2rem', color: '#B9DDFF', marginBottom: '.5rem'}}/>}/>
         
       
-          <BottomNavigationAction label="Nearby" sx={{color: '#B9DDFF'}} value={4} className={style.itemNavigate} icon={<PresaleIcon sx={{fontSize:'2rem', color: '#B9DDFF'}}/>} />
+          <BottomNavigationAction 
+            label="Presale" 
+            sx={{
+              color: '#B9DDFF',
+              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+                color: "#fff"
+              }
+            }} 
+            value={4} 
+            className={style.itemNavigate} 
+            icon={<PresaleIcon sx={{fontSize:'2rem', 
+              color: '#B9DDFF', 
+              marginBottom: '.5rem',
+              
+              }}/>} />
           
         </BottomNavigation>
       

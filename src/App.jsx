@@ -18,7 +18,7 @@ import Error from "./pages/error/error";
 function App() {
   return (
     <>
-      {/* <Layout> */}
+      <Layout>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/preventa" element={<Presale />} />
@@ -26,7 +26,7 @@ function App() {
           <Route path="/paquetes" element={<Package />} />
           <Route path="/error" element={<Error />} />
         </Routes>
-      {/* </Layout> */}
+      </Layout>
     </>
   );
 }
