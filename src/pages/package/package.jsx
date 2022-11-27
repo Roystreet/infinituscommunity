@@ -1,1 +1,3 @@
-export default function Package() {}
+export default function Package() {
+  return <p>paquetes</p>;
+}

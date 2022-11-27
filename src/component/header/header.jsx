@@ -1,3 +1,9 @@
+import styles from "./header.modules.css";
+import { Box } from "@mui/material";
+import { useState } from "react";
+
 export default function Header() {
-  return <p>Header</p>;
+  const [route, setRoute] = useState("");
+
+  return <Box component="header"></Box>;
 }
