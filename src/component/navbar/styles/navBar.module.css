@@ -1,0 +1,16 @@
+@media screen and (max-width: 480px){
+    .contNavBar{
+        background: linear-gradient(263.19deg, #1CE3E4 -17.19%, #699BF7 23.34%, #5B19E7 94.75%);
+    }
+    
+    .itemNavigate{
+        color: #B9DDFF;
+        font-size: 10px;
+    }
+
+    .iconNav{
+        font-size: 5.5rem;
+    }
+
+}
+
