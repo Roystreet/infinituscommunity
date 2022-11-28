@@ -39,7 +39,7 @@ export default function Header() {
         <div className={style.headerItems}>
             <div className={style.contItem}>
                 <div className={style.contLinkSup}>
-                  <Link to='/user' className={style.link} onClick={clickChecked}>
+                  <Link to='/perfil' className={style.link} onClick={clickChecked}>
                     <FaRegUserCircle className={style.iconHeader}/>User panel</Link>
                 </div>
                 <div className={style.contLinkSup}>
