@@ -1,6 +1,6 @@
 import style from "./Profile.module.css"
-import img from "../../../public/retiro.png"
-import copyImg from "../../../public/copyIcon.png"
+import img from "../../assets/retiro.png"
+import copyImg from "../../assets/copyIcon.png"
 export default function Profile() {
   return(
     <>
