@@ -69,7 +69,7 @@ h5{
     padding: 10px;
 }
 
-@media (max-width: 950px){
+@media screen and (max-width: 768px){
     .contNav{
         display: flex;
         justify-content: space-between;
