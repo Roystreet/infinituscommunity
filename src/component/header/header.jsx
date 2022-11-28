@@ -31,8 +31,6 @@ export default function Header() {
                 />
             </Link>
         </div>
-        {/* <div className={style.contTitle}>
-        </div> */}
           <h5 className={style.navTitle}>USER PANEL</h5>
         <label htmlFor='menu' className={style.navLabel}>
             <img src={menu} alt='menu-svg' className={style.navSvg} />
