@@ -9,7 +9,8 @@ import logoInfinitus from '../../component/header/assets/infinitus.svg'
 export default function Login() {
   return (
     <Box sx={{
-      height: '100%',
+      position: 'absolute',
+      zIndex: 20,
       background: "linear-gradient(203.72deg, rgba(105, 8, 121, 0.78) -10.54%, rgba(80, 186, 219, 0.78) 92.25%)"
     }} 
     className={style.contLogin}

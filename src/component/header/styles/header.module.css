@@ -1,16 +1,12 @@
 .contNav{
-    /* position: fixed; */
     width: 100%;
-    font-family: Space Mono;
     display: flex;
     align-items: center;
-    /* height: 50px; */
-    z-index: 1;
-    background: linear-gradient(262.41deg, #1CE2E4 -10.12%, #2ABAE7 62.5%);
+
 }
 
 .headerIcon{
-    width: 27%;
+    width: 15%;
 }
 
 .headerItems{
@@ -26,46 +22,60 @@
     width: 100%;
 }
 
+.contTitle{
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h5{
+    margin: 0;
+}
+
 .navLabel, .navInput{
     display: none;
 }
 
 .contItem{
-    width: 60%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
 }
 
-.link, .linkAux{
+.logo{
+    height: 19px;
+    width: 38px;
+}
+
+.link{
     text-decoration: none;
+    color: #0D4983;
+    display: flex;
+    align-items: center;
 }
 
-.link:hover{
-    color: #fff;
-    border-bottom: 1px solid #fff;
-    cursor: pointer;
-    /* transition: 2s ease-in-out */
+.linkAux{
+    text-decoration: none;
+    color: #0D4983;
+    display: flex;
+    align-items: center;
 }
 
-.icons{
-    font-size: 2rem;
-    margin-right: 1rem;
-    color: #fff;
+
+.iconHeader{
+    height: 24px;
+    width: 24px;
+    padding: 10px;
 }
 
-@media (min-width: 359px) and (max-width: 375px){
+@media (max-width: 950px){
     .contNav{
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        height: 10vh;
-    }
-
-    .menu{
-        height: 1rem;
+        height: 100%;
     }
 
     .headerIcon{
@@ -73,7 +83,19 @@
     }
 
     .logo{
-        height: 1.8rem;
+        height: 2.5rem;
+    }
+
+    .navTitle{
+        position: absolute;
+        left: calc(50% - 94px/2);
+        font-size: 20px;
+        line-height: 25px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.05em;
+        color: #FFFFFF;
     }
 
     .navLabel{
@@ -82,67 +104,68 @@
         margin-right: 1.5rem;
     }
 
+    .navSvg{
+        width: 24px;
+        height: 24px;
+    }
+
     .headerItems{
-        z-index: 1;
-        position: absolute;
-        top: 70px;
-        bottom: 0;
-        background: #E4ECFF;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important ;
-        border-radius: 8px 0px 8px 8px;
-        width: 70%;
-        height: 25%;
-        right: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 2px 4px;
+        gap: 2px;
+        position: absolute;
+        width: 239px;
+        height: 144px;
+        right: 0px;
+        top: 50px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+        border-radius: 4px 0px 4px 4px;
         clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
         transition: clip-path 1s ease-in-out
     }
 
-    .contItem{
-        width: 100%;
-        border-radius: 8px 0px 8px 8px;
-        flex-direction: column;
-        height: 80%;
-        color: #333;
+    .iconHeader{
+        height: 24px;
+        width: 24px;
+        padding: 10px;
     }
 
-    .icons{
-        margin-right: 0;
+    .contItem{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .contLinkSup{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 2px;
+        width: 214px;
+        height: 44px;
+        border-bottom: 0.5px solid #A2A2A2;
     }
 
     .contLink{
-        width: 100%;
-        display:flex;
-        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 2px;
+        width: 214px;
+        height: 44px;
+
     }
+
 
     .link{
-        display: flex;
-        align-items: center;
-        height: 50px;
-        width: 90%;
-        color: #0D4983;
+        text-decoration: none;
+        width: 80%;
         font-size: 1.5rem;
-        margin-bottom: 3px;
-        border-bottom: 0.5px solid #A1A1A1;
-    }
-
-    .linkAux{
-        display: flex;
-        align-items: center;
-        height: 44px;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-    }
-
-    .iconHeader{
-        margin-right: .6rem;
-        font-size: 2rem;
-        color: #0D4983;
     }
 
     .navInput:checked + .headerItems{
@@ -150,199 +173,3 @@
     }
 
 }
-
-
-@media (min-width: 390px) and (max-width: 480px){
-    .contNav{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 10vh;
-    }
-
-    .menu{
-        height: 1rem;
-    }
-
-    .headerIcon{
-        padding-left: 1.5rem;
-    }
-
-    .logo{
-        height: 1.8rem;
-    }
-
-    .navLabel{
-        display: block;
-        cursor: pointer;
-        margin-right: 1.5rem;
-    }
-
-    .headerItems{
-        z-index: 1;
-        position: absolute;
-        top: 90px;
-        bottom: 0;
-        background: #E4ECFF;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important ;
-        border-radius: 8px 0px 8px 8px;
-        width: 70%;
-        height: 25%;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
-        transition: clip-path 1s ease-in-out
-    }
-
-    .contItem{
-        width: 100%;
-        border-radius: 8px 0px 8px 8px;
-        flex-direction: column;
-        height: 80%;
-        color: #333;
-    }
-
-    .icons{
-        margin-right: 0;
-    }
-
-    .contLink{
-        width: 100%;
-        display:flex;
-        justify-content: center;
-    }
-
-    .link{
-        display: flex;
-        align-items: center;
-        height: 50px;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-        margin-bottom: 3px;
-        border-bottom: 0.5px solid #A1A1A1;
-    }
-
-    .linkAux{
-        display: flex;
-        align-items: center;
-        height: 44px;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-    }
-
-    .iconHeader{
-        margin-right: .6rem;
-        font-size: 2rem;
-        color: #0D4983;
-    }
-
-    .navInput:checked + .headerItems{
-        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
-    }
-
-}
-
-
-@media  (min-width: 480px) and (max-width: 950px){
-    .contNav{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 10vh;
-    }
-
-    .menu{
-        height: 1rem;
-    }
-
-    .headerIcon{
-        padding-left: 1.5rem;
-    }
-
-    .logo{
-        height: 1.8rem;
-    }
-
-    .navLabel{
-        display: block;
-        cursor: pointer;
-        margin-right: 1.5rem;
-    }
-
-    .headerItems{
-        z-index: 1;
-        position: absolute;
-        top: 92px;
-        bottom: 0;
-        background: #E4ECFF;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important ;
-        border-radius: 8px 0px 8px 8px;
-        width: 70%;
-        height: 20%;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
-        transition: clip-path 1s ease-in-out
-    }
-
-    .contItem{
-        width: 100%;
-        border-radius: 8px 0px 8px 8px;
-        flex-direction: column;
-        height: 80%;
-        color: #333;
-    }
-
-    .icons{
-        margin-right: 0;
-    }
-
-    .contLink{
-        width: 100%;
-        display:flex;
-        justify-content: center;
-    }
-
-    .link{
-        display: flex;
-        align-items: center;
-        height: 50px;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-        margin-bottom: 3px;
-        border-bottom: 0.5px solid #A1A1A1;
-    }
-
-    .linkAux{
-        display: flex;
-        align-items: center;
-        height: 44px;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-    }
-
-    .iconHeader{
-        margin-right: .6rem;
-        font-size: 2rem;
-        color: #0D4983;
-    }
-
-    .navInput:checked + .headerItems{
-        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
-    }
-
-}
-
-
