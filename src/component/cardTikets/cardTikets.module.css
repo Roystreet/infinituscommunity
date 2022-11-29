@@ -1,0 +1,35 @@
+@media screen and (max-width:480px){
+.card{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 267px;
+  height: 200px;
+  border-radius: 14px;
+  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+}
+.img{
+  width: 267px;
+  height: 150px;
+  border-radius: 14px;
+  z-index: 1;
+  position: absolute;
+}
+.contIcon{
+  width: 100%;
+height: 20px;
+background: rgb(2,2,3);
+background: linear-gradient(180deg, rgba(2,2,3,1) 0%, rgba(40,40,40,0.7637429971988796) 13%, rgba(70,70,70,0.6096813725490196) 82%, rgba(117,117,117,0.15309873949579833) 100%);
+border-top-left-radius:14px;
+border-top-right-radius:14px;
+  z-index: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+
+}

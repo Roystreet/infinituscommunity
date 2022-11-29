@@ -33,7 +33,7 @@ export default function Profile() {
             padding: '16px',
             color:'blue',
              marginTop: '250px',
-            // marginLeft: '900px',
+            
             },
              }}/>
         

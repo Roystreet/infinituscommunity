@@ -1,3 +1,17 @@
+ 
+ 
+ import CardTikets from "../../component/cardTikets/cardTikets";
+
+
+
+
 export default function Package() {
-  return <p>paquetes</p>;
+  // Mostrar Tikets    
+  
+  return (
+    <div>
+      <CardTikets/>
+
+    </div>
+  );
 }
