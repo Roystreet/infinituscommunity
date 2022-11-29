@@ -49,7 +49,6 @@ export default function Navbar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const option = routes.filter((e) => e.id == newValue);
-    // console.log(option)
     navigate(option[0].route);
   };
 
