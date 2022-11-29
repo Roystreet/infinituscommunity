@@ -23,11 +23,27 @@
   height: 15vh;
   display: flex;
   flex-direction: row;
-  justify-content:space-around;
+  margin-left: 1rem;
   align-items:center ;
+}
+.contInicialNom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #C7DDFF;
+  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+}
+.contInicialNom span{
+  font-size: 30px;
 }
 .name{
   font-size: 24px;
+  margin-left: 2rem;
 }
 
 .contDataCuenta{

@@ -1,7 +1,13 @@
 import style from "./Profile.module.css"
 import img from "../../assets/retiro.png"
 import copyImg from "../../assets/copyIcon.png"
+import {AiOutlineCopy } from "react-icons/ai";
+import { BiDownArrowAlt,BiHappyBeaming,BiShowAlt} from "react-icons/bi";
+import { CopyToClipboard } from "react-copy-to-clipboard"
+
+import { Toaster, toast } from "react-hot-toast"
 export default function Profile() {
+  const notify = () => toast('Here is your toast.');
   return(
     <>
 
@@ -10,14 +16,17 @@ export default function Profile() {
       </div>
       <div className={style.container}>
         <div className={style.contImgNom}>
-          <p >Avatar</p>
+         <div className={style.contInicialNom}><span>X</span></div>
           <h2 className={style.name}>Nombre</h2>
         </div>
         <div className={style.contDataCuenta}>
           <h3>Cuenta</h3>
           <div className={style.contData}>
             <span className={style.data}>4da44354gfDFGdfgdf45</span>
-            <img className={style.copy} src={copyImg} alt="" />
+            < CopyToClipboard text='4da44354gfDFGdfgdf45'>
+              <img className={style.copy} src={copyImg} alt=""  onClick={notify}/>
+             {/* <AiOutlineCopy className={style.iconCopy}/> */}
+             </CopyToClipboard >
           </div>
         </div>
         <div className={style.contCards}>
