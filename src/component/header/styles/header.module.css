@@ -109,6 +109,22 @@ h5{
         height: 24px;
     }
 
+    .backdrop{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 19px - 91.5px);
+        top: 50px;
+        backdrop-filter: blur(1px);
+        border-radius: 4px 0px 4px 4px;
+        clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
+        transition: clip-path 0.5s ease-in-out;
+        z-index: 0;
+    }
+
     .headerItems{
         display: flex;
         flex-direction: column;
@@ -120,12 +136,11 @@ h5{
         width: 239px;
         height: 144px;
         right: 0px;
-        top: 50px;
+        top: 0px;
         background: #FFFFFF;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
         border-radius: 4px 0px 4px 4px;
-        clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
-        transition: clip-path 0.5s ease-in-out
+        z-index: 4;
     }
 
     .iconHeader{
@@ -161,9 +176,7 @@ h5{
         gap: 2px;
         width: 214px;
         height: 44px;
-
     }
-
 
     .link{
         text-decoration: none;
@@ -171,8 +184,12 @@ h5{
         font-size: 1.5rem;
     }
 
-    .navInput:checked + .headerItems{
+    .navInput:checked + .backdrop {
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
+    }
+
+    .navInput:checked + .headerItems{
+        
     }
 
 
