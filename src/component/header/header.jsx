@@ -58,21 +58,23 @@ export default function Header() {
             <img src={menu} alt='menu-svg' className={style.navSvg} />
         </label>
         <input type='checkbox' id='menu' className={style.navInput}></input>
-        <div className={style.headerItems}>
-            <div className={style.contItem}>
-                <div className={style.contLinkSup}>
-                  <Link to='/perfil' className={style.link} onClick={clickChecked}>
-                    <FaRegUserCircle className={style.iconHeader}/>User panel</Link>
-                </div>
-                <div className={style.contLinkSup}>
-                  <Link to='/about' className={style.link} onClick={clickChecked}>
-                    <IoMdInformationCircleOutline className={style.iconHeader}/>About</Link>
-                </div>
-                <div className={style.contLink}>
-                  <Link to='/settings' className={style.linkAux} onClick={clickChecked}>
-                    <IoMdSettings className={style.iconHeader}/>Settings</Link>
-                </div>
-            </div>
+        <div className={style.backdrop}>
+          <div className={style.headerItems}>
+              <div className={style.contItem}>
+                  <div className={style.contLinkSup}>
+                    <Link to='/perfil' className={style.link} onClick={clickChecked}>
+                      <FaRegUserCircle className={style.iconHeader}/>User panel</Link>
+                  </div>
+                  <div className={style.contLinkSup}>
+                    <Link to='/about' className={style.link} onClick={clickChecked}>
+                      <IoMdInformationCircleOutline className={style.iconHeader}/>About</Link>
+                  </div>
+                  <div className={style.contLink}>
+                    <Link to='/settings' className={style.linkAux} onClick={clickChecked}>
+                      <IoMdSettings className={style.iconHeader}/>Settings</Link>
+                  </div>
+              </div>
+          </div>
         </div>
       </div>
     </Box>
