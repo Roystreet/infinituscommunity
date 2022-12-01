@@ -16,7 +16,11 @@ export default function Package() {
       <div className={style.cards}>
       <CardTikets/>
       <CardTikets/>
-   
+      <CardTikets/>
+      <CardTikets/>  <CardTikets/>
+      <CardTikets/>  <CardTikets/>
+      <CardTikets/>  <CardTikets/>
+      <CardTikets/>
 
 
     </div>
