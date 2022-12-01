@@ -1,12 +1,13 @@
 import style from "./cardTikets.module.css"
 import img from "./assets/Vector.png"
+import { FaUser, FaRegUser} from "react-icons/fa";
 const CardTikets = () =>{
   return(
     <div className={style.card}>
         <div>
           <div>
           <img className={style.img} src="https://i0.wp.com/criptotendencia.com/wp-content/uploads/2018/08/Ejemplo-billetes-criptomonedas.jpg?fit=1000%2C667&ssl=1" alt="" />
-        <div className={style.contIcon}> <span className={style.icons}>ico</span>
+        <div className={style.contIcon}> <span className={style.icons}> <FaUser/><FaUser/><FaUser/><FaRegUser/></span>
         <div className={style.contShare}>
          <img src={img} className={style.vector} alt="" />
         </div>
