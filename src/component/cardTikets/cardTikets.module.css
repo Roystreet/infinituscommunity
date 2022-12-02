@@ -58,6 +58,20 @@ margin-right: 8px;
   margin-top: 12px;
   
 }
+.iconUser{
+  color: #fff;
+  font-size: 16px;
+  margin-right: 5px;
+}
+.btnBoots{
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: none !important;
+  text-decoration: none !important;
+  border: none  !important;
+
+}
 .btn{
   height: 25px;
   width: auto;
@@ -71,5 +85,40 @@ margin-right: 8px;
   border-radius: 8px;
   margin-left: 10px;
 }
+.modaldiv{
+  background:#00A7DC;
 
+  
+  } 
+.modalHeader{ 
+
+background:linear-gradient(194.8deg, #540561 -17.33%, #00A7DC 71.24%);
+box-shadow: 0px -8px 8px rgba(0, 0, 0, 0.2);
+
+}
+.titleModal{
+  color: #fff;
+  font-size: 16px;
+}
+.subTitleModal{
+  font-size: 11px;
+  color: #fff;
+}
+.contIconsModal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+}
+.contIconTitle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.iconModal{
+  font-size: 40px;
+  margin-bottom: 10px;
+
+}
 }
