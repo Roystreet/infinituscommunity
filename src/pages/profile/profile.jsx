@@ -24,9 +24,19 @@ export default function Profile() {
           <div className={style.contData}>
             <span className={style.data}>4da44354gfDFGdfgdf45</span>
             < CopyToClipboard text='4da44354gfDFGdfgdf45'>
-              <img className={style.copy} src={copyImg} alt=""  onClick={notify}/>
+              <img className={style.copy} src={copyImg} alt=""  onClick={()=> toast.success('Id copied')} />
              {/* <AiOutlineCopy className={style.iconCopy}/> */}
              </CopyToClipboard >
+                  
+          <Toaster toastOptions={{
+           style: {
+            padding: '16px',
+            color:'blue',
+             marginTop: '250px',
+            
+            },
+             }}/>
+        
           </div>
         </div>
         <div className={style.contCards}>

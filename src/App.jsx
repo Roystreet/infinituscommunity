@@ -26,7 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/preventa" element={<Presale />} />
           <Route path="/perfil" element={<Profile />} />
-          <Route path="/paquetes" element={<Package />} />
+          <Route path="/paquetes" element={<Package />}/>
           <Route path="/error" element={<Error />} />
         </Routes>
       </Layout>
