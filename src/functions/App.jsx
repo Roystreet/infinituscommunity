@@ -1,10 +1,13 @@
-import { nonWriteContractFunctions, sendWriteTransactions, signMessage } from '../functions/Web3Interactions';
 import {
-	authServerInteraction,
-	getContractData,
-	userServerInteraction,
-} from '../functions/ServerInteractions';
+	connectAddress,
+	nonWriteContractFunctions,
+	sendWriteTransactions,
+	signMessage,
+} from '../functions/Web3Interactions';
+import { getContractData, prepareServerConnection } from '../functions/ServerInteractions';
 import { useState } from 'react';
+import { activateEventListeners, deactivateEventListeners } from '../functions/eventListeners';
+import { useEffect } from 'react';
 
 function App() {
 	const [balanceBUSD, setbalanceBUSD] = useState('');
@@ -13,16 +16,34 @@ function App() {
 	const [myTickets, setmyTickets] = useState([]);
 	const [packagesId, setpackagesId] = useState([]);
 	const [myInfo, setmyInfo] = useState([]);
+	const [myNickname, setmyNickname] = useState();
+	const [ticketSendedResponse, setTicketSendedResponse] = useState('');
+
+	const checkMetamaskInstalled = () => {
+		if (window.ethereum) {
+			activateEventListeners;
+		} else {
+			window.alert('Instala metamask');
+		}
+	};
+
+	useEffect(() => {
+		checkMetamaskInstalled();
+		return () => {
+			// Return function of a non-async useEffect will clean up on component leaving screen, or from re-reneder to due dependency change
+			deactivateEventListeners();
+		};
+	}, [responseRegister]);
+
 	return (
 		<>
 			<h1>Prueba de funcionalidades del servicio:</h1>
 			<br />
 			<button
 				onClick={async () => {
+					await connectAddress();
 					const SignedInfo = await signMessage();
-					setResponseRegister(await authServerInteraction(SignedInfo, '/register', 'text'));
-					localStorage.setItem('address', SignedInfo.address);
-					localStorage.setItem('jwt', await authServerInteraction(SignedInfo, '/login', 'text'));
+					setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'));
 				}}
 			>
 				Register With Metamask
@@ -30,11 +51,11 @@ function App() {
 			<br />
 			<button
 				onClick={async () => {
+					await connectAddress();
 					const SignedInfo = await signMessage();
-					const jwt = await authServerInteraction(SignedInfo, '/login', 'json');
-					localStorage.setItem('address', SignedInfo.address);
+					const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json');
 					localStorage.setItem('jwt', jwt.jwt);
-					setResponseRegister('Usuario Logeado');
+					setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem('address')}`);
 				}}
 			>
 				Login With Metamask
@@ -83,14 +104,14 @@ function App() {
 						await getContractData('/addressCoin', 'text'),
 						await getContractData('/abiCoin', 'json'),
 						'approve',
-						[await getContractData('/addressContract', 'text'), '1000000000000000000000']
+						[await getContractData('/addressContract', 'text'), '37500000000000000000']
 					).then(async response => {
 						console.log(response);
 						await sendWriteTransactions(
 							await getContractData('/addressContract', 'text'),
 							await getContractData('/abiContract', 'json'),
 							'buyTicketFather',
-							[[2, 1]]
+							[[3, 1]]
 						).then(response => {
 							console.log(response);
 						});
@@ -107,14 +128,14 @@ function App() {
 						await getContractData('/addressCoin', 'text'),
 						await getContractData('/abiCoin', 'json'),
 						'approve',
-						[await getContractData('/addressContract', 'text'), '1000000000000000000000']
+						[await getContractData('/addressContract', 'text'), '25000000000000000000']
 					).then(async response => {
 						console.log(response);
 						await sendWriteTransactions(
 							await getContractData('/addressContract', 'text'),
 							await getContractData('/abiContract', 'json'),
 							'buyTicketSon',
-							[1, 2, '0xe97D620aae0Bc3262ea7f2b88Ea82477F20f21cA', true]
+							[1, 3, '0x570f2f1154023dCEc6FB9Ca14910326d00350a7a', true]
 						).then(response => {
 							console.log(response);
 						});
@@ -130,14 +151,14 @@ function App() {
 					await sendWriteTransactions(
 						await getContractData('/addressContract', 'text'),
 						await getContractData('/abiContract', 'json'),
-						'withdraw',
-						['5000000000000000000']
+						'collectTickets',
+						[[1, 2, 3]]
 					).then(response => {
 						console.log(response);
 					});
 				}}
 			>
-				Retirar
+				Recolectar Tickets
 			</button>
 			<br />
 			<br />
@@ -146,14 +167,14 @@ function App() {
 					await sendWriteTransactions(
 						await getContractData('/addressContract', 'text'),
 						await getContractData('/abiContract', 'json'),
-						'collectTickets',
-						[[1]]
+						'withdraw',
+						['100000000000000000000']
 					).then(response => {
 						console.log(response);
 					});
 				}}
 			>
-				Cobrar Ticket
+				Retirar
 			</button>
 			<br />
 			<br />
@@ -169,14 +190,19 @@ function App() {
 					});
 				}}
 			>
-				Cobrar Inversor
+				Retirar Ganancias Inversor
 			</button>
 			<br />
 			<br />
 			<button
 				onClick={async () => {
 					setmyTickets(
-						await userServerInteraction(localStorage.getItem('address'), '/user/getmytickets', 'text')
+						await prepareServerConnection(
+							{ address: localStorage.getItem('address') },
+							'/user/getmytickets',
+							'text',
+							localStorage.getItem('jwt')
+						)
 					);
 				}}
 			>
@@ -187,8 +213,31 @@ function App() {
 			<br />
 			<button
 				onClick={async () => {
+					await sendWriteTransactions(
+						await getContractData('/addressContract', 'text'),
+						await getContractData('/abiContract', 'json'),
+						'changeTicketOwner',
+						[4, '0x1847C28831a318bBE1Ae0Af2a827AdC122e5A33E'] //<===falta direccion
+					).then(response => {
+						console.log(response);
+						setTicketSendedResponse('Ticket Enviado Exitosamente!');
+					});
+				}}
+			>
+				Enviar Ticket
+			</button>
+			<h4>{ticketSendedResponse}</h4>
+			<br />
+			<br />
+			<button
+				onClick={async () => {
 					setpackagesId(
-						await userServerInteraction(localStorage.getItem('address'), '/user/getPackagesId', 'text')
+						await prepareServerConnection(
+							{ address: localStorage.getItem('address') },
+							'/user/getPackagesId',
+							'text',
+							localStorage.getItem('jwt')
+						)
 					);
 				}}
 			>
@@ -199,12 +248,40 @@ function App() {
 			<br />
 			<button
 				onClick={async () => {
-					setmyInfo(await userServerInteraction(localStorage.getItem('address'), '/user/getmyinfo', 'text'));
+					setmyInfo(
+						await prepareServerConnection(
+							{ address: localStorage.getItem('address') },
+							'/user/getmyinfo',
+							'text',
+							localStorage.getItem('jwt')
+						)
+					);
 				}}
 			>
 				Obtener mi Informacion
 			</button>
 			<h4>{myInfo}</h4>
+			<br />
+			<br />
+			<button
+				onClick={async () => {
+					setmyNickname(
+						await prepareServerConnection(
+							{
+								address: localStorage.getItem('address'),
+								oldNickName: 'user_2Am7yhHA-EKTgwf9VYLMI',
+								newNickName: 'P4nch0B1lla2541',
+							},
+							'/user/changenickname',
+							'text',
+							localStorage.getItem('jwt')
+						)
+					);
+				}}
+			>
+				Cambiar Nickname
+			</button>
+			<h4>{myNickname}</h4>
 		</>
 	);
 }
