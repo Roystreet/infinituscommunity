@@ -1,28 +1,19 @@
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
-const address = localStorage.getItem('address');
 
 /**Descripcion: Solicita la conexion de la cuenta de metamask
  *Entradas: N/A
  *Retorna: N/A
  */
-export const connectAddress = async (/* setIsModal */) => {
-	await provider.send('eth_requestAccounts', []).then(
-		() => {},
-		error => {
-			// manejar el error enviandole el modal como parametro de entrada
-			console.log(error);
-		}
-	);
-};
-
-/**Descripcion: Obtiene la cuenta conectada actualmente
- *Entradas: N/A
- *Retorna: N/A
- */
-export const setAddress = async () => {
-	localStorage.setItem('address', await provider.send('eth_requestAccounts', [0]));
+export const setAddress = async (/* setIsModal */) => {
+	try {
+		const accounts = await provider.send("eth_requestAccounts", []);
+		localStorage.setItem("address", accounts[0]);
+	} catch (error) {
+		return error;
+		//se pude manejar el error como un modal aca
+	}
 };
 
 /**Descripcion: Firma Mensajes del usuario
@@ -31,19 +22,16 @@ export const setAddress = async () => {
  * (message) el texto que se firmo y (address) la direccion del firmante
  */
 export const signMessage = async () => {
-	//obtenemos el firmante, el nonce de la cuenta y firmamos el mensaje
-	const signer = provider.getSigner(address);
-	const message = `Nonce: ${await signer.getTransactionCount('latest')}`;
-	let SignedInfo = { address, message };
-	await signer.signMessage(message).then(
-		signedMessage => {
-			SignedInfo.signedMessage = signedMessage;
-		},
-		err => {
-			SignedInfo = err;
-		}
-	);
-	return SignedInfo;
+	try {
+		//obtenemos el firmante, el nonce de la cuenta y firmamos el mensaje
+		const signer = provider.getSigner(localStorage.getItem("address"));
+		const message = `Nonce: ${await signer.getTransactionCount("latest")}`;
+		const signedMessage = await signer.signMessage(message);
+		const SignedInfo = { address: localStorage.getItem("address"), message, signedMessage };
+		return SignedInfo;
+	} catch (error) {
+		return error;
+	}
 };
 
 /**Descripcion: Envia Transacciones a la red.
@@ -54,19 +42,15 @@ export const signMessage = async () => {
  *Retorna: Un objeto TrxResponse, contiene el Hash de la transaccion y datos adicionales.
  */
 export const sendWriteTransactions = async (contractAddress, abi, functionName, params) => {
-	let TrxResponse;
-	const signer = provider.getSigner(address);
-	const ethersInterface = new ethers.utils.Interface(abi);
-	const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);
-	await signer.sendTransaction({ to: contractAddress, data: encodedFunction }).then(
-		TrxResp => {
-			TrxResponse = TrxResp;
-		},
-		err => {
-			TrxResponse = err;
-		}
-	);
-	return TrxResponse;
+	try {
+		const signer = provider.getSigner(localStorage.getItem("address"));
+		const ethersInterface = new ethers.utils.Interface(abi);
+		const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);
+		const TrxResponse = await signer.sendTransaction({ to: contractAddress, data: encodedFunction });
+		return TrxResponse;
+	} catch (error) {
+		return error;
+	}
 };
 
 /*Descripcion: Envia llamadas a funciones estaticas o getters.
@@ -81,10 +65,10 @@ export const nonWriteContractFunctions = async (contractAddress, abi, functionNa
 	let TrxResponse;
 	const Contract = new ethers.Contract(contractAddress, abi, provider);
 	await contractCalls(Contract, functionName, params, decimals).then(
-		TrxResp => {
+		(TrxResp) => {
 			TrxResponse = TrxResp;
 		},
-		error => {
+		(error) => {
 			TrxResponse = error;
 		}
 	);
@@ -102,25 +86,25 @@ const contractCalls = async (Contract, functionName, params, decimals = 0) => {
 	let response;
 	let outputValue;
 	switch (functionName) {
-		case 'name':
+		case "name":
 			response = await Contract.name();
 			break;
-		case 'symbol':
+		case "symbol":
 			response = await Contract.symbol();
 			break;
-		case 'balanceOf':
+		case "balanceOf":
 			response = await Contract.balanceOf(params);
 			break;
-		case 'decimals':
+		case "decimals":
 			response = await Contract.decimals();
 			break;
-		case 'totalSupply':
+		case "totalSupply":
 			response = await Contract.totalSupply();
 			break;
-		case '_TreasuryPercentage':
+		case "_TreasuryPercentage":
 			response = await Contract._TreasuryPercentage();
 			break;
-		case '_TreasuryAmount':
+		case "_TreasuryAmount":
 			response = await Contract._TreasuryAmount();
 			break;
 	}
