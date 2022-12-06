@@ -16,6 +16,9 @@ import Package from "./pages/package/package";
 import Error from "./pages/error/error";
 
 function App() {
+
+  
+
   return (
     <>
       <Layout>
@@ -23,7 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/preventa" element={<Presale />} />
           <Route path="/perfil" element={<Profile />} />
-          <Route path="/paquetes" element={<Package />} />
+          <Route path="/paquetes" element={<Package />}/>
           <Route path="/error" element={<Error />} />
         </Routes>
       </Layout>

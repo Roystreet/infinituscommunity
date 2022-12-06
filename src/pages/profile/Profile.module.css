@@ -1,0 +1,119 @@
+@media screen and (max-width:480px){
+.contWel{
+  height: 69px;
+  width: 100%;
+  text-align: center;
+  border-radius: 100px;
+  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+-webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+-moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+}
+.titleW{
+  font-size: 32px;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  /* background-color: beige; */
+  margin: auto;
+  margin-top: 2vh;
+}
+.contImgNom{
+  /* background-color: aquamarine; */
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  margin-left: 1rem;
+  align-items:center ;
+}
+.contInicialNom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #C7DDFF;
+  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  -moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+}
+.contInicialNom span{
+  font-size: 30px;
+}
+.name{
+  font-size: 24px;
+  margin-left: 2rem;
+}
+
+.contDataCuenta{
+  display: flex;
+  flex-direction: column;
+}
+.contDataCuenta h3{
+  font-size: 16px;
+}
+.contData{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 38px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  align-items: center;
+  
+}
+.data{
+  width: 90%;
+  margin-left: 1vh;
+}
+.copy{
+  margin-right: 1vh;
+  width: 22px;
+}
+.contCards{
+  display: flex;
+  flex-direction: column;
+}
+.contCards h3{
+  font-size: 20px;
+}
+.card{
+  height: 85px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: #C7DDFF;
+}
+.dataT{
+  margin-left: 2vh;
+}
+.titleToken{
+  font-size: 1.5vh;
+}
+.numbT{
+  font-size: 3vh;
+}
+.contImg{
+  display: flex;
+  margin-right: 2vh;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+-webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+-moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+}
+.img{
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+}
+}
