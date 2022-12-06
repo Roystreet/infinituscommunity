@@ -14,6 +14,8 @@ import Ranking from "./pages/ranking/ranking";
 import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
+//Vista del invitado
+import Invitado from "./pages/invitado/invitado";
 
 function App() {
 
@@ -27,6 +29,7 @@ function App() {
           <Route path="/preventa" element={<Presale />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/paquetes" element={<Package />}/>
+          <Route path="/prueba" element={<Invitado />}/>
           <Route path="/error" element={<Error />} />
         </Routes>
       </Layout>
