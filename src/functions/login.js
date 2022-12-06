@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import rightButtonsTemplate from '#Templates/rightButtons.template.js';
+// import rightButtonsTemplate from '#Templates/rightButtons.template.js';
 import hideButton from './hideButton.js';
 import showButton from './showButtons.js';
-import { serverInteraction, serverResponseHandler } from './serverInteraction.js';
-import accountChangedEventListener from '../events/accountChanged.listener.js';
+import { authServerInteraction, userServerInteraction, ServerResponseHandler } from './serverInteractions.js';
+// import accountChangedEventListener from '../events/accountChanged.listener.js';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 let changedButtons = [];
@@ -14,7 +14,7 @@ const login = async (setRightButtons, setcurrentAccount) => {
 	const changedButtons = await loginProcess();
 	setRightButtons(changedButtons);
 	setcurrentAccount(account);
-	accountChangedEventListener(setRightButtons, setcurrentAccount);
+	// accountChangedEventListener(setRightButtons, setcurrentAccount);
 };
 
 export async function loginProcess() {
@@ -27,21 +27,25 @@ export async function loginProcess() {
 	let signedMessage = await signer.signMessage(nonce);
 
 	//Interactuamos con el servidor para validar si la cuenta esta registrada en BD
-	const responseCheck = await serverInteraction(
+	const responseCheck = await authServerInteraction(
 		'/auth/checkRegister',
 		'POST',
 		JSON.stringify({
 			address: account,
 			signedMessage,
 			message: nonce,
-		}),
-		undefined
+		})
+		.then((response) => {
+			console.log('Response - AuthServerInteraction', response)
+		}).catch((error) => {
+			console.log('Error - AuthServerInteraction', error)
+		})
 	);
 	//Manejamos la respuesta
-	const existUser = await serverResponseHandler(responseCheck, 'json');
+	const existUser = await ServerResponseHandler(responseCheck, 'json');
 	if (existUser == true) {
 		//Hacemos login al servidor
-		const responseLogin = await serverInteraction(
+		const responseLogin = await userServerInteraction(
 			'/auth/loginA',
 			'POST',
 			JSON.stringify({
@@ -52,26 +56,29 @@ export async function loginProcess() {
 			undefined
 		);
 		//Obtenemos el JWT de la respuesta del servidor y lo guardamos en el localStorage
-		const jwt = await serverResponseHandler(responseLogin, 'json');
+		const jwt = await ServerResponseHandler(responseLogin, 'json');
 		localStorage.setItem('jwt', jwt.jwt);
 	} else {
 		//Registramos el usuario en BD
-		const responseRegister = await serverInteraction(
+		const responseRegister = await userServerInteraction(
 			'/auth/registerA',
 			'POST',
 			JSON.stringify({
 				address: account,
 				signedMessage,
 				message: nonce,
-			}),
-			undefined
+			}).then((response) => {
+				console.log('Response - ServerInteraction', response)
+			}).catch((error) => {
+				console.log('Error - ServerInteraction', error)
+			})
 		);
 
 		//se puede cambiar a el uso de promise con then y catch(mejor eficiencia con errores)
 		if (responseRegister.status === 200) {
 			window.alert('Registro de Usuario Exitoso!');
 			//Hacemos login si el usuario se registro correctamente
-			const responseLogin = await serverInteraction(
+			const responseLogin = await userServerInteraction(
 				'/auth/loginA',
 				'POST',
 				JSON.stringify({
@@ -82,11 +89,11 @@ export async function loginProcess() {
 				undefined
 			);
 			//Obtenemos el JWT de la respuesta del servidor y lo guardamos en el localStorage
-			const jwt = await serverResponseHandler(responseLogin, 'json');
+			const jwt = await ServerResponseHandler(responseLogin, 'json');
 			localStorage.setItem('jwt', jwt.jwt);
 		} else {
 			//Devolvemos el mensaje de error del servidor
-			const message = await serverResponseHandler(responseRegister, 'text');
+			const message = await ServerResponseHandler(responseRegister, 'text');
 			window.alert(`Error: ${message}`);
 			return rightButtonsTemplate;
 		}

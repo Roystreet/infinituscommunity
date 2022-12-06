@@ -56,10 +56,12 @@
 
     .contLogo{
         margin-top: 4rem;
+        /* position: absolute */
     }
 
     .logo{
         height: 2rem;
+        /* position: relative; */
     }
 }
 

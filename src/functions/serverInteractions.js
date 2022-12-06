@@ -1,5 +1,9 @@
-const urlServer = import.meta.env.VITE_APP_SERVER_URL;
-const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+// const urlServer = import.meta.env.VITE_APP_SERVER_URL;
+// const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+const urlServer = 'http://localhost:3001';
+const urlOrigin = 'http://127.0.0.1:5173';
+// const {VITE_APP_ORIGIN_URL, VITE_APP_SERVER_URL} = import.meta.env
+// console.log(VITE_APP_ORIGIN_URL, VITE_APP_SERVER_URL)
 
 //Descripcion: Interactua con las rutas de autenticacion
 //Entradas: SignedInfo,
@@ -120,7 +124,7 @@ const ServerConnection = async (url, method, body, authorization) => {
 //response: respuesta del servidor,
 //type: tipo de formato 'text' o 'json'
 //Retorna: Respuesta del servidor en formato legible
-const ServerResponseHandler = async (response, type) => {
+export const ServerResponseHandler = async (response, type) => {
 	if (type === 'text') return await response.text();
 	if (type === 'json') return await response.json();
 };
