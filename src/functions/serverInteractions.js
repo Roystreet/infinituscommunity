@@ -1,5 +1,9 @@
-const urlServer = import.meta.env.VITE_APP_SERVER_URL;
-const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+// const urlServer = import.meta.env.VITE_APP_SERVER_URL;
+// const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+const urlServer = 'http://localhost:3001';
+const urlOrigin = 'http://127.0.0.1:5173';
+
+console.log('URLS', urlServer, urlOrigin)
 
 /**Descripcion: Recibe la informacion para realizar la llamada Fetch al servidor y manejar el resultado
  * Entradas:
@@ -67,7 +71,6 @@ const ServerConnection = async (url, method, body, authorization) => {
 			body: body,
 		};
 	}
-
 	response = await fetch(urlServer + url, httpOptions);
 	return response;
 };

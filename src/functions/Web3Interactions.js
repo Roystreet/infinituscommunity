@@ -7,13 +7,8 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
  *Retorna: N/A
  */
 export const setAddress = async (/* setIsModal */) => {
-	try {
-		const accounts = await provider.send("eth_requestAccounts", []);
-		localStorage.setItem("address", accounts[0]);
-	} catch (error) {
-		return error;
-		//se pude manejar el error como un modal aca
-	}
+	const accounts = await provider.send("eth_requestAccounts", []);
+	localStorage.setItem("address", accounts[0]);
 };
 
 /**Descripcion: Firma Mensajes del usuario
@@ -22,16 +17,12 @@ export const setAddress = async (/* setIsModal */) => {
  * (message) el texto que se firmo y (address) la direccion del firmante
  */
 export const signMessage = async () => {
-	try {
-		//obtenemos el firmante, el nonce de la cuenta y firmamos el mensaje
-		const signer = provider.getSigner(localStorage.getItem("address"));
-		const message = `Nonce: ${await signer.getTransactionCount("latest")}`;
-		const signedMessage = await signer.signMessage(message);
-		const SignedInfo = { address: localStorage.getItem("address"), message, signedMessage };
-		return SignedInfo;
-	} catch (error) {
-		return error;
-	}
+	//obtenemos el firmante, el nonce de la cuenta y firmamos el mensaje
+	const signer = provider.getSigner(localStorage.getItem("address"));
+	const message = `Nonce: ${await signer.getTransactionCount("latest")}`;
+	const signedMessage = await signer.signMessage(message);
+	const SignedInfo = { address: localStorage.getItem("address"), message, signedMessage };
+	return SignedInfo;
 };
 
 /**Descripcion: Envia Transacciones a la red.
@@ -42,15 +33,11 @@ export const signMessage = async () => {
  *Retorna: Un objeto TrxResponse, contiene el Hash de la transaccion y datos adicionales.
  */
 export const sendWriteTransactions = async (contractAddress, abi, functionName, params) => {
-	try {
-		const signer = provider.getSigner(localStorage.getItem("address"));
-		const ethersInterface = new ethers.utils.Interface(abi);
-		const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);
-		const TrxResponse = await signer.sendTransaction({ to: contractAddress, data: encodedFunction });
-		return TrxResponse;
-	} catch (error) {
-		return error;
-	}
+	const signer = provider.getSigner(localStorage.getItem("address"));
+	const ethersInterface = new ethers.utils.Interface(abi);
+	const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);
+	const TrxResponse = await signer.sendTransaction({ to: contractAddress, data: encodedFunction });
+	return TrxResponse;
 };
 
 /*Descripcion: Envia llamadas a funciones estaticas o getters.
@@ -62,16 +49,8 @@ export const sendWriteTransactions = async (contractAddress, abi, functionName, 
  *Retorna: Un valor dependiendo de la funcion a llamar
  */
 export const nonWriteContractFunctions = async (contractAddress, abi, functionName, params, decimals) => {
-	let TrxResponse;
 	const Contract = new ethers.Contract(contractAddress, abi, provider);
-	await contractCalls(Contract, functionName, params, decimals).then(
-		(TrxResp) => {
-			TrxResponse = TrxResp;
-		},
-		(error) => {
-			TrxResponse = error;
-		}
-	);
+	const TrxResponse = await contractCalls(Contract, functionName, params, decimals);
 	return TrxResponse;
 };
 

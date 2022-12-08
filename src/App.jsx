@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
 import Login from "./pages/login/login";
@@ -14,8 +14,42 @@ import Ranking from "./pages/ranking/ranking";
 import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
+// import { activateEventListeners } from "./functions/eventListeners";
 
 function App() {
+  const navigate = useNavigate()
+  let address = localStorage.getItem('address')
+  // const [changeAccount, setChangeAccount] = useState(null)
+  const checkIfWalletIsConnected = async () => {
+    try {
+      window.ethereum.on('accountsChanged', () => {
+        console.log('Cambio de cuenta ? ')
+        // setChangeAccount(true)
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('address');
+        window.alert('Inicia sesion nuevamente');
+      })
+      // console.log('ChangeAccount', changeAccount)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    checkIfWalletIsConnected()
+    if (!address){
+      handleRedirect()
+      // setChangeAccount(null)
+    }
+    console.log('UseEffect - APP - Address', address)
+
+  }, [address])
+
+  const handleRedirect = () => {
+    console.log('Vale verga')
+    !address ? navigate('/') : navigate('/perfil')
+  }
 
   
 
@@ -23,11 +57,19 @@ function App() {
     <>
       <Layout>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/preventa" element={<Presale />} />
-          <Route path="/perfil" element={<Profile />} />
-          <Route path="/paquetes" element={<Package />}/>
-          <Route path="/error" element={<Error />} />
+          {
+            !address ? <>
+              <Route path="/" element={<Login />} /> 
+              
+            </>
+              : 
+              <>
+                <Route path="/preventa" element={<Presale />} />
+                <Route path="/perfil" element={<Profile />} />
+                <Route path="/paquetes" element={<Package />}/>
+                <Route path="/error" element={<Error />} />
+              </>
+          }
         </Routes>
       </Layout>
     </>
