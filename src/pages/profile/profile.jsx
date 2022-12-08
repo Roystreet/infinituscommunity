@@ -4,10 +4,29 @@ import copyImg from "../../assets/copyIcon.png"
 import {AiOutlineCopy } from "react-icons/ai";
 import { BiDownArrowAlt,BiHappyBeaming,BiShowAlt} from "react-icons/bi";
 import { CopyToClipboard } from "react-copy-to-clipboard"
-
+import { useState, useEffect } from 'react';
 import { Toaster, toast } from "react-hot-toast"
+import { prepareServerConnection } from "../../functions/serverInteractions";
+
+
 export default function Profile() {
+  const [myInfo, setmyInfo] = useState([]);
+// useEffect(()=>{
+// prepareServerConnection(
+//   { address:"0xA9E41636A9EacA0D4dc2849463c2d0Af6d41C45E"},
+//         "/user/getmyinfo",
+//         "text",
+//         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmQ2NmNlZi1iOGUwLTRlYjEtODllMS01MzU3YzI0MDM4MDEiLCJuYW1lIjoiZGVyZWsifQ.7_lnM92SWY0KItPTHA39iCJn2GEpUvsqUXCIny7HzeA",
+//       )
+    
+  
+
+// },[])
+
+console.log(myInfo)
   const notify = () => toast('Here is your toast.');
+
+
   return(
     <>
 
@@ -17,7 +36,7 @@ export default function Profile() {
       <div className={style.container}>
         <div className={style.contImgNom}>
          <div className={style.contInicialNom}><span>X</span></div>
-          <h2 className={style.name}>Nombre</h2>
+          <h2 className={style.name}>{name}:"Nombre"</h2>
         </div>
         <div className={style.contDataCuenta}>
           <h3>Cuenta</h3>
