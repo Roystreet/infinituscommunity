@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import {Dialog, DialogTitle, DialogContent, DialogContentText ,Button, DialogActions} from '@mui/material'
+import "./App.css";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
 import Login from "./pages/login/login";
@@ -18,17 +19,30 @@ import Error from "./pages/error/error";
 
 function App() {
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false);
+  const [changeAccount, setChangeAccount] = useState(null)
   let address = localStorage.getItem('address')
-  // const [changeAccount, setChangeAccount] = useState(null)
+  console.log('Value Address', address)
   const checkIfWalletIsConnected = async () => {
     try {
+
       window.ethereum.on('accountsChanged', () => {
-        console.log('Cambio de cuenta ? ')
-        // setChangeAccount(true)
+        if (address !== null ){
+          console.log('Cambio de cuenta ? ')
+          address = null
+          localStorage.removeItem('jwt');
+          localStorage.removeItem('address');
+          // window.alert('Inicia sesion nuevamente');
+          setOpen(true)
+        }
+      })
+      window.ethereum.on('disconnect', () => {
+        console.log('Disconect wallet')
+        address = null
         localStorage.removeItem('jwt');
         localStorage.removeItem('address');
-        window.alert('Inicia sesion nuevamente');
-      })
+        navigate('/')
+      });
       // console.log('ChangeAccount', changeAccount)
 
     } catch (error) {
@@ -42,25 +56,55 @@ function App() {
       handleRedirect()
       // setChangeAccount(null)
     }
-    console.log('UseEffect - APP - Address', address)
+    console.log('UseEffect - APP - Address', address, address)
 
   }, [address])
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+      setOpen(false);
+      navigate('/')
+  };
+
   const handleRedirect = () => {
-    console.log('Vale verga')
+    // console.log('Vale')
     !address ? navigate('/') : navigate('/perfil')
   }
 
-  
+  const ModalSession = () => {
+
+    return (
+        <div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogTitle>Aviso inicio de sesión</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} >OK</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    )
+}
+
 
   return (
     <>
       <Layout>
+        <ModalSession/>
         <Routes>
           {
             !address ? <>
               <Route path="/" element={<Login />} /> 
-              
             </>
               : 
               <>
