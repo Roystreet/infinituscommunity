@@ -15,8 +15,7 @@ import Ranking from "./pages/ranking/ranking";
 import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
-//Vista del invitado
-import Invitado from "./pages/invitado/invitado";
+// import { activateEventListeners } from "./functions/eventListeners";
 
 function App() {
   const navigate = useNavigate()
@@ -103,12 +102,18 @@ function App() {
       <Layout>
         <ModalSession/>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/preventa" element={<Presale />} />
-          <Route path="/perfil" element={<Profile />} />
-          <Route path="/paquetes" element={<Package />}/>
-          <Route path="/prueba" element={<Invitado />}/>
-          <Route path="/error" element={<Error />} />
+          {
+            !address ? <>
+              <Route path="/" element={<Login />} /> 
+            </>
+              : 
+              <>
+                <Route path="/preventa" element={<Presale />} />
+                <Route path="/perfil" element={<Profile />} />
+                <Route path="/paquetes" element={<Package />}/>
+                <Route path="/error" element={<Error />} />
+              </>
+          }
         </Routes>
       </Layout>
     </>
