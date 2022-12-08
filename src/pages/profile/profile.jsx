@@ -11,19 +11,20 @@ import { prepareServerConnection } from "../../functions/serverInteractions";
 
 export default function Profile() {
   const [myInfo, setmyInfo] = useState([]);
-// useEffect(()=>{
-// prepareServerConnection(
-//   { address:"0xA9E41636A9EacA0D4dc2849463c2d0Af6d41C45E"},
-//         "/user/getmyinfo",
-//         "text",
-//         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZmQ2NmNlZi1iOGUwLTRlYjEtODllMS01MzU3YzI0MDM4MDEiLCJuYW1lIjoiZGVyZWsifQ.7_lnM92SWY0KItPTHA39iCJn2GEpUvsqUXCIny7HzeA",
-//       )
-    
-  
+useEffect(()=>{
+  async () => {
+    setmyInfo(
+      await prepareServerConnection(
+        { address: localStorage.getItem('address') },
+        '/user/getmyinfo',
+        'text',
+        localStorage.getItem('jwt')
+      )
+    );
+  }
+})
 
-// },[])
-
-console.log(myInfo)
+ console.log(myInfo)
   const notify = () => toast('Here is your toast.');
 
 
