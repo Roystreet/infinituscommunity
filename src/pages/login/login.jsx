@@ -13,7 +13,7 @@ import {	/* connectAddress, */
           setAddress,
           signMessage} from '../../functions/Web3Interactions'
 import {getContractData, prepareServerConnection} from '../../functions/serverInteractions'
-import { activateEventListeners, deactivateEventListeners} from '../../functions/eventListeners'
+// import { activateEventListeners, deactivateEventListeners} from '../../functions/eventListeners'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export default function Login() {
     console.log('Entre Register')
     await setAddress().then(async (result) => {
       if (!result) {
-        await activateEventListeners()
+        // await activateEventListeners()
         await signMessage().then(async(SignedInfo) => {
           if (SignedInfo.signedMessage) setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
           else console.log(SignedInfo)
@@ -38,16 +38,14 @@ export default function Login() {
     if (!window.ethereum) {
       setActiveAlert(true)
     } else {
-      await checkMetamaskInstalled()
+      // await checkMetamaskInstalled()
       let result = await setAddress()
       console.log('Login Result', result)
       const SignedInfo = await signMessage()
       const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
       localStorage.setItem('jwt', jwt.jwt)
       setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
-      // navigate('/perfil')
-      // if (localStorage.getItem('address')){
-      // }
+      navigate('/perfil')
     }
   }
 
@@ -58,13 +56,13 @@ export default function Login() {
     }
   }, [responseRegister])
 
-  const checkMetamaskInstalled = async () => {
-    if (window.ethereum) {
-      await activateEventListeners()
-    } else {
-      window.alert('Instala Metamask')
-    }
-  }
+  // const checkMetamaskInstalled = async () => {
+  //   if (window.ethereum) {
+  //     // await activateEventListeners()
+  //   } else {
+  //     window.alert('Instala Metamask')
+  //   }
+  // }
 
   const setClose = () => {
     setResponseRegister(null)
