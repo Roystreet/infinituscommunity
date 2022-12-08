@@ -1,29 +1,41 @@
-import { setAddress } from './Web3Interactions';
-
 export const activateEventListeners = (/* setIsModal */) => {
-	window.ethereum.on('connect', setAddress);
-	window.ethereum.on('accountsChanged', () => {
-		localStorage.removeItem('jwt');
-		localStorage.removeItem('address');
-		//Afecta el modal para notificar que debe iniciar sesion nuevamente
-		window.alert('Inicia sesion nuevamente');
+	window.ethereum.on("accountsChanged", (accounts) => {
+		if (accounts.length === 0) {
+			localStorage.removeItem("jwt");
+			localStorage.removeItem("address");
+			//Afecta el modal para notificar que debe conectarse a metamask
+			console.log("Conectate a Metamask");
+		} else {
+			localStorage.removeItem("jwt");
+			localStorage.removeItem("address");
+			//Afecta el modal para notificar que debe iniciar sesion nuevamente
+			console.log("Cambio de cuenta");
+		}
 	});
-	window.ethereum.on('disconnect', () => {
-		localStorage.removeItem('jwt');
-		localStorage.removeItem('address');
+
+	window.ethereum.on("chainChanged", () => {
+		console.log("cambio de red");
+		//Afecta el modal para notificar que debe devolver a la red BNB
 	});
 };
 
 export const deactivateEventListeners = (/* setIsModal */) => {
-	window.ethereum.off('connect', setAddress);
-	window.ethereum.off('accountsChanged', () => {
-		localStorage.removeItem('jwt');
-		localStorage.removeItem('address');
-		//Afecta el modal para notificar que debe iniciar sesion nuevamente
-		window.alert('Inicia sesion nuevamente');
+	window.ethereum.off("accountsChanged", (accounts) => {
+		if (accounts.length === 0) {
+			localStorage.removeItem("jwt");
+			localStorage.removeItem("address");
+			//Afecta el modal para notificar que debe conectarse a metamask
+			console.log("Conectate a Metamask");
+		} else {
+			localStorage.removeItem("jwt");
+			localStorage.removeItem("address");
+			//Afecta el modal para notificar que debe iniciar sesion nuevamente
+			console.log("Cambio de cuenta");
+		}
 	});
-	window.ethereum.off('disconnect', () => {
-		localStorage.removeItem('jwt');
-		localStorage.removeItem('address');
+
+	window.ethereum.off("chainChanged", () => {
+		console.log("cambio de red");
+		//Afecta el modal para notificar que debe devolver a la red BNB
 	});
 };
