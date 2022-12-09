@@ -27,7 +27,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const [changeAccount, setChangeAccount] = useState(null)
   let address = localStorage.getItem('address')
-  console.log('Value Address', address)
+  // console.log('Value Address', address)
   const checkIfWalletIsConnected = async () => {
     try {
 
@@ -79,44 +79,47 @@ function App() {
     !address ? navigate('/') : navigate('/perfil')
   }
   
-//   const ModalSession = () => {
+  const ModalSession = () => {
 
-//     return (
-//         <div>
-//             <Dialog
-//                 open={open}
-//                 onClose={handleClose}
-//             >
-//                 <DialogTitle>Aviso inicio de sesión</DialogTitle>
-//                 <DialogContent>
-//                     <DialogContentText>
-//                         Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
-//                     </DialogContentText>
-//                 </DialogContent>
-//                 <DialogActions>
-//                     <Button onClick={handleClose} >OK</Button>
-//                 </DialogActions>
-//             </Dialog>
-//         </div>
-//     )
-// }
+    return (
+        <div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogTitle>Aviso inicio de sesión</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} >OK</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    )
+}
 
 
   return (
     <>
       <Layout>
-        {/* <ModalSession/> */}
+        <ModalSession/>
         <Routes>
- 
-              {/* <Route path="/" element={<Login />} /> 
-
+          {
+            !address ? <>
+              <Route path="/" element={<Login />} /> 
+            </>
+              : 
+              <>
                 <Route path="/preventa" element={<Presale />} />
                 <Route path="/perfil" element={<Profile />} />
                 <Route path="/paquetes" element={<Package />}/>
-                <Route path="/error" element={<Error />} /> */}
-                <Route path="/" element={<Login />} />
-              <Route path='/settings' element={<Settings/>}/>
-          
+                <Route path="/error" element={<Error />} />
+                <Route path='/settings' element={<Settings/>}/>
+              </>
+          }
         </Routes>
       </Layout>
     </>
