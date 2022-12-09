@@ -15,7 +15,12 @@ import Ranking from "./pages/ranking/ranking";
 import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
+//Ruta de Settings
+import Settings from './pages/settings/Settings'
 // import { activateEventListeners } from "./functions/eventListeners";
+// import { ethers } from "ethers";
+
+// const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 function App() {
   const navigate = useNavigate()
@@ -73,47 +78,45 @@ function App() {
     // console.log('Vale')
     !address ? navigate('/') : navigate('/perfil')
   }
+  
+//   const ModalSession = () => {
 
-  const ModalSession = () => {
-
-    return (
-        <div>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-            >
-                <DialogTitle>Aviso inicio de sesión</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} >OK</Button>
-                </DialogActions>
-            </Dialog>
-        </div>
-    )
-}
+//     return (
+//         <div>
+//             <Dialog
+//                 open={open}
+//                 onClose={handleClose}
+//             >
+//                 <DialogTitle>Aviso inicio de sesión</DialogTitle>
+//                 <DialogContent>
+//                     <DialogContentText>
+//                         Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
+//                     </DialogContentText>
+//                 </DialogContent>
+//                 <DialogActions>
+//                     <Button onClick={handleClose} >OK</Button>
+//                 </DialogActions>
+//             </Dialog>
+//         </div>
+//     )
+// }
 
 
   return (
     <>
       <Layout>
-        <ModalSession/>
+        {/* <ModalSession/> */}
         <Routes>
-          {
-            !address ? <>
-              <Route path="/" element={<Login />} /> 
-            </>
-              : 
-              <>
+ 
+              {/* <Route path="/" element={<Login />} /> 
+
                 <Route path="/preventa" element={<Presale />} />
                 <Route path="/perfil" element={<Profile />} />
                 <Route path="/paquetes" element={<Package />}/>
-                <Route path="/error" element={<Error />} />
-              </>
-          }
+                <Route path="/error" element={<Error />} /> */}
+                <Route path="/" element={<Login />} />
+              <Route path='/settings' element={<Settings/>}/>
+          
         </Routes>
       </Layout>
     </>
