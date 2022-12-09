@@ -45,6 +45,8 @@
 .name{
   font-size: 24px;
   margin-left: 2rem;
+  width: 50%;
+  word-wrap: break-word;
 }
 
 .contDataCuenta{
@@ -57,7 +59,7 @@
 .contData{
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 99%;
   height: 38px;
   border: 1px solid #aaa;
   border-radius: 5px;
@@ -65,10 +67,13 @@
   
 }
 .data{
-  width: 90%;
+  width: 80%;
   margin-left: 1vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .copy{
+  display: flex;
   margin-right: 1vh;
   width: 22px;
 }

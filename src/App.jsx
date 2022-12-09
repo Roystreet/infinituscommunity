@@ -22,7 +22,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const [changeAccount, setChangeAccount] = useState(null)
   let address = localStorage.getItem('address')
-  console.log('Value Address', address)
+  // console.log('Value Address', address)
   const checkIfWalletIsConnected = async () => {
     try {
 
@@ -56,7 +56,7 @@ function App() {
       handleRedirect()
       // setChangeAccount(null)
     }
-    console.log('UseEffect - APP - Address', address, address)
+    // console.log('UseEffect - APP - Address', address, address)
 
   }, [address])
 

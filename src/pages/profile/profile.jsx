@@ -10,21 +10,49 @@ import { prepareServerConnection } from "../../functions/serverInteractions";
 
 
 export default function Profile() {
-  const [myInfo, setmyInfo] = useState([]);
-useEffect(()=>{
-  async () => {
+  const [myInfo, setmyInfo] = useState({});
+
+// const objt = {
+//   infoUser:{ },
+//   busdToken:{},
+//   infinitusToken:{}
+// }
+
+  useEffect( () => {
+    const data = async ()=>{
     setmyInfo(
       await prepareServerConnection(
         { address: localStorage.getItem('address') },
         '/user/getmyinfo',
-        'text',
+        'json',
         localStorage.getItem('jwt')
       )
-    );
-  }
-})
+    ); 
+   }
+   data()
+	}, []);
 
- console.log(myInfo)
+console.log(myInfo)
+
+let name = [myInfo.nickName]
+console.log(name)
+// useEffect(()=>{
+//   async () => {
+//     setmyInfo(
+//       await prepareServerConnection(
+//         { address: localStorage.getItem('address') },
+//         '/user/getmyinfo',
+//         'text',
+//         localStorage.getItem('jwt')
+//       )
+//     );
+//   }
+//   // console.log(localStorage.getItem('jwt'))
+//   }
+
+// )
+ 
+
   const notify = () => toast('Here is your toast.');
 
 
@@ -36,14 +64,14 @@ useEffect(()=>{
       </div>
       <div className={style.container}>
         <div className={style.contImgNom}>
-         <div className={style.contInicialNom}><span>X</span></div>
-          <h2 className={style.name}>{name}:"Nombre"</h2>
+         <div className={style.contInicialNom}><span>{myInfo.nickName[0]}</span></div>
+          <h2 className={style.name}>{myInfo.nickName}</h2>
         </div>
         <div className={style.contDataCuenta}>
           <h3>Cuenta</h3>
           <div className={style.contData}>
-            <span className={style.data}>4da44354gfDFGdfgdf45</span>
-            < CopyToClipboard text='4da44354gfDFGdfgdf45'>
+            <span className={style.data}>{myInfo.address}</span>
+            < CopyToClipboard text={myInfo.address}>
               <img className={style.copy} src={copyImg} alt=""  onClick={()=> toast.success('Id copied')} />
              {/* <AiOutlineCopy className={style.iconCopy}/> */}
              </CopyToClipboard >
