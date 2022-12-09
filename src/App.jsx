@@ -15,14 +15,19 @@ import Ranking from "./pages/ranking/ranking";
 import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
+//Ruta de Settings
+import Settings from './pages/settings/Settings'
 // import { activateEventListeners } from "./functions/eventListeners";
+// import { ethers } from "ethers";
+
+// const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 function App() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const [changeAccount, setChangeAccount] = useState(null)
   let address = localStorage.getItem('address')
-  console.log('Value Address', address)
+  // console.log('Value Address', address)
   const checkIfWalletIsConnected = async () => {
     try {
 
@@ -73,7 +78,7 @@ function App() {
     // console.log('Vale')
     !address ? navigate('/') : navigate('/perfil')
   }
-
+  
   const ModalSession = () => {
 
     return (
@@ -112,6 +117,7 @@ function App() {
                 <Route path="/perfil" element={<Profile />} />
                 <Route path="/paquetes" element={<Package />}/>
                 <Route path="/error" element={<Error />} />
+                <Route path='/settings' element={<Settings/>}/>
               </>
           }
         </Routes>
