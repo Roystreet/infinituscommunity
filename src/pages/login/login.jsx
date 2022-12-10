@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { Box, Typography, Button, Icon, Alert, AlertTitle } from "@mui/material";
+import { Box, Typography, Button, Icon, Alert, AlertTitle, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { createSvgIcon } from "@mui/material/utils";
 import style from "./styles/login.module.css";
 import loginSvg from "./assets/login.svg";
@@ -13,60 +13,95 @@ import {	/* connectAddress, */
           setAddress,
           signMessage} from '../../functions/Web3Interactions'
 import {getContractData, prepareServerConnection} from '../../functions/serverInteractions'
-// import { activateEventListeners, deactivateEventListeners} from '../../functions/eventListeners'
+import { activateEventListeners, deactivateEventListeners} from '../../functions/eventListeners'
 
 export default function Login() {
   const navigate = useNavigate()
   const [activeAlert, setActiveAlert] = useState(false)
+  const [registerSuccess, setRegisterSuccess] = useState(null)
   const [responseRegister, setResponseRegister] = useState("");
-
+  const [open, setOpen] = useState(false)
 
   const handleClickRegister = async () => {
-    console.log('Entre Register')
+    // console.log('Entre Register')
     await setAddress().then(async (result) => {
       if (!result) {
         await activateEventListeners()
         await signMessage().then(async(SignedInfo) => {
-          if (SignedInfo.signedMessage) setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
-          else console.log(SignedInfo)
+          if (SignedInfo.signedMessage) {
+            setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
+
+          } else console.log(SignedInfo, 'Linea32')
         })
-      } else console.log(result.message, 'Exito')
+      } else{
+        console.log(result.message, 'Exito')
+      }
     })
+    // checkIfRegisterSuccess()
   }
+
+
 
   const handleClickLogin = async () => {
     if (!window.ethereum) {
       setActiveAlert(true)
     } else {
       // await checkMetamaskInstalled()
-      let result = await setAddress()
-      console.log('Login Result', result)
-      const SignedInfo = await signMessage()
-      const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
-      localStorage.setItem('jwt', jwt.jwt)
-      setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
-      // navigate('/perfil')
+        await setAddress()
+      // console.log('Login Result', result)
+        const SignedInfo = await signMessage()
+        const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
+        // console.log('SERVER CONNECTION', jwt)
+        if (jwt.userNotRegister){
+          setOpen(true)
+        } else {
+          localStorage.setItem('jwt', jwt.jwt)
+          setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
+          navigate('/perfil')
+        }
+
     }
   }
 
-  useEffect(() => {
-    console.log('Response Register', responseRegister)
-    if (responseRegister){
-      console.log('ModalRegister Exitoso')
-    }
-  }, [responseRegister])
-
-  // const checkMetamaskInstalled = async () => {
-  //   if (window.ethereum) {
-  //     // await activateEventListeners()
-  //   } else {
-  //     window.alert('Instala Metamask')
+  // useEffect(() => {
+  //   // console.log('Response Register', responseRegister)
+  //   if (responseRegister){
+  //     // console.log('ModalRegister Exitoso')
   //   }
-  // }
+  // }, [responseRegister])
+
 
   const setClose = () => {
     setResponseRegister(null)
   }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const ModalSession = () => {
+    return (
+        <div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogTitle>Aviso inicio de sesión
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Es posible que el usuario no se encuentre registrado
+                      
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} >OK</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    )
+}
+
 
 
   return (
@@ -111,6 +146,7 @@ export default function Login() {
           <div className={style.contUnion}>
             <img src={union} alt="-" className={style.imgUnion} />
           </div>
+          <ModalSession/>
           <Button
             variant="contained"
             className={style.btn}
@@ -146,7 +182,7 @@ export default function Login() {
               bottom: '15px',
               width: '80%'
             }}
-            onClose={setClose()}
+            onClose={setClose}
             >
               <AlertTitle>Registro Exitoso</AlertTitle>
                 Ya puedes ingresar a la APP

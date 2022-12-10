@@ -15,8 +15,15 @@ console.log('URLS', urlServer, urlOrigin)
  */
 export const prepareServerConnection = async (params, route, output, jwt = undefined) => {
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
-	const responseHanded = await ServerResponseHandler(response, output);
-	return responseHanded;
+	if (response.status == 401) {
+		console.log('Response ServerConnection', response)
+		const LogErrorUserNotRegister = {userNotRegister: true}
+		return LogErrorUserNotRegister
+	} else {
+		const responseHanded = await ServerResponseHandler(response, output);
+		console.log('ResponseHanded', responseHanded)
+		return responseHanded;
+	}
 };
 
 /*Descripcion: Interactua con las rutas de informacion base para contratos
