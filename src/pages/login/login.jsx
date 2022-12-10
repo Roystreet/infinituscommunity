@@ -18,7 +18,7 @@ import { activateEventListeners, deactivateEventListeners} from '../../functions
 export default function Login() {
   const navigate = useNavigate()
   const [activeAlert, setActiveAlert] = useState(false)
-  const [registerSuccess, setRegisterSuccess] = useState(null)
+
   const [responseRegister, setResponseRegister] = useState("");
   const [open, setOpen] = useState(false)
 
@@ -37,7 +37,7 @@ export default function Login() {
         console.log(result.message, 'Exito')
       }
     })
-    // checkIfRegisterSuccess()
+
   }
 
 
@@ -62,13 +62,6 @@ export default function Login() {
 
     }
   }
-
-  // useEffect(() => {
-  //   // console.log('Response Register', responseRegister)
-  //   if (responseRegister){
-  //     // console.log('ModalRegister Exitoso')
-  //   }
-  // }, [responseRegister])
 
 
   const setClose = () => {

@@ -3,7 +3,7 @@
 const urlServer = 'http://localhost:3001';
 const urlOrigin = 'http://127.0.0.1:5173';
 
-console.log('URLS', urlServer, urlOrigin)
+// console.log('URLS', urlServer, urlOrigin)+
 
 /**Descripcion: Recibe la informacion para realizar la llamada Fetch al servidor y manejar el resultado
  * Entradas:
@@ -16,12 +16,12 @@ console.log('URLS', urlServer, urlOrigin)
 export const prepareServerConnection = async (params, route, output, jwt = undefined) => {
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
 	if (response.status == 401) {
-		console.log('Response ServerConnection', response)
+		// console.log('Response ServerConnection', response)
 		const LogErrorUserNotRegister = {userNotRegister: true}
 		return LogErrorUserNotRegister
 	} else {
 		const responseHanded = await ServerResponseHandler(response, output);
-		console.log('ResponseHanded', responseHanded)
+		
 		return responseHanded;
 	}
 };
