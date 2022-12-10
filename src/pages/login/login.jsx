@@ -25,7 +25,7 @@ export default function Login() {
     console.log('Entre Register')
     await setAddress().then(async (result) => {
       if (!result) {
-        // await activateEventListeners()
+        await activateEventListeners()
         await signMessage().then(async(SignedInfo) => {
           if (SignedInfo.signedMessage) setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
           else console.log(SignedInfo)
@@ -45,7 +45,7 @@ export default function Login() {
       const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
       localStorage.setItem('jwt', jwt.jwt)
       setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
-      navigate('/perfil')
+      // navigate('/perfil')
     }
   }
 

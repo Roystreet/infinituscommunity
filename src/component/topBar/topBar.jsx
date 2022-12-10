@@ -36,7 +36,7 @@ const TopBar = () => {
                         
                         <Link to='project' className={style.link} onClick={clickChecked}><IoMdInformationCircleOutline className={style.iconHeader}/>About</Link>
                         
-                        <Link to='roadmap' className={style.linkAux} onClick={clickChecked}><IoMdSettings className={style.iconHeader}/>Settings</Link>
+                        <Link to='/settings' className={style.linkAux} onClick={clickChecked}><IoMdSettings className={style.iconHeader}/>Settings</Link>
                     </div>
                 </div>
             </div>
