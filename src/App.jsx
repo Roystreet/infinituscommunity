@@ -17,16 +17,14 @@ import Package from "./pages/package/package";
 import Error from "./pages/error/error";
 //Ruta de Settings
 import Settings from './pages/settings/Settings'
-// import { activateEventListeners } from "./functions/eventListeners";
-// import { ethers } from "ethers";
 
-// const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 function App() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
-  const [changeAccount, setChangeAccount] = useState(null)
+  // const [changeAccount, setChangeAccount] = useState(null)
   let address = localStorage.getItem('address')
+  let token = localStorage.getItem('jwt')
   // console.log('Value Address', address)
   const checkIfWalletIsConnected = async () => {
     try {
@@ -42,7 +40,7 @@ function App() {
         }
       })
       window.ethereum.on('disconnect', () => {
-        console.log('Disconect wallet')
+        // console.log('Disconect wallet')
         address = null
         localStorage.removeItem('jwt');
         localStorage.removeItem('address');
@@ -57,13 +55,13 @@ function App() {
 
   useEffect(() => {
     checkIfWalletIsConnected()
-    if (!address){
+    if (!address || !token){
       handleRedirect()
       // setChangeAccount(null)
     }
-    console.log('UseEffect - APP - Address', address, address)
+    // console.log('UseEffect - APP - Address', address, address)
 
-  }, [address])
+  }, [address, token])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -76,7 +74,7 @@ function App() {
 
   const handleRedirect = () => {
     // console.log('Vale')
-    !address ? navigate('/') : navigate('/perfil')
+    !address || !token ? navigate('/') : navigate('/perfil')
   }
   
   const ModalSession = () => {
@@ -108,7 +106,7 @@ function App() {
         <ModalSession/>
         <Routes>
           {
-            !address ? <>
+            !address || !token? <>
               <Route path="/" element={<Login />} /> 
             </>
               : 
