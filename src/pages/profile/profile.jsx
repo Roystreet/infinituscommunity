@@ -12,7 +12,7 @@ import { getContractData } from "../../functions/serverInteractions";
 export default function Profile() {
   const [myInfo, setmyInfo] = useState({});
   const [balanceBUSD, setbalanceBUSD] = useState('');
-  // const [balanceINFI, setbalanceINFI] = useState('');
+  const [balanceINFI, setbalanceINFI] = useState('');
 // const objt = {
 //   infoUser:{ },
 //   busdToken:{},
@@ -33,20 +33,21 @@ export default function Profile() {
   data()
 	}, []);
 
-  // useEffect( () => {
-  //   const balnceInfi = async () =>
-  //   setbalanceINFI(
-  //     await nonWriteContractFunctions(
-  //       await getContractData('/addressContract', 'text'),
-  //       await getContractData('/abiContract', 'json'),
-  //       'balanceOf',
-  //       localStorage.getItem('address'),
-  //       18
-  //     )
-  //   )
-  //   balnceInfi()
-	// }, []);
-console.log(myInfo)
+//   useEffect( () => {
+//     const balnceInfi = async () =>{
+//     setbalanceINFI(
+//       await nonWriteContractFunctions(
+//         await getContractData('/addressContract', 'text'),
+//         await getContractData('/abiContract', 'json'),
+//         'balanceOf',
+//         localStorage.getItem('address'),
+//         18
+//       )
+//     )
+//   }
+//     balnceInfi()
+// 	}, []);
+// console.log(myInfo)
 // console.log(balanceINFI)
 
 // let name = [myInfo.nickName]
@@ -66,7 +67,7 @@ console.log(inicial)
       </div>
       <div className={style.container}>
         <div className={style.contImgNom}>
-         <div className={style.contInicialNom}><span>{initialName}</span></div>
+         <div className={style.contInicialNom}><span>{}</span></div>
           <h2 className={style.name}>{myInfo?.nickName}</h2>
         </div>
         <div className={style.contDataCuenta}> 
