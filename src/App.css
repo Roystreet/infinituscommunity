@@ -24,6 +24,22 @@
  height: 271px;
 
 }
+.img-card {
+  width: 266px;
+  height: 151px;
+  border-radius: 14px;
+}
+
+.container-card-presale {
+  width: 266px;
+  height: 215px;
+  left: 20px;
+  border-radius:14px ;
+  
+}
+.container-presale{
+  
+}
 @media screen and (min-width: 769px) { 
   .hidden-message {
     position: absolute;
