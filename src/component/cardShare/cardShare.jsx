@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import style from "./cardTikets.module.css"
+import style from "./cardShare.module.css"
 import img from "./assets/Vector.png"
 import { FaUser, FaRegUser,FaWhatsapp, FaTelegram, FaLink} from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CloseButton from 'react-bootstrap/CloseButton';
 
-
-const CardTikets = () =>{
+const CardShare = () =>{
   const [smShow, setSmShow] = useState(false);
   
   
@@ -23,7 +23,7 @@ const CardTikets = () =>{
           <FaUser className={style.iconUser}/>
           <FaRegUser className={style.iconUser}/>
           </span>
-            <div className={style.contShare}>
+            {/* <div className={style.contShare}>
               <Button onClick={() => setSmShow(true)} className={style.btnBoots} >
  
                 <img src={img} className={style.vector} alt="" />
@@ -47,27 +47,16 @@ const CardTikets = () =>{
                <div className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></div>  
              </div>
         </Modal.Body>
-      </Modal>
-        </div>
+      </Modal> 
+        </div>*/}
         </div>
           </div>
         </div>
        
         <div className={style.contBtn}>
-          
-          <button className={style.btn}>Give away</button>
           <button className={style.btn}>Collab</button>
         </div>
     </div>
   )
 }
-export default CardTikets;
-
-// export default function CardTikets() {
-//   // Mostrar Tikets 
-//   return (
-//     <div>
-//      <h1>Hola</h1>
-//     </div>
-//   );
-// }
+export default CardShare;

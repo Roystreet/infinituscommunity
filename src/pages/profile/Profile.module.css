@@ -34,17 +34,21 @@
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  background-color: #C7DDFF;
+  background: linear-gradient(119.6deg, rgba(157, 202, 255, 0.3) 7.64%, rgba(229, 249, 255, 0.3) 77.09%);
+
   box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
   -webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
   -moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
-}
+
+} 
 .contInicialNom span{
   font-size: 30px;
 }
 .name{
   font-size: 24px;
   margin-left: 2rem;
+  width: 50%;
+  word-wrap: break-word;
 }
 
 .contDataCuenta{
@@ -57,7 +61,7 @@
 .contData{
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 99%;
   height: 38px;
   border: 1px solid #aaa;
   border-radius: 5px;
@@ -65,16 +69,22 @@
   
 }
 .data{
-  width: 90%;
+  width: 85%;
   margin-left: 1vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #0D4983;
 }
 .copy{
-  margin-right: 1vh;
+  display: flex;
+  margin-left: 1vh;
   width: 22px;
 }
 .contCards{
   display: flex;
   flex-direction: column;
+  margin-top: 5vh;
+
 }
 .contCards h3{
   font-size: 20px;
@@ -82,17 +92,25 @@
 .card{
   height: 85px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  justify-content: center;
+
   border-radius: 8px;
   background-color: #C7DDFF;
 }
-.dataT{
-  margin-left: 2vh;
+.cardIToken{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #C7DDFF;
+  margin-top: 2vh;
 }
+
 .titleToken{
+  margin-top: 1vh;
   font-size: 1.5vh;
 }
 .numbT{
@@ -100,20 +118,30 @@
 }
 .contImg{
   display: flex;
-  margin-right: 2vh;
+  color: #fff;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
--webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
--moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
+  padding: 0px 16px;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 11px;
+  background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
 }
 .img{
-  width: 41px;
-  height: 41px;
-  border-radius: 50%;
+  width: 36px;
+  height: 32px;
+  color: #fff;
 }
+.imgFlecha{
+  width: 60px;
+  height: 25px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
 }
