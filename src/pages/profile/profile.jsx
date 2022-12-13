@@ -8,6 +8,7 @@ import { Toaster, toast } from "react-hot-toast"
 import { prepareServerConnection } from "../../functions/serverInteractions";
 import { nonWriteContractFunctions } from "../../functions/Web3Interactions";
 import { getContractData } from "../../functions/serverInteractions";
+import AlertDialogSlide from "../../component/modalPerfil/modalPerfil"
 
 export default function Profile() {
   const [myInfo, setmyInfo] = useState({});
@@ -33,24 +34,40 @@ export default function Profile() {
   data()
 	}, []);
 
-//   useEffect( () => {
-//     const balnceInfi = async () =>{
-//     setbalanceINFI(
-//       await nonWriteContractFunctions(
-//         await getContractData('/addressContract', 'text'),
-//         await getContractData('/abiContract', 'json'),
-//         'balanceOf',
-//         localStorage.getItem('address'),
-//         18
-//       )
-//     )
-//   }
-//     balnceInfi()
-// 	}, []);
-// console.log(myInfo)
-// console.log(balanceINFI)
+  useEffect( () => {
+    const balnceInfi = async () =>{
+    setbalanceINFI(
+      await nonWriteContractFunctions(
+        await getContractData('/addressContract', 'text'),
+        await getContractData('/abiContract', 'json'),
+        'balanceOf',
+        console.log(localStorage.getItem('address'), "console"),
+        localStorage.getItem('address'),
+        18
+      )
+    )
+  }
+    balnceInfi()
+	}, []);
 
-// let name = [myInfo.nickName]
+  useEffect( () => {
+    const balnceBusd = async () =>{
+      setbalanceBUSD(
+        await nonWriteContractFunctions(
+          await getContractData('/addressCoin', 'text'),
+          await getContractData('/abiCoin', 'json'),
+          'balanceOf',
+          console.log(localStorage.getItem('address'), "console"),
+          localStorage.getItem('address'),
+          18
+        )
+      )
+  }
+  balnceBusd()
+	}, []);
+console.log(balanceINFI)
+console.log(balanceBUSD)
+
 
 
 
@@ -94,11 +111,15 @@ console.log(inicial)
           <h3>Balances</h3>
           
           <div className={style.cardIToken}>
-
+          
               <h4 className={style.titleToken}>Infinitus Token</h4>
               <span className={style.numbT}>6511 </span>
-          
-           <buttom className={style.contImg}>Withdraw <img className={style.img} src={img} alt="not found"/></buttom>
+          <AlertDialogSlide />
+           {/* <buttom className={style.contImg}>
+            
+            Withdraw 
+            <img className={style.img} src={img} alt="not found"/>
+            </buttom> */}
           </div>
         <img src={imgFlecha} className={style.imgFlecha} alt="not found" />
         
