@@ -22,10 +22,10 @@ import Settings from './pages/settings/Settings'
 function App() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
-  // const [changeAccount, setChangeAccount] = useState(null)
+
   let address = localStorage.getItem('address')
   let token = localStorage.getItem('jwt')
-  // console.log('Value Address', address)
+
   const checkIfWalletIsConnected = async () => {
     try {
 
@@ -35,7 +35,6 @@ function App() {
           address = null
           localStorage.removeItem('jwt');
           localStorage.removeItem('address');
-          // window.alert('Inicia sesion nuevamente');
           setOpen(true)
         }
       })
@@ -46,7 +45,6 @@ function App() {
         localStorage.removeItem('address');
         navigate('/')
       });
-      // console.log('ChangeAccount', changeAccount)
 
     } catch (error) {
       console.log(error)
@@ -57,10 +55,7 @@ function App() {
     checkIfWalletIsConnected()
     if (!address || !token){
       handleRedirect()
-      // setChangeAccount(null)
     }
-    // console.log('UseEffect - APP - Address', address, address)
-
   }, [address, token])
 
   const handleClickOpen = () => {
@@ -73,7 +68,6 @@ function App() {
   };
 
   const handleRedirect = () => {
-    // console.log('Vale')
     !address || !token ? navigate('/') : navigate('/perfil')
   }
   
@@ -106,7 +100,7 @@ function App() {
         <ModalSession/>
         <Routes>
           {
-            !address || !token? <>
+            !token || token === undefined && !address ? <>
               <Route path="/" element={<Login />} /> 
             </>
               : 
