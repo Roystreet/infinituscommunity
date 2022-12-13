@@ -1,0 +1,37 @@
+.cont{
+  width: 100%;
+}
+.contImg{
+  display: flex;
+  color: #fff;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 11px;
+  background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+  color: #fff !important;
+}
+.img{
+  width: 36px;
+  height: 32px;
+  color: #fff;
+}
+.btnWhiteDraw{
+  display: flex;
+
+justify-content: center;
+align-items: center;
+height: 36px;
+color: #fff !important;
+background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+border-radius: 18px;
+width: 126px;
+}
+.btn{
+  width: 50%;
+}
