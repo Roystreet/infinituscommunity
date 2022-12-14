@@ -1,5 +1,5 @@
 import style from "./Profile.module.css"
-import img from "../../assets/retiro.png"
+
 import imgFlecha from "../../assets/Group67.png"
 import copyImg from "../../assets/copyIcon.png"
 import { CopyToClipboard } from "react-copy-to-clipboard"
@@ -12,8 +12,8 @@ import AlertDialogSlide from "../../component/modalPerfil/modalPerfil"
 
 export default function Profile() {
   const [myInfo, setmyInfo] = useState({});
-  const [balanceBUSD, setbalanceBUSD] = useState('');
-  const [balanceINFI, setbalanceINFI] = useState('');
+  const [balanceBUSD, setbalanceBUSD] = useState({});
+  const [balanceINFI, setbalanceINFI] = useState({});
 // const objt = {
 //   infoUser:{ },
 //   busdToken:{},
@@ -34,39 +34,56 @@ export default function Profile() {
   data()
 	}, []);
 
-  useEffect( () => {
-    const balnceInfi = async () =>{
-    setbalanceINFI(
-      await nonWriteContractFunctions(
-        await getContractData('/addressContract', 'text'),
-        await getContractData('/abiContract', 'json'),
-        'balanceOf',
-        console.log(localStorage.getItem('address'), "console"),
-        localStorage.getItem('address'),
-        18
-      )
+//   useEffect( () => {
+//     const balnceInfi = async () =>{
+//     setbalanceINFI(
+//       await nonWriteContractFunctions(
+//         await getContractData('/addressContract', 'text'),
+//         await getContractData('/abiContract', 'json'),
+//         'balanceOf',
+//         console.log(localStorage.getItem('address'), "console"),
+//         localStorage.getItem('address'),
+//         18
+//       )
+//     )
+//   }
+//     balnceInfi()
+// 	}, []);
+
+//   useEffect( () => {
+//     const balnceBusd = async () =>{
+//       setbalanceBUSD(
+//         await nonWriteContractFunctions(
+//           await getContractData('/addressCoin', 'text'),
+//           await getContractData('/abiCoin', 'json'),
+//           'balanceOf',
+//           console.log(localStorage.getItem('address'), "console"),
+//           localStorage.getItem('address'),
+//           18
+//         )
+//       )
+//   }
+//   balnceBusd()
+// 	}, []);
+// console.log(balanceINFI)
+// console.log(balanceBUSD)
+function intialName(data){
+            
+  if (data.nickName) {
+    console.log(data.nickName[0])
+    return (
+      data.nickName[0]
+    )
+    
+  } else {
+    console.log( "no entro")
+    console.log( data)
+    return (
+     "x"
     )
   }
-    balnceInfi()
-	}, []);
 
-  useEffect( () => {
-    const balnceBusd = async () =>{
-      setbalanceBUSD(
-        await nonWriteContractFunctions(
-          await getContractData('/addressCoin', 'text'),
-          await getContractData('/abiCoin', 'json'),
-          'balanceOf',
-          console.log(localStorage.getItem('address'), "console"),
-          localStorage.getItem('address'),
-          18
-        )
-      )
-  }
-  balnceBusd()
-	}, []);
-console.log(balanceINFI)
-console.log(balanceBUSD)
+}
 
 
 
@@ -84,7 +101,8 @@ console.log(inicial)
       </div>
       <div className={style.container}>
         <div className={style.contImgNom}>
-         <div className={style.contInicialNom}><span>{}</span></div>
+         <div className={style.contInicialNom}>
+          <span>{intialName(myInfo)}</span></div>
           <h2 className={style.name}>{myInfo?.nickName}</h2>
         </div>
         <div className={style.contDataCuenta}> 
