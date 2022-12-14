@@ -24,23 +24,24 @@ export default function Login() {
 
   const handleClickRegister = async () => {
     // console.log('Entre Register')
-    await setAddress().then(async (result) => {
-      if (!result) {
-        await activateEventListeners()
-        await signMessage().then(async(SignedInfo) => {
-          if (SignedInfo.signedMessage) {
-            setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
-
-          } else console.log(SignedInfo, 'Linea32')
-        })
-      } else{
-        console.log(result.message, 'Exito')
-      }
-    })
-
+    if (!window.ethereum){
+      setActiveAlert(true)
+    } else {
+      await setAddress().then(async (result) => {
+        if (!result) {
+          await activateEventListeners()
+          await signMessage().then(async(SignedInfo) => {
+            if (SignedInfo.signedMessage) {
+              setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
+  
+            } else console.log(SignedInfo, 'Linea32')
+          })
+        } else{
+          console.log(result.message, 'Exito')
+        }
+      })
+    }
   }
-
-
 
   const handleClickLogin = async () => {
     if (!window.ethereum) {
@@ -59,10 +60,12 @@ export default function Login() {
           setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
           navigate('/perfil')
         }
-
     }
   }
 
+  const setCloseMetamaskNotFound = () => {
+    setActiveAlert(false)
+  }
 
   const setClose = () => {
     setResponseRegister(null)
@@ -107,6 +110,7 @@ export default function Login() {
         background: "#fafafa",
         zIndex: 10,
       }}
+      
     >
       <Box
         component="div"
@@ -155,11 +159,12 @@ export default function Login() {
         </Box>
         {
             activeAlert ? 
-              <Alert severity="error" sx={{
+              <Alert severity="error" 
+              onClose={setCloseMetamaskNotFound}
+              sx={{
                 position: 'relative',
                 zIndex: 4,
                 bottom: '15px'
-
               }}>
                 <AlertTitle>Hubo un problema</AlertTitle>
                   No tienes instalado MetaMask 

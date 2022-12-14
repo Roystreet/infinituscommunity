@@ -1,6 +1,9 @@
 import { ethers } from "ethers";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+var provider
+if (window.ethereum){
+	provider = new ethers.providers.Web3Provider(window.ethereum);
+} 
 
 /**Descripcion: Solicita la conexion de la cuenta de metamask
  *Entradas: N/A
