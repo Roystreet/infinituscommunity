@@ -34,50 +34,44 @@ export default function Profile() {
   data()
 	}, []);
 
-//   useEffect( () => {
-//     const balnceInfi = async () =>{
-//     setbalanceINFI(
-//       await nonWriteContractFunctions(
-//         await getContractData('/addressContract', 'text'),
-//         await getContractData('/abiContract', 'json'),
-//         'balanceOf',
-//         console.log(localStorage.getItem('address'), "console"),
-//         localStorage.getItem('address'),
-//         18
-//       )
-//     )
-//   }
-//     balnceInfi()
-// 	}, []);
+  useEffect( () => {
+    const balnceInfi = async () =>{
+    setbalanceINFI(
+      await nonWriteContractFunctions(
+        await getContractData('/addressContract', 'text'),
+        await getContractData('/abiContract', 'json'),
+        'balanceOf',
+        localStorage.getItem('address'),
+        18
+      )
+    )
+  }
+    balnceInfi()
+	}, []);
 
-//   useEffect( () => {
-//     const balnceBusd = async () =>{
-//       setbalanceBUSD(
-//         await nonWriteContractFunctions(
-//           await getContractData('/addressCoin', 'text'),
-//           await getContractData('/abiCoin', 'json'),
-//           'balanceOf',
-//           console.log(localStorage.getItem('address'), "console"),
-//           localStorage.getItem('address'),
-//           18
-//         )
-//       )
-//   }
-//   balnceBusd()
-// 	}, []);
-// console.log(balanceINFI)
-// console.log(balanceBUSD)
+  useEffect( () => {
+    const balnceBusd = async () =>{
+      setbalanceBUSD(
+        await nonWriteContractFunctions(
+          await getContractData('/addressCoin', 'text'),
+          await getContractData('/abiCoin', 'json'),
+          'balanceOf',
+          localStorage.getItem('address'),
+          18
+        )
+      )
+  }
+  balnceBusd()
+	}, []);
+ console.log(balanceINFI)
+console.log(balanceBUSD)
+
 function intialName(data){
-            
   if (data.nickName) {
-    console.log(data.nickName[0])
     return (
       data.nickName[0]
     )
-    
   } else {
-    console.log( "no entro")
-    console.log( data)
     return (
      "x"
     )
@@ -86,8 +80,31 @@ function intialName(data){
 }
 
 
+function colocarInfitoken(balanceINFI){
+  if (balanceINFI) {
+    return (
+    balanceINFI
+    )
+  } else {
+    return (
+     "0"
+    )
+  }
 
+}
 
+function colocarBusdtoken(balanceBUSD){
+  if (balanceINFI) {
+    return (
+    balanceINFI
+    )
+  } else {
+    return (
+     "0"
+    )
+  }
+
+}
   const notify = () => toast('Here is your toast.');
 
 let initialName = myInfo.nickName;
@@ -131,7 +148,7 @@ console.log(inicial)
           <div className={style.cardIToken}>
           
               <h4 className={style.titleToken}>Infinitus Token</h4>
-              <span className={style.numbT}>6511 </span>
+              <span className={style.numbT}>{colocarInfitoken(balanceINFI)}</span>
           <AlertDialogSlide />
            {/* <buttom className={style.contImg}>
             
@@ -144,7 +161,7 @@ console.log(inicial)
           <div className={style.card}>
            
              <h4 className={style.titleToken}>Busd Token</h4>
-             <span className={style.numbT}>6511</span>
+             <span className={style.numbT}>{colocarBusdtoken(balanceBUSD)}</span>
            
           </div>
         </div>
