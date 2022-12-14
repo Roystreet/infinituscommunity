@@ -1,5 +1,5 @@
 import style from "./Profile.module.css"
-import img from "../../assets/retiro.png"
+
 import imgFlecha from "../../assets/Group67.png"
 import copyImg from "../../assets/copyIcon.png"
 import { CopyToClipboard } from "react-copy-to-clipboard"
@@ -12,8 +12,8 @@ import AlertDialogSlide from "../../component/modalPerfil/modalPerfil"
 
 export default function Profile() {
   const [myInfo, setmyInfo] = useState({});
-  const [balanceBUSD, setbalanceBUSD] = useState('');
-  const [balanceINFI, setbalanceINFI] = useState('');
+  const [balanceBUSD, setbalanceBUSD] = useState({});
+  const [balanceINFI, setbalanceINFI] = useState({});
 // const objt = {
 //   infoUser:{ },
 //   busdToken:{},
@@ -41,7 +41,6 @@ export default function Profile() {
         await getContractData('/addressContract', 'text'),
         await getContractData('/abiContract', 'json'),
         'balanceOf',
-        console.log(localStorage.getItem('address'), "console"),
         localStorage.getItem('address'),
         18
       )
@@ -57,7 +56,6 @@ export default function Profile() {
           await getContractData('/addressCoin', 'text'),
           await getContractData('/abiCoin', 'json'),
           'balanceOf',
-          console.log(localStorage.getItem('address'), "console"),
           localStorage.getItem('address'),
           18
         )
@@ -65,12 +63,48 @@ export default function Profile() {
   }
   balnceBusd()
 	}, []);
-console.log(balanceINFI)
+ console.log(balanceINFI)
 console.log(balanceBUSD)
 
+function intialName(data){
+  if (data.nickName) {
+    return (
+      data.nickName[0]
+    )
+  } else {
+    return (
+     "x"
+    )
+  }
+
+}
 
 
+function colocarInfitoken(balanceINFI){
+  if (balanceINFI) {
+    return (
+    balanceINFI
+    )
+  } else {
+    return (
+     "0"
+    )
+  }
 
+}
+
+function colocarBusdtoken(balanceBUSD){
+  if (balanceINFI) {
+    return (
+    balanceINFI
+    )
+  } else {
+    return (
+     "0"
+    )
+  }
+
+}
   const notify = () => toast('Here is your toast.');
 
 let initialName = myInfo.nickName;
@@ -84,7 +118,8 @@ console.log(inicial)
       </div>
       <div className={style.container}>
         <div className={style.contImgNom}>
-         <div className={style.contInicialNom}><span>{}</span></div>
+         <div className={style.contInicialNom}>
+          <span>{intialName(myInfo)}</span></div>
           <h2 className={style.name}>{myInfo?.nickName}</h2>
         </div>
         <div className={style.contDataCuenta}> 
@@ -113,7 +148,7 @@ console.log(inicial)
           <div className={style.cardIToken}>
           
               <h4 className={style.titleToken}>Infinitus Token</h4>
-              <span className={style.numbT}>6511 </span>
+              <span className={style.numbT}>{colocarInfitoken(balanceINFI)}</span>
           <AlertDialogSlide />
            {/* <buttom className={style.contImg}>
             
@@ -126,7 +161,7 @@ console.log(inicial)
           <div className={style.card}>
            
              <h4 className={style.titleToken}>Busd Token</h4>
-             <span className={style.numbT}>6511</span>
+             <span className={style.numbT}>{colocarBusdtoken(balanceBUSD)}</span>
            
           </div>
         </div>
