@@ -81,26 +81,26 @@ function intialName(data){
 
 
 function colocarInfitoken(balanceINFI){
-  if (balanceINFI) {
+  if (!balanceINFI) {
     return (
-    balanceINFI
+     balanceINFI
     )
   } else {
     return (
-     "0"
+     0
     )
   }
 
 }
 
 function colocarBusdtoken(balanceBUSD){
-  if (balanceINFI) {
+  if (!balanceINFI) {
     return (
     balanceINFI
     )
   } else {
     return (
-     "0"
+     0
     )
   }
 
