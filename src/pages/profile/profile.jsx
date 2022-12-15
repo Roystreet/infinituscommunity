@@ -87,7 +87,7 @@ function colocarInfitoken(balanceINFI){
     )
   } else {
     return (
-     0
+     200
     )
   }
 
@@ -100,7 +100,7 @@ function colocarBusdtoken(balanceBUSD){
     )
   } else {
     return (
-     0
+     200
     )
   }
 
@@ -149,7 +149,7 @@ console.log(inicial)
           
               <h4 className={style.titleToken}>Infinitus Token</h4>
               <span className={style.numbT}>{colocarInfitoken(balanceINFI)}</span>
-          <AlertDialogSlide />
+          <AlertDialogSlide bINFI={colocarInfitoken(balanceINFI)}/>
            {/* <buttom className={style.contImg}>
             
             Withdraw 
