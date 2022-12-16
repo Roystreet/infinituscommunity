@@ -14,27 +14,22 @@ const urlOrigin = "http://127.0.0.1:5173";
  * jwt: JSON Web Token, en caso de ser una llamada de autenticacion omitir este parametro
  * Retorna: Respuesta del servidor
  */
-export const prepareServerConnection = async (
-  params,
-  route,
-  output,
-  jwt = undefined
-) => {
-  const response = await ServerConnection(
-    route,
-    "POST",
-    JSON.stringify(params),
-    jwt
-  );
-  if (response.status == 401) {
-    // console.log('Response ServerConnection', response)
-    const LogErrorUserNotRegister = { userNotRegister: true };
-    return LogErrorUserNotRegister;
-  } else {
-    const responseHanded = await ServerResponseHandler(response, output);
 
-    return responseHanded;
-  }
+export const prepareServerConnection = async (params, route, output, jwt = undefined) => {
+	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
+	if (response.status == 401) {
+		// console.log('Response ServerConnection', response)
+		const LogErrorUserNotRegister = {userNotRegister: true}
+		return LogErrorUserNotRegister
+	} else if (response.status === 404 || response.status === 500) {
+		const RegisterErrorStatus = {error: true}
+		return RegisterErrorStatus
+	}else {
+		const responseHanded = await ServerResponseHandler(response, output);
+		
+		return responseHanded;
+	}
+
 };
 
 /*Descripcion: Interactua con las rutas de informacion base para contratos

@@ -23,7 +23,9 @@ import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
 //Ruta de Settings
-import Settings from "./pages/settings/Settings";
+
+import Settings from './pages/settings/Settings'
+import ModalSession from './component/modalSession/modalSession'
 
 function App() {
   const navigate = useNavigate();
@@ -72,32 +74,17 @@ function App() {
   };
 
   const handleRedirect = () => {
-    !address || !token ? navigate("/") : navigate("/perfil");
-  };
 
-  const ModalSession = () => {
-    return (
-      <div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Aviso inicio de sesión</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Parece que hubo un cambio de cuenta. Debes iniciar sesión
-              nuevamente!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>OK</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  };
+    !address || !token ? navigate('/') : navigate('/perfil')
+  }
+
 
   return (
     <>
       <Layout>
-        <ModalSession />
+
+
+        <ModalSession open={open} handleClose={handleClose}/>
         <Routes>
           {!token || (token === undefined && !address) ? (
             <>
