@@ -12,13 +12,9 @@ import AlertDialogSlide from "../../component/modalPerfil/modalPerfil"
 
 export default function Profile() {
   const [myInfo, setmyInfo] = useState({});
-  const [balanceBUSD, setbalanceBUSD] = useState({});
-  const [balanceINFI, setbalanceINFI] = useState({});
-// const objt = {
-//   infoUser:{ },
-//   busdToken:{},
-//   infinitusToken:{}
-// }
+  const [balanceBUSD, setbalanceBUSD] = useState();
+  const [balanceINFI, setbalanceINFI] = useState();
+
 
   useEffect( () => {
   const data = async ()=>{
@@ -81,26 +77,26 @@ function intialName(data){
 
 
 function colocarInfitoken(balanceINFI){
-  if (!balanceINFI) {
+  if (balanceINFI) {
     return (
-     balanceINFI
+      balanceINFI
     )
   } else {
     return (
-     200
+    0
     )
   }
 
 }
 
 function colocarBusdtoken(balanceBUSD){
-  if (!balanceINFI) {
+  if (balanceBUSD) {
     return (
-    balanceINFI
+    balanceBUSD
     )
   } else {
     return (
-     200
+     0
     )
   }
 
@@ -128,7 +124,6 @@ console.log(inicial)
             <span className={style.data}>{myInfo?.address}</span>
             < CopyToClipboard text={myInfo?.address}>
               <img className={style.copy} src={copyImg} alt=""  onClick={()=> toast.success('Id copied')} />
-             {/* <AiOutlineCopy className={style.iconCopy}/> */}
              </CopyToClipboard >
                   
           <Toaster toastOptions={{
@@ -148,20 +143,15 @@ console.log(inicial)
           <div className={style.cardIToken}>
           
               <h4 className={style.titleToken}>Infinitus Token</h4>
-              <span className={style.numbT}>{colocarInfitoken(balanceINFI)}</span>
+              <p className={style.numbT}>{colocarInfitoken(balanceINFI)}</p>
           <AlertDialogSlide bINFI={colocarInfitoken(balanceINFI)}/>
-           {/* <buttom className={style.contImg}>
-            
-            Withdraw 
-            <img className={style.img} src={img} alt="not found"/>
-            </buttom> */}
           </div>
         <img src={imgFlecha} className={style.imgFlecha} alt="not found" />
         
           <div className={style.card}>
            
              <h4 className={style.titleToken}>Busd Token</h4>
-             <span className={style.numbT}>{colocarBusdtoken(balanceBUSD)}</span>
+             <p className={style.numbT}>{colocarBusdtoken(balanceBUSD)}</p>
            
           </div>
         </div>
