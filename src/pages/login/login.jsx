@@ -7,6 +7,8 @@ import MetaIcon from "./assets/metaSvg.svg";
 import union from "./assets/union.svg";
 import logoInfinitus from "../../component/header/assets/infinitus.svg";
 import { useNavigate } from 'react-router-dom';
+import ModalErrorType from './ModalErrorType'
+import ModalErrorNotMetamask from './ModalErrorNotMetamask';
 import {	/* connectAddress, */
           nonWriteContractFunctions,
           sendWriteTransactions,
@@ -19,8 +21,10 @@ export default function Login() {
   const navigate = useNavigate()
   const [activeAlert, setActiveAlert] = useState(false)
 
-  const [responseRegister, setResponseRegister] = useState("");
+  const [responseRegister, setResponseRegister] = useState(null);
+    console.log('responseRegister', responseRegister)
   const [open, setOpen] = useState(false)
+  const [openNotRegister, setOpenNotRegister] = useState(false)
 
   const handleClickRegister = async () => {
     // console.log('Entre Register')
@@ -32,8 +36,16 @@ export default function Login() {
           await activateEventListeners()
           await signMessage().then(async(SignedInfo) => {
             if (SignedInfo.signedMessage) {
-              setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/register', 'text'))
-  
+              // setResponseRegister(await prepareServerConnection(SignedInfo, '/auth/regist', 'text'))
+              const aux = await prepareServerConnection(SignedInfo, '/auth/register', 'text')
+              if (aux.error) {
+                setOpen(true)
+              } else {
+                setResponseRegister({status: 'success', 
+                title: 'Registro Exitoso', 
+                response: 'El registro fue realizado con exito'})
+              }
+              setOpen(true)
             } else console.log(SignedInfo, 'Linea32')
           })
         } else{
@@ -52,9 +64,9 @@ export default function Login() {
       // console.log('Login Result', result)
         const SignedInfo = await signMessage()
         const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
-        // console.log('SERVER CONNECTION', jwt)
+        console.log('SERVER CONNECTION', jwt)
         if (jwt.userNotRegister){
-          setOpen(true)
+          setOpenNotRegister(true)
         } else {
           localStorage.setItem('jwt', jwt.jwt)
           setResponseRegister(`Usuario logeado con la address: ${localStorage.getItem("address")}`)
@@ -67,37 +79,82 @@ export default function Login() {
     setActiveAlert(false)
   }
 
-  const setClose = () => {
-    setResponseRegister(null)
+  const handleCloseNotRegister = () => {
+    setOpenNotRegister(null)
   }
 
   const handleClose = () => {
     setOpen(false)
+    setResponseRegister(null)
   }
 
   const ModalSession = () => {
     return (
         <div>
             <Dialog
-                open={open}
-                onClose={handleClose}
+                open={openNotRegister}
+                onClose={handleCloseNotRegister}
+                sx={{ padding: '0 20px 20px 20px'}}
             >
-                <DialogTitle>Aviso inicio de sesión
+                <DialogTitle>Login notice
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Es posible que el usuario no se encuentre registrado
-                      
+                    <DialogContentText sx={{color: '#25292A', 
+                    borderBottom: '1px solid #B4B4B4',
+                    paddingBottom: '10px'
+                    }}>
+                        It is possible that the user is not registered.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} >OK</Button>
+                    <Button sx={{
+                      background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",
+                      borderRadius: '8px',
+                      color: '#fff',
+                      fontFamily: 'Poppins',
+                      fontSize: '11px',
+                      
+                    }} onClick={handleCloseNotRegister} >OK</Button>
                 </DialogActions>
             </Dialog>
         </div>
     )
 }
 
+// const ModalErrorType = () => {
+//   return (
+//       <div>
+//           <Dialog
+//               open={open}
+//               onClose={handleClose}
+//               sx={{ padding: '0 20px 20px 20px'}}
+//           >
+//               <DialogTitle>{responseRegister.title}
+//               </DialogTitle>
+//               <DialogContent>
+//                   <DialogContentText sx={{color: '#25292A', 
+//                   borderBottom: '1px solid #B4B4B4',
+//                   paddingBottom: '10px'
+//                   }}>
+//                     {responseRegister.response}
+//                   </DialogContentText>
+//               </DialogContent>
+//               <DialogActions>
+//                   <Button onClick={handleClose}
+//                   sx={{
+//                     background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",
+//                     borderRadius: '8px',
+//                     color: '#fff',
+//                     fontFamily: 'Poppins',
+//                     fontSize: '11px',
+                    
+//                   }}
+//                   >reload page</Button>
+//               </DialogActions>
+//           </Dialog>
+//       </div>
+//   )
+// }
 
 
   return (
@@ -110,7 +167,6 @@ export default function Login() {
         background: "#fafafa",
         zIndex: 10,
       }}
-      
     >
       <Box
         component="div"
@@ -157,38 +213,10 @@ export default function Login() {
         <Box className={style.contLogo}>
           <img src={logoInfinitus} alt="infinitus-log" className={style.logo} />
         </Box>
-        {
-            activeAlert ? 
-              <Alert severity="error" 
-              onClose={setCloseMetamaskNotFound}
-              sx={{
-                position: 'relative',
-                zIndex: 4,
-                bottom: '15px'
-              }}>
-                <AlertTitle>Hubo un problema</AlertTitle>
-                  No tienes instalado MetaMask 
-              </Alert>
-             : null
-          }
 
-          {
-            responseRegister ? 
-            <Alert severity="success" sx={{
-              position: 'relative',
-              zIndex: 4,
-              bottom: '15px',
-              width: '80%'
-            }}
-            onClose={setClose}
-            >
-              <AlertTitle>Registro Exitoso</AlertTitle>
-                Ya puedes ingresar a la APP
-            </Alert>
-           : null
-          }
+          <ModalErrorNotMetamask activeAlert={activeAlert} setCloseMetamaskNotFound={setCloseMetamaskNotFound} />
 
-
+          <ModalErrorType open={open} handleClose={handleClose}/>
       </Box>
     </Box>
   );

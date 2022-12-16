@@ -19,7 +19,10 @@ export const prepareServerConnection = async (params, route, output, jwt = undef
 		// console.log('Response ServerConnection', response)
 		const LogErrorUserNotRegister = {userNotRegister: true}
 		return LogErrorUserNotRegister
-	} else {
+	} else if (response.status === 404 || response.status === 500) {
+		const RegisterErrorStatus = {error: true}
+		return RegisterErrorStatus
+	}else {
 		const responseHanded = await ServerResponseHandler(response, output);
 		
 		return responseHanded;
