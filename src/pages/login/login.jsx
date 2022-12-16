@@ -22,7 +22,7 @@ export default function Login() {
   const [activeAlert, setActiveAlert] = useState(false)
 
   const [responseRegister, setResponseRegister] = useState(null);
-    console.log('responseRegister', responseRegister)
+    // console.log('responseRegister', responseRegister)
   const [open, setOpen] = useState(false)
   const [openNotRegister, setOpenNotRegister] = useState(false)
 
@@ -64,7 +64,7 @@ export default function Login() {
       // console.log('Login Result', result)
         const SignedInfo = await signMessage()
         const jwt = await prepareServerConnection(SignedInfo, '/auth/login', 'json')
-        console.log('SERVER CONNECTION', jwt)
+        // console.log('SERVER CONNECTION', jwt)
         if (jwt.userNotRegister){
           setOpenNotRegister(true)
         } else {
@@ -120,41 +120,6 @@ export default function Login() {
         </div>
     )
 }
-
-// const ModalErrorType = () => {
-//   return (
-//       <div>
-//           <Dialog
-//               open={open}
-//               onClose={handleClose}
-//               sx={{ padding: '0 20px 20px 20px'}}
-//           >
-//               <DialogTitle>{responseRegister.title}
-//               </DialogTitle>
-//               <DialogContent>
-//                   <DialogContentText sx={{color: '#25292A', 
-//                   borderBottom: '1px solid #B4B4B4',
-//                   paddingBottom: '10px'
-//                   }}>
-//                     {responseRegister.response}
-//                   </DialogContentText>
-//               </DialogContent>
-//               <DialogActions>
-//                   <Button onClick={handleClose}
-//                   sx={{
-//                     background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",
-//                     borderRadius: '8px',
-//                     color: '#fff',
-//                     fontFamily: 'Poppins',
-//                     fontSize: '11px',
-                    
-//                   }}
-//                   >reload page</Button>
-//               </DialogActions>
-//           </Dialog>
-//       </div>
-//   )
-// }
 
 
   return (

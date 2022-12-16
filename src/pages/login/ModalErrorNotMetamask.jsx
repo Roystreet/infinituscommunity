@@ -21,7 +21,7 @@ const ModalErrorNotMetamask = ({activeAlert, setCloseMetamaskNotFound}) => {
                         You don't have metamask installed.                   
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{padding: '0 20px 15px 0'}}>
                     <Button onClick={setCloseMetamaskNotFound}
                     sx={{
                       background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",

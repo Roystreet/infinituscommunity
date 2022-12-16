@@ -3,8 +3,6 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, B
 
 const ModalErrorType = ({open, handleClose}) => {
 
-
-
     return (
         <div>
             <Dialog
@@ -22,7 +20,7 @@ const ModalErrorType = ({open, handleClose}) => {
                       Our developers are working to solve the problem as quickly as possible.
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{padding: '0 20px 15px 0'}}>
                     <Button onClick={handleClose}
                     sx={{
                       background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",
