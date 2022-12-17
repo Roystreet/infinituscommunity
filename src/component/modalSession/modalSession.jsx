@@ -1,35 +1,35 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {Dialog, DialogTitle, DialogContent, DialogContentText ,Button} from '@mui/material'
+import {Dialog, DialogTitle, DialogContent, DialogActions ,DialogContentText ,Button} from '@mui/material'
 
 
-const ModalSession = ({open}) => {
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-        navigate('/')
-    };
+const ModalSession = ({open, handleClose}) => {
 
     return (
         <div>
             <Dialog
                 open={open}
                 onClose={handleClose}
+                sx={{ padding: '0 20px 20px 20px'}}
             >
-                <DialogTitle>Aviso inicio de sesión</DialogTitle>
+                <DialogTitle>Notice about login</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Parece que hubo un cambio de cuenta. Debes iniciar sesión nuevamente!
-                    </DialogContentText>
+                    <DialogContentText sx={{color: '#25292A', 
+                    borderBottom: '1px solid #B4B4B4',
+                    paddingBottom: '10px'
+                    }}>
+                    It seems there was an account change. You must log in again.                    </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} >OK</Button>
+                <DialogActions sx={{padding: '0 20px 15px 0'}}>
+                    <Button onClick={handleClose} 
+                    sx={{
+                        background: "linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%)",
+                        borderRadius: '8px',
+                        color: '#fff',
+                        fontFamily: 'Poppins',
+                        fontSize: '11px',
+                        
+                      }}>OK</Button>
                 </DialogActions>
             </Dialog>
         </div>

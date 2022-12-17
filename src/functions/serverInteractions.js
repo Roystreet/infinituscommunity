@@ -1,7 +1,8 @@
 const urlServer = import.meta.env.VITE_APP_SERVER_URL;
 const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
-// const urlServer = 'http://localhost:3001';
-// const urlOrigin = 'http://127.0.0.1:5173';
+//const urlServer = "http://localhost:3001";
+//const urlServer = "http://146.190.120.63:3000";
+//const urlOrigin = "http://127.0.0.1:5173";
 
 // console.log('URLS', urlServer, urlOrigin)+
 
@@ -32,9 +33,9 @@ export const prepareServerConnection = async (params, route, output, jwt = undef
  *Retorna: Respuesta del servidor
  */
 export const getContractData = async (route, output) => {
-	const response = await ServerConnection(route, "GET", undefined, undefined);
-	const responseHanded = await ServerResponseHandler(response, output);
-	return responseHanded;
+  const response = await ServerConnection(route, "GET", undefined, undefined);
+  const responseHanded = await ServerResponseHandler(response, output);
+  return responseHanded;
 };
 
 /*Descripcion: Realiza el fetch al servidor
@@ -46,39 +47,39 @@ export const getContractData = async (route, output) => {
  *Retorna: Respuesta del servidor
  */
 const ServerConnection = async (url, method, body, authorization) => {
-	let headersList;
-	let httpOptions;
-	let response;
+  let headersList;
+  let httpOptions;
+  let response;
 
-	if (authorization) {
-		headersList = {
-			Accept: "*/*",
-			"Access-Control-Allow-Origin": urlOrigin,
-			"Content-Type": "application/json",
-			Authorization: authorization,
-		};
-	} else {
-		headersList = {
-			Accept: "*/*",
-			"Access-Control-Allow-Origin": urlOrigin,
-			"Content-Type": "application/json",
-		};
-	}
+  if (authorization) {
+    headersList = {
+      Accept: "*/*",
+      "Access-Control-Allow-Origin": urlOrigin,
+      "Content-Type": "application/json",
+      Authorization: authorization,
+    };
+  } else {
+    headersList = {
+      Accept: "*/*",
+      "Access-Control-Allow-Origin": urlOrigin,
+      "Content-Type": "application/json",
+    };
+  }
 
-	if (method === "GET") {
-		httpOptions = {
-			method: method,
-			headers: headersList,
-		};
-	} else {
-		httpOptions = {
-			method: method,
-			headers: headersList,
-			body: body,
-		};
-	}
-	response = await fetch(urlServer + url, httpOptions);
-	return response;
+  if (method === "GET") {
+    httpOptions = {
+      method: method,
+      headers: headersList,
+    };
+  } else {
+    httpOptions = {
+      method: method,
+      headers: headersList,
+      body: body,
+    };
+  }
+  response = await fetch(urlServer + url, httpOptions);
+  return response;
 };
 
 /*Descripcion: transforma la respuesta del servidor en un formato legible.
@@ -88,6 +89,6 @@ const ServerConnection = async (url, method, body, authorization) => {
  *Retorna: Respuesta del servidor en formato legible
  */
 const ServerResponseHandler = async (response, type) => {
-	if (type === "text") return await response.text();
-	if (type === "json") return await response.json();
+  if (type === "text") return await response.text();
+  if (type === "json") return await response.json();
 };
