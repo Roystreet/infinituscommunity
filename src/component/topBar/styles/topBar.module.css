@@ -1,3 +1,8 @@
+.header{
+    z-index: 10;
+}
+
+
 .contNav{
     /* position: fixed; */
     width: 100%;
@@ -5,7 +10,7 @@
     display: flex;
     align-items: center;
     height: 50px;
-    z-index: 1;
+    z-index: 10;
     background: linear-gradient(262.41deg, #1CE2E4 -10.12%, #2ABAE7 62.5%);
 }
 
@@ -90,7 +95,7 @@
     }
 
     .headerItems{
-        z-index: 0;
+        z-index: 10;
         position: absolute;
         right: 150px;
         top: 96px;
@@ -107,6 +112,7 @@
         align-items: center;
         clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
         transition: clip-path 1s ease-in-out
+
     }
 
     .contItem{
@@ -146,6 +152,8 @@
 
     .navInput:checked + .headerItems{
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
+        z-index: 10;
+
     }
 
 }

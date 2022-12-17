@@ -1,5 +1,5 @@
  
- 
+ import imgFilter from "../../assets/Light.png"
  import CardTikets from "../../component/cardTikets/cardTikets";
 import style from "./Package.module.css"
 
@@ -10,8 +10,8 @@ export default function Package() {
   
   return (
     <div>
-      <div>
-        <h1>Filtros</h1>
+      <div className={style.contFilter}>
+        <img src={imgFilter} alt="" className={style.imgFilter}/>
       </div>
       <div className={style.cards}>
       <CardTikets/>

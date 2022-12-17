@@ -23,6 +23,51 @@
  padding: 40px;
  height: 271px;
 }
+.container_presale{
+  width: 100vw;
+  height: calc(100vh - 19px - 91.5px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card_presale{
+  width: 266px;
+  height: 230px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+
+}
+.container_image_presale{
+  width: 266px;
+  height: 151px;
+  overflow: hidden;
+  left: -5px;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+}
+.img_presale {
+  width: 300px;
+  height: 200px;
+  /*object-fit: cover;*/
+  position: relative;
+  left: -10px;
+  top: -20px;
+  right: -20px;
+  
+}
+.value_presale{}
+.container_actions_presale{
+  height: calc(230px - 151px);
+  display: flex;
+  justify-content: center;
+}
 @media screen and (min-width: 769px) { 
   .hidden-message {
     position: absolute;
