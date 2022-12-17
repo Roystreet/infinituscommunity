@@ -10,13 +10,14 @@
   -webkit-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
   -moz-box-shadow: -2px 9px 7px -4px rgba(0,0,0,0.38);
   position: relative;
+  z-index: 0;
 }
 
 .img{
   width: 267px;
   height: 150px;
   border-radius: 14px;
-  /* z-index: -1; */
+  /* z-index: 0; */
   position: absolute;
 }
 .contIcon{
