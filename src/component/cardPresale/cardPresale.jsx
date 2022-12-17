@@ -1,4 +1,3 @@
-import './styles/cardPresale.css'
 
 export default function CardPresale({ id, name, value, image, cantidad }) {
   return (

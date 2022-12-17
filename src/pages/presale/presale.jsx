@@ -1,6 +1,5 @@
 import PresalePackage from "./presalePackege";
 import CardPresale from "../../component/cardPresale/cardPresale";
-import './styles/presale.css'
 
 export default function Presale() {
   console.log(PresalePackage);
