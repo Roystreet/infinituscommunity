@@ -21,7 +21,6 @@ export const prepareServerConnection = async (params, route, output, jwt = undef
 		return LogErrorUserNotRegister
 	} else {
 		const responseHanded = await ServerResponseHandler(response, output);
-		
 		return responseHanded;
 	}
 };

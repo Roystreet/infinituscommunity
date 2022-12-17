@@ -7,7 +7,15 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const CardTikets = () =>{
+const CardTikets = ( 
+  {
+    ticketId, 
+    referals,
+    packageId,
+    collected,
+    imgRoute
+  }
+  ) =>{
   const [smShow, setSmShow] = useState(false);
   
   

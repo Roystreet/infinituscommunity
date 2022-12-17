@@ -19,6 +19,7 @@ import Error from "./pages/error/error";
 import Settings from './pages/settings/Settings'
 
 
+
 function App() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
@@ -110,6 +111,7 @@ function App() {
                 <Route path="/paquetes" element={<Package />}/>
                 <Route path="/error" element={<Error />} />
                 <Route path='/settings' element={<Settings/>}/>
+
               </>
           }
         </Routes>

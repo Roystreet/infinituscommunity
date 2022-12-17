@@ -187,6 +187,7 @@ function App() {
 			</button>
 			<br />
 			<br />
+			{/* colect */}
 			<button
 				onClick={async () => {
 					await sendWriteTransactions(
@@ -253,6 +254,7 @@ function App() {
 			<br />
 			<br />
 			<button
+			// give away
 				onClick={async () => {
 					await sendWriteTransactions(
 						await getContractData('/addressContract', 'text'),
