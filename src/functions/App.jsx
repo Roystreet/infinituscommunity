@@ -236,7 +236,7 @@ function App() {
 			</button>
 			<br />
 			<br />
-			<button
+			<button 
 				onClick={async () => {
 					setmyTickets(
 						await prepareServerConnection(

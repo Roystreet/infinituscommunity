@@ -7,33 +7,45 @@ import { useState, useEffect } from "react";
 import tikets from "./infoTikets"
 export default function Package() {
   const [myTickets, setmyTickets] = useState([]);
-console.log(tikets)
+// console.log(tikets)
   // Mostrar Tikets    
-  // useEffect( () => {
-  //   const getTikets = async () =>{
-  //   	setmyTickets(
-  //       await prepareServerConnection(
-  //         { address: localStorage.getItem('address') },
-  //         '/user/getmytickets',
-  //         'text',
-  //         localStorage.getItem('jwt')
-  //       )
-  //     );
-  //   }
-  //     getTikets()
-	// }, []);
+  useEffect( () => {
+    const getTikets = async () =>{
+    	setmyTickets(
+        await prepareServerConnection(
+          { address: localStorage.getItem('address') },
+          '/user/getmytickets',
+          'text',
+          localStorage.getItem('jwt')
+        )
+      );
+      
+    }
+     getTikets()
+	}, []);
 
-  console.log(myTickets)
-
+//  const data = myTickets
+// data.push()
+// console.log(data)
+ console.log(myTickets)
+// function rec(myTickets){ 
+//   myTickets?.map((e) =>{
+//     console.log(e)
+//   }
+// )}
+// rec(data)
   return (
     <div>
       <div className={style.contFilter}>
         <img src={imgFilter} alt="" className={style.imgFilter}/>
       </div>
       <div className={style.cards}>
+
       {
-        tikets?.map(e)=>{
-          return (
+          
+          myTickets?.map(e => {
+            console.log(e)
+           return (
             <div key={e.ticketId}>
                  <CardTikets 
                      ticketId= {e.ticketId}
@@ -43,10 +55,9 @@ console.log(tikets)
                      imgRoute= {e.imgRoute}
                 />
            </div>
-          )
-        }
-        
-      }
+            )
+          })
+         }
     </div>
     </div>
   );

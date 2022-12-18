@@ -99,15 +99,7 @@ function App() {
               <Route path="/error" element={<Error />} />
               <Route path="/settings" element={<Settings />} />
             </>
-              : 
-              <>
-                <Route path="/preventa" element={<Presale />} />
-                <Route path="/perfil" element={<Profile />} />
-                <Route path="/paquetes" element={<Package />}/>
-                <Route path="/error" element={<Error />} />
-                <Route path='/settings' element={<Settings/>}/>
-
-              </>
+          ) 
           }
         </Routes>
       </Layout>
