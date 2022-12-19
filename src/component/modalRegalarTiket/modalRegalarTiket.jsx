@@ -15,16 +15,29 @@ import { getContractData } from '../../functions/serverInteractions';
 import { sendWriteTransactions } from "../../functions/Web3Interactions"
 import imgError from "../../assets/on.png";
 
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertDialogSlideTiket() {
-  const [open, setOpen] = React.useState(false);
-  const [nameAddress,  setNameAddress] = useState()
-  
+  const [open, setOpen] = React.useState();
+  const [nameAddress,  setNameAddress] = useState("")
+  const [err, setErr] = useState(false)
 
+  function controlError(nameAddress){
+    let str =  nameAddress
 
+    if (nameAddress && err == false && str.substr(0,2) == "0x") {
+      if (str.length === 43 ) {
+        setErr(
+          true
+        )
+      }
+    }
+  }
+controlError(nameAddress)
+console.log(err)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -62,12 +75,10 @@ export default function AlertDialogSlideTiket() {
              >
         <div>
           <TextField
+          
              required
              id="outlined-required"
              label="Address"
-           
-             type="number"
-             
              onChange={(e) => {
               
               setNameAddress(e.target.value)
@@ -86,7 +97,7 @@ export default function AlertDialogSlideTiket() {
         <DialogActions>
           <Button onClick={handleClose} className={style.btn}>Go back</Button>
           <Button 
-          disabled={!nameAddress}
+          disabled={!err}
            onClick={async () => {
             await sendWriteTransactions(
               await getContractData('/addressContract', 'text'),
