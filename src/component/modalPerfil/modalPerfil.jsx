@@ -131,7 +131,7 @@ console.log(errorInf)
                 [infi.toString()]
                  ).then(response => {
                console.log(response);
-            });
+            }).catch(error => console.log(error))
           }
         }
            className={style.btnWhiteDraw}>White Draw</Button>

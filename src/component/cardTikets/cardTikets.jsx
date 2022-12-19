@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { sendWriteTransactions } from '../../functions/Web3Interactions';
 import { getContractData } from '../../functions/serverInteractions';
 import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
+import tickets from '../../pages/package/infoTikets';
 
 
 const CardTikets = ( 
@@ -21,11 +22,13 @@ const CardTikets = (
   ) =>{
   const [smShow, setSmShow] = useState(false);
   
+console.log(tickets)
+
 function iconRegUser(referals) {
   const expr = referals;
   switch (expr) {
     case 0:
-      console.log('0 negro');
+     
       return(
         <div>
             <FaRegUser className={style.iconUser}/>
