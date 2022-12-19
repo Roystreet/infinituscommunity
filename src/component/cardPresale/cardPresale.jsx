@@ -1,10 +1,6 @@
 import { Box } from "@mui/material";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import { getContractData } from "../../functions/ServerInteractions";
-function calcPercent(availible, amount) {
-  return null;
-}
-
 function addDecimal(input) {
   const decimalString = "000000000000000000";
   const number = Math.floor(input / 2);
