@@ -23,11 +23,7 @@ export default function AlertDialogSlide({bINFI}) {
   const [open, setOpen] = React.useState(false);
   const [infi, setInfi] = useState(bINFI)
   const [errorInf, setErrorInf] = useState(true)
-  // function convString(infi){
-  //   let str = 
-  //   console.log(typeof(infi.toString()))
-  // }
-  // convString(infi)
+
 
 function calcularPorcentaje(infi) {
 

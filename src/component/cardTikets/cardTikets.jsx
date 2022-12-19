@@ -5,23 +5,108 @@ import { FaUser, FaRegUser,FaWhatsapp, FaTelegram, FaLink} from "react-icons/fa"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { sendWriteTransactions } from '../../functions/Web3Interactions';
+import { getContractData } from '../../functions/serverInteractions';
+import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
 
 
-const CardTikets = () =>{
+const CardTikets = ( 
+  {
+    ticketId, 
+    referals,
+    packageId,
+    collected,
+    imgRoute
+  }
+  ) =>{
   const [smShow, setSmShow] = useState(false);
   
+function iconRegUser(referals) {
+  const expr = referals;
+  switch (expr) {
+    case 0:
+      console.log('0 negro');
+      return(
+        <div>
+            <FaRegUser className={style.iconUser}/>
+            <FaRegUser className={style.iconUser}/>
+           <FaRegUser className={style.iconUser}/>
+          <FaRegUser className={style.iconUser}/>
+        </div>
+    
+      )
+     
+    case 1:
+      return(
+        <div>
+            <FaUser className={style.iconUser}/>
+            <FaRegUser className={style.iconUser}/>
+           <FaRegUser className={style.iconUser}/>
+          <FaRegUser className={style.iconUser}/>
+        </div>
+    
+      )
+   case 2:
+    return(
+      <div>
+          <FaUser className={style.iconUser}/>
+          <FaUser className={style.iconUser}/>
+         <FaRegUser className={style.iconUser}/>
+        <FaRegUser className={style.iconUser}/>
+      </div>
   
-
+    )
+    case 3:
+      return(
+        <div>
+            <FaUser className={style.iconUser}/>
+            <FaUser className={style.iconUser}/>
+           <FaUser className={style.iconUser}/>
+          <FaRegUser className={style.iconUser}/>
+        </div>
+    
+      )
+    case 4:
+      return(
+        <div>
+            <FaUser className={style.iconUser}/>
+            <FaUser className={style.iconUser}/>
+           <FaUser className={style.iconUser}/>
+          <FaUser className={style.iconUser}/>
+        </div>
+    
+      )
+    default:
+      console.log(`Sorry, we are out of ${expr}.`);
+  }
+  
+}
+function btnColect(referals){
+  if(referals === 4){
+    return( 
+    
+       <button className={style.btn}
+      onClick={async () => {
+        await sendWriteTransactions(
+          await getContractData('/addressContract', 'text'),
+          await getContractData('/abiContract', 'json'),
+          'collectTickets',
+          [[3]]
+        ).then(response => {
+          console.log(response);
+        });
+      }}
+      >Recolet</button>   
+      )
+  }
+}
   return(
     <div className={style.card}>
         <div>
           <div>
-          <img className={style.img} src="https://i0.wp.com/criptotendencia.com/wp-content/uploads/2018/08/Ejemplo-billetes-criptomonedas.jpg?fit=1000%2C667&ssl=1" alt="" />
+          <img className={style.img} src={`../../../public/packagesAvatar/${imgRoute}.png`} alt="" />
           <div className={style.contIcon}> <span className={style.icons}> 
-          <FaUser className={style.iconUser}/>
-          <FaUser className={style.iconUser}/>
-          <FaUser className={style.iconUser}/>
-          <FaRegUser className={style.iconUser}/>
+         {iconRegUser(referals)}
           </span>
             <div className={style.contShare}>
               <Button onClick={() => setSmShow(true)} className={style.btnBoots} >
@@ -55,19 +140,11 @@ const CardTikets = () =>{
        
         <div className={style.contBtn}>
           
-          <button className={style.btn}>Give away</button>
-          <button className={style.btn}>Collab</button>
+         <AlertDialogSlideTiket/>
+         { btnColect(referals)}
         </div>
     </div>
   )
 }
 export default CardTikets;
 
-// export default function CardTikets() {
-//   // Mostrar Tikets 
-//   return (
-//     <div>
-//      <h1>Hola</h1>
-//     </div>
-//   );
-// }

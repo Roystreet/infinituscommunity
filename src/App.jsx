@@ -27,6 +27,7 @@ import Error from "./pages/error/error";
 import Settings from './pages/settings/Settings'
 import ModalSession from './component/modalSession/modalSession'
 
+
 function App() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -98,7 +99,8 @@ function App() {
               <Route path="/error" element={<Error />} />
               <Route path="/settings" element={<Settings />} />
             </>
-          )}
+          ) 
+          }
         </Routes>
       </Layout>
     </>
