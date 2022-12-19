@@ -1,15 +1,6 @@
 import { Box } from "@mui/material";
-import { Progress } from "antd";
-import {
-  nonWriteContractFunctions,
-  sendWriteTransactions,
-  setAddress,
-  signMessage,
-} from "../../functions/Web3Interactions";
-import {
-  getContractData,
-  prepareServerConnection,
-} from "../../functions/ServerInteractions";
+import { sendWriteTransactions } from "../../functions/Web3Interactions";
+import { getContractData } from "../../functions/ServerInteractions";
 function calcPercent(availible, amount) {
   return null;
 }
