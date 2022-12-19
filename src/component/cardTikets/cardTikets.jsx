@@ -121,7 +121,7 @@ function btnColect(referals){
                 show={smShow}
                 onHide={() => setSmShow(false)}
                 aria-labelledby="example-modal-sizes-title-sm"
-            
+                className={style.conModal}
               >
                <Modal.Header closeButton className={style.modalHeader}>
                   <Modal.Title id="example-modal-sizes-title-sm" >

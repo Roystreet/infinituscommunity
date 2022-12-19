@@ -58,7 +58,7 @@ export default function Package() {
             )
           })
           
-          : (    <p> no funcaa  {typeof myTickets} </p>)
+          : (    <p> You have no tickets </p>)
           
          }
     </div>
