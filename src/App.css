@@ -8,6 +8,38 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.progressive_bar{
+  border-radius: 20px;
+}
+.text_gradiant{
+background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+text-fill-color: transparent;
+}
+.text_offer{
+font-style: normal;
+font-weight: 600;
+font-size: 32px;
+line-height: 100%;
+text-align: center;
+letter-spacing: 0.05em;
+text-decoration-line: underline;
+ }
+.button_presale_buy{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 42px;
+  gap: 16px;
+  width: 107px;
+  height: 36px;
+  background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+  border-radius: 8px;
+  color: #FFFFFF;
+}
 .center {
  display: flex;
  justify-content: center;
@@ -46,8 +78,6 @@
 .container_image_presale{
   width: 266px;
   height: 151px;
-  overflow: hidden;
-  left: -5px;
   padding: 0px;
   margin: 0px;
   position: relative;
@@ -62,11 +92,11 @@
   right: -20px;
   
 }
-.value_presale{}
 .container_actions_presale{
   height: calc(230px - 151px);
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 @media screen and (min-width: 769px) { 
   .hidden-message {
