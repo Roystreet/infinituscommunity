@@ -8,8 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { sendWriteTransactions } from '../../functions/Web3Interactions';
 import { getContractData } from '../../functions/serverInteractions';
 import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
-import tickets from '../../pages/package/infoTikets';
-
+// import tickets from '../../pages/package/infoTikets';
+import { CopyToClipboard } from "react-copy-to-clipboard"
+import { Toaster, toast } from "react-hot-toast"
 
 const CardTikets = ( 
   {
@@ -103,6 +104,21 @@ function btnColect(referals){
       )
   }
 }
+function cerrar() {
+  setTimeout(function(){
+    setSmShow(false)
+}, 1000);
+}
+function rutaParaCompartir() {
+  const add = localStorage.getItem("address")
+  const urlCompartir = window.location.href.slice(0, -8) + `share/${ticketId}/owner/${add}`
+  
+  return(
+    urlCompartir
+  )
+}
+
+
   return(
     <div className={style.card}>
         <div>
@@ -130,9 +146,22 @@ function btnColect(referals){
                </Modal.Header>
               <Modal.Body className={style.modaldiv}>
              <div className={style.contIconsModal}>
-               <div className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4></div>
-               <div className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4></div>
-               <div className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></div>  
+               <button disabled className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4></button>
+              
+               <button disabled className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4></button>
+               < CopyToClipboard text={rutaParaCompartir()}>
+                 <button  
+                 onClick={()=>{ toast.success('Link copied'),
+                  cerrar()}} 
+                 className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></button>  
+               </CopyToClipboard >
+               <Toaster toastOptions={{
+                  style: {
+                  padding: '16px',
+                  color:'blue',
+                  marginTop: '250px',
+            },
+             }}/>
              </div>
         </Modal.Body>
       </Modal>

@@ -3,8 +3,8 @@ import style from "./Profile.module.css"
 import imgFlecha from "../../assets/Group67.png"
 import copyImg from "../../assets/copyIcon.png"
 import { CopyToClipboard } from "react-copy-to-clipboard"
-import { useState, useEffect } from 'react';
 import { Toaster, toast } from "react-hot-toast"
+import { useState, useEffect } from 'react';
 import { prepareServerConnection } from "../../functions/serverInteractions";
 import { nonWriteContractFunctions } from "../../functions/Web3Interactions";
 import { getContractData } from "../../functions/serverInteractions";
