@@ -104,6 +104,21 @@ function btnColect(referals){
       )
   }
 }
+function cerrar() {
+  setTimeout(function(){
+    setSmShow(false)
+}, 1000);
+}
+function rutaParaCompartir() {
+  const add = localStorage.getItem("address")
+  const urlCompartir = window.location.href.slice(0, -8) + `/share/${ticketId}/owner/${add}`
+  
+  return(
+    urlCompartir
+  )
+}
+
+
   return(
     <div className={style.card}>
         <div>
@@ -134,8 +149,11 @@ function btnColect(referals){
                <button disabled className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4></button>
               
                <button disabled className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4></button>
-               < CopyToClipboard text={0}  >
-                 <button onClick={()=> toast.success('Link copied')} className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></button>  
+               < CopyToClipboard text={rutaParaCompartir()}>
+                 <button  
+                 onClick={()=>{ toast.success('Link copied'),
+                  cerrar()}} 
+                 className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></button>  
                </CopyToClipboard >
                <Toaster toastOptions={{
                   style: {
