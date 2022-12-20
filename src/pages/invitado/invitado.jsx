@@ -3,12 +3,30 @@
  import imgI from "./assets/INFINITUS.png"
  import CardShare from "../../component/CardShare/CardShare";
  import style from "./Invitado.module.css"
- 
+ import { useState, useEffect } from 'react';
+import { prepareServerConnection } from "../../functions/serverInteractions";
  
  
  export default function Invitado() {
    // Mostrar Tikets    
-   
+   const [myInfo, setmyInfo] = useState({});
+  
+
+
+  useEffect( () => {
+  const data = async ()=>{
+  setmyInfo(
+    await prepareServerConnection(
+      { address: localStorage.getItem('address') },
+      '/user/getmyinfo',
+      'json',
+      localStorage.getItem('jwt')
+    )
+  ); 
+  }
+  data()
+	}, []);
+console.log(myInfo)
    return (
      <div className={style.content}>
     <div className={style.contTitle}>
