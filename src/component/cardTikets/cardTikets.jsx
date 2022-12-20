@@ -111,7 +111,7 @@ function cerrar() {
 }
 function rutaParaCompartir() {
   const add = localStorage.getItem("address")
-  const urlCompartir = window.location.href.slice(0, -8) + `/share/${ticketId}/owner/${add}`
+  const urlCompartir = window.location.href.slice(0, -8) + `share/${ticketId}/owner/${add}`
   
   return(
     urlCompartir
