@@ -3,8 +3,11 @@ import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import { getContractData } from "../../functions/serverInteractions";
 function addDecimal(input) {
   const decimalString = "000000000000000000";
-  const number = Math.floor(input / 2);
-  const output = number + decimalString;
+  const decimalSpecial = "00000000000000000";
+
+  let number = Math.floor(input / 2);
+  if (number == 12) number = 125;
+  const output = number + number == 125 ? decimalSpecial : decimalString;
   return output;
 }
 
@@ -16,6 +19,7 @@ function getAddres() {
 export default function CardPresale({ id, name, value, image, cantidad }) {
   const buyPresale = async (id, value) => {
     try {
+      console.log(id, value);
       await sendWriteTransactions(
         await getContractData("/addressCoin", "text"),
         await getContractData("/abiCoin", "json"),
@@ -26,13 +30,15 @@ export default function CardPresale({ id, name, value, image, cantidad }) {
         await sendWriteTransactions(
           await getContractData("/addressContract", "text"),
           await getContractData("/abiContract", "json"),
-          "buyTicketSon",
-          [id, 1, getAddres(), true]
+          "buyTicketFather",
+          [1, id]
         ).then((response) => {
+          console.log("success");
           console.log(response);
         });
       });
     } catch (error) {
+      console.log("Error");
       console.log(error);
     }
   };
