@@ -15,7 +15,7 @@ export default function Package() {
         await prepareServerConnection(
           { address: localStorage.getItem('address') },
           '/user/getmytickets',
-          'text',
+          'json',
           localStorage.getItem('jwt')
         )
       );
@@ -41,9 +41,9 @@ export default function Package() {
       </div>
       <div className={style.cards}>
 
-      {
+       {
           
-          myTickets?.map(e => {
+          Array.isArray(myTickets) ? myTickets.map((e) => {
             console.log(e)
            return (
             <div key={e.ticketId}>
@@ -57,6 +57,9 @@ export default function Package() {
            </div>
             )
           })
+          
+          : (    <p> You have no tickets </p>)
+          
          }
     </div>
     </div>

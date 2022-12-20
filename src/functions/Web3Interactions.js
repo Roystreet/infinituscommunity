@@ -36,6 +36,10 @@ export const signMessage = async () => {
  *Retorna: Un objeto TrxResponse, contiene el Hash de la transaccion y datos adicionales.
  */
 export const sendWriteTransactions = async (contractAddress, abi, functionName, params) => {
+	console.log(contractAddress, "tiene que ser el ccontractadress")
+	console.log(abi, "tiene que ser el abi")
+	console.log(functionName, "tiene que ser el functionname")
+	console.log(params, "tiene que ser el params")
 	const signer = provider.getSigner(localStorage.getItem("address"));
 	const ethersInterface = new ethers.utils.Interface(abi);
 	const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);

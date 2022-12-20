@@ -90,11 +90,13 @@ margin-right: 8px;
   margin-left: 10px;
 }
 
-
+.conModal{
+  margin-top: 38vh;
+}
 
 .modaldiv{
   background:#00A7DC;
-
+  
   
   } 
 .modalHeader{ 
