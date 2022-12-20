@@ -22,7 +22,7 @@ const CardTikets = (
   ) =>{
   const [smShow, setSmShow] = useState(false);
   
-console.log(tickets)
+// console.log(tickets)
 
 function iconRegUser(referals) {
   const expr = referals;

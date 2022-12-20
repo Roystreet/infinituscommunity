@@ -37,10 +37,10 @@ let result = infi - porcentaje
 
 function errorInfi(infi, bINFI){
   if (infi > bINFI || infi < 0){
-      console.log("No se puede")
+      // console.log("No se puede")
       setErrorInf(false)
   }else{
-      console.log("si se puede")
+      // console.log("si se puede")
       setErrorInf(true)
    }
 }

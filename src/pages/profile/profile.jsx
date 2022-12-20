@@ -59,8 +59,8 @@ export default function Profile() {
   }
   balnceBusd()
 	}, []);
- console.log(balanceINFI)
-console.log(balanceBUSD)
+//  console.log(balanceINFI)
+// console.log(balanceBUSD)
 
 function intialName(data){
   if (data.nickName) {
@@ -105,7 +105,7 @@ function colocarBusdtoken(balanceBUSD){
 
 let initialName = myInfo.nickName;
 let inicial = initialName
-console.log(inicial)
+// console.log(inicial)
   return(
     <>
 
