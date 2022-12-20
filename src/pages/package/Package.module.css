@@ -1,0 +1,23 @@
+/* Responsive Mobile */
+@media screen and (max-width:480px){
+
+.cards{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
+}
+.contFilter{
+  /* background-color: aqua; */
+  height: 60px;
+  width: 90%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+ 
+}
+.imgFilter{
+  height: 30px;
+}
+
+}

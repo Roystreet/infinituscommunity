@@ -1,3 +1,57 @@
+ 
+ import imgFilter from "../../assets/Light.png"
+ import CardTikets from "../../component/cardTikets/cardTikets";
+import style from "./Package.module.css"
+import { prepareServerConnection } from "../../functions/serverInteractions";
+import { useState, useEffect } from "react";
+import tikets from "./infoTikets"
 export default function Package() {
-  return <p>paquetes</p>;
+  const [myTickets, setmyTickets] = useState([]);
+
+  useEffect( () => {
+    const getTikets = async () =>{
+    	setmyTickets(
+        await prepareServerConnection(
+          { address: localStorage.getItem('address') },
+          '/user/getmytickets',
+          'json',
+          localStorage.getItem('jwt')
+        )
+      );
+      
+    }
+     getTikets()
+	}, []);
+
+
+  return (
+    <div>
+      <div className={style.contFilter}>
+        <img src={imgFilter} alt="" className={style.imgFilter}/>
+      </div>
+      <div className={style.cards}>
+
+       {
+          
+          Array.isArray(myTickets) ? myTickets.map((e) => {
+           
+           return (
+            <div key={e.ticketId}>
+                 <CardTikets 
+                     ticketId= {e.ticketId}
+                     referals= {e.referals}
+                     packageId={e.packageId}
+                     collected= {e.collected}
+                     imgRoute= {e.imgRoute}
+                />
+           </div>
+            )
+          })
+          
+          : (    <p> You have no tickets </p>)
+          
+         }
+    </div>
+    </div>
+  );
 }
