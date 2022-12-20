@@ -41,7 +41,7 @@ export default function Navbar() {
   );
 
   const routes = [
-    { route: "/ticket", id: 1 },
+    { route: "/paquetes", id: 1 },
     { route: "/ranking", id: 2 },
     { route: "/preventa", id: 4 },
   ];
@@ -53,74 +53,109 @@ export default function Navbar() {
   };
 
   return (
-        <BottomNavigation
-          showLabels
-          className={style.contNavBar}
-          value={value} onChange={handleChange}
-          sx={{
-            background:
-            "linear-gradient(263.19deg, #1CE3E4 -17.19%, #699BF7 23.34%, #553B8C 94.75%);",
-            height: 54,
-            padding: '3px 0px'
-          }}
-        >
-
-          <BottomNavigationAction 
-            label="Ticket" 
-            sx={{color: '#B9DDFF',
-              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
-                color: "#fff",
-                fontSize: '0.75rem'
-              }
-            }} 
-            value={1}  
-            className={style.itemNavigate} 
-            icon={<TicketIcon sx={{height: '24px', width: '24px', color: '#B9DDFF', marginBottom: '.5rem'}}/>}/> 
-          
-        
-          <BottomNavigationAction 
-            label="Colab room" 
-            sx={{color: '#B9DDFF',
-              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
-                color: "#fff",
-                fontSize: '0.75rem'
-              }
-            }} 
-            value={2} 
-            className={style.itemNavigate} 
-            icon={<ColabIcon sx={{height: '24px', width: '24px', color: '#B9DDFF', marginBottom: '.5rem'}}/>} />
-        
-      
-          <BottomNavigationAction 
-            label="Ranking" 
-            sx={{color: '#B9DDFF',
-              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
-                color: "#fff",
-                fontSize: '0.75rem'
-              }
-            }} 
-            value={3} 
-            className={style.itemNavigate} 
-            icon={<RankingIcon sx={{height: '24px', width: '24px', color: '#B9DDFF', marginBottom: '.5rem'}}/>}/>
-        
-      
-          <BottomNavigationAction 
-            label="Presale" 
+    <BottomNavigation
+      showLabels
+      className={style.contNavBar}
+      value={value}
+      onChange={handleChange}
+      sx={{
+        background:
+          "linear-gradient(263.19deg, #1CE3E4 -17.19%, #699BF7 23.34%, #553B8C 94.75%);",
+        height: 54,
+        padding: "3px 0px",
+      }}
+    >
+      <BottomNavigationAction
+        label="Ticket"
+        sx={{
+          color: "#B9DDFF",
+          "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+            color: "#fff",
+            fontSize: "0.75rem",
+          },
+        }}
+        value={1}
+        className={style.itemNavigate}
+        icon={
+          <TicketIcon
             sx={{
-              color: '#B9DDFF',
-              "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
-                color: "#fff",
-                fontSize: '0.75rem'
-              }
-            }} 
-            value={4} 
-            className={style.itemNavigate} 
-            icon={<PresaleIcon sx={{height: '24px', width: '24px', 
-              color: '#B9DDFF', 
-              marginBottom: '.5rem',
-              
-              }}/>} />
-          
-        </BottomNavigation>
+              height: "24px",
+              width: "24px",
+              color: "#B9DDFF",
+              marginBottom: ".5rem",
+            }}
+          />
+        }
+      />
+
+      <BottomNavigationAction
+        label="Colab room"
+        sx={{
+          color: "#B9DDFF",
+          "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+            color: "#fff",
+            fontSize: "0.75rem",
+          },
+        }}
+        value={2}
+        className={style.itemNavigate}
+        icon={
+          <ColabIcon
+            sx={{
+              height: "24px",
+              width: "24px",
+              color: "#B9DDFF",
+              marginBottom: ".5rem",
+            }}
+          />
+        }
+      />
+
+      <BottomNavigationAction
+        label="Ranking"
+        sx={{
+          color: "#B9DDFF",
+          "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+            color: "#fff",
+            fontSize: "0.75rem",
+          },
+        }}
+        value={3}
+        className={style.itemNavigate}
+        icon={
+          <RankingIcon
+            sx={{
+              height: "24px",
+              width: "24px",
+              color: "#B9DDFF",
+              marginBottom: ".5rem",
+            }}
+          />
+        }
+      />
+
+      <BottomNavigationAction
+        label="Presale"
+        sx={{
+          color: "#B9DDFF",
+          "& .MuiBottomNavigationAction-root, .Mui-selected, icon": {
+            color: "#fff",
+            fontSize: "0.75rem",
+          },
+        }}
+        value={4}
+        className={style.itemNavigate}
+        icon={
+          <PresaleIcon
+            sx={{
+              height: "24px",
+              width: "24px",
+              color: "#B9DDFF",
+              marginBottom: ".5rem",
+            }}
+          />
+        }
+      />
+    </BottomNavigation>
   );
 }
