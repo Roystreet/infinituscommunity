@@ -7,8 +7,7 @@ import { useState, useEffect } from "react";
 import tikets from "./infoTikets"
 export default function Package() {
   const [myTickets, setmyTickets] = useState([]);
-// console.log(tikets)
-  // Mostrar Tikets    
+
   useEffect( () => {
     const getTikets = async () =>{
     	setmyTickets(
@@ -24,16 +23,7 @@ export default function Package() {
      getTikets()
 	}, []);
 
-//  const data = myTickets
-// data.push()
-// console.log(data)
- console.log(myTickets)
-// function rec(myTickets){ 
-//   myTickets?.map((e) =>{
-//     console.log(e)
-//   }
-// )}
-// rec(data)
+
   return (
     <div>
       <div className={style.contFilter}>
@@ -44,7 +34,7 @@ export default function Package() {
        {
           
           Array.isArray(myTickets) ? myTickets.map((e) => {
-            console.log(e)
+           
            return (
             <div key={e.ticketId}>
                  <CardTikets 

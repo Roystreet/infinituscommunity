@@ -37,7 +37,7 @@ export default function AlertDialogSlideTiket() {
     }
   }
 controlError(nameAddress)
-console.log(err)
+// console.log(err)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -105,7 +105,7 @@ console.log(err)
               'changeTicketOwner',
               [8, nameAddress] //<===falta direccion
             ).then(response => {
-              console.log(response);
+              // console.log(response);
               setTicketSendedResponse('Ticket Enviado Exitosamente!');
             });
           }}
