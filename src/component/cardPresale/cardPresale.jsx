@@ -16,7 +16,15 @@ function getAddres() {
   return address;
 }
 
-export default function CardPresale({ id, name, value, image, amount }) {
+export default function CardPresale({
+  id,
+  name,
+  value,
+  image,
+  amount,
+  supply,
+}) {
+  console.log(supply);
   const buyPresale = async (id, value) => {
     try {
       console.log(id, value);
@@ -107,7 +115,7 @@ export default function CardPresale({ id, name, value, image, amount }) {
             component="div"
             sx={{ color: "#fafafa", fontSize: "20px", fontWeight: 500 }}
           >
-            200
+            {supply + "/" + amount}
           </Box>
         </Box>
 
