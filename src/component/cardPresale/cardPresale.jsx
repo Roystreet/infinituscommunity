@@ -16,7 +16,15 @@ function getAddres() {
   return address;
 }
 
-export default function CardPresale({ id, name, value, image, cantidad }) {
+export default function CardPresale({
+  id,
+  name,
+  value,
+  image,
+  amount,
+  supply,
+}) {
+  console.log(supply);
   const buyPresale = async (id, value) => {
     try {
       console.log(id, value);
@@ -85,6 +93,33 @@ export default function CardPresale({ id, name, value, image, cantidad }) {
         >
           {value}
         </Box>
+
+        {/* Cantidad de ticket restantes  */}
+        <Box
+          component="div"
+          sx={{
+            width: "224px",
+            display: "flex",
+            justifyContent: "space-between",
+            position: "absolute",
+            left: "30px",
+            bottom: "20%",
+          }}
+        >
+          {/* Remaining */}
+          <Box component="div" sx={{ color: "#fafafa" }}>
+            REMAINING
+          </Box>
+          {/* Rest tickets */}
+          <Box
+            component="div"
+            sx={{ color: "#fafafa", fontSize: "20px", fontWeight: 500 }}
+          >
+            {supply + "/" + amount}
+          </Box>
+        </Box>
+
+        {/* Barra progresiva */}
         <Box
           sx={{
             width: "224px",
