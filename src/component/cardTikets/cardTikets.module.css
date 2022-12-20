@@ -124,6 +124,10 @@ box-shadow: 0px -8px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-decoration: none;
+  background: none;
+  border: none;
+  color: #fff;
 }
 .iconModal{
   font-size: 40px;
