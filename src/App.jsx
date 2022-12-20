@@ -23,10 +23,10 @@ import Package from "./pages/package/package";
 // Ruta de error
 import Error from "./pages/error/error";
 //Ruta de Settings
-
-import Settings from './pages/settings/Settings'
-import ModalSession from './component/modalSession/modalSession'
-
+import Settings from "./pages/settings/Settings";
+// Ruta de  invitado
+import Invitado from "./pages/invitado/invitado";
+import ModalSession from "./component/modalSession/modalSession";
 
 function App() {
   const navigate = useNavigate();
@@ -75,32 +75,36 @@ function App() {
   };
 
   const handleRedirect = () => {
-
-    !address || !token ? navigate('/') : navigate('/perfil')
-  }
-
+    !address || !token ? navigate("/") : navigate("/perfil");
+  };
 
   return (
     <>
       <Layout>
-
-
-        <ModalSession open={open} handleClose={handleClose}/>
+        <ModalSession open={open} handleClose={handleClose} />
         <Routes>
           {!token || (token === undefined && !address) ? (
             <>
               <Route path="/" element={<Login />} />
+              <Route
+                path="/share/:idticket/owner/:address"
+                element={<Invitado />}
+              />
             </>
           ) : (
             <>
+              <Route path="/" element={<Login />} />
               <Route path="/preventa" element={<Presale />} />
               <Route path="/perfil" element={<Profile />} />
               <Route path="/paquetes" element={<Package />} />
               <Route path="/error" element={<Error />} />
               <Route path="/settings" element={<Settings />} />
+              <Route
+                path="/share/:idticket/owner/:address"
+                element={<Invitado />}
+              />
             </>
-          ) 
-          }
+          )}
         </Routes>
       </Layout>
     </>
