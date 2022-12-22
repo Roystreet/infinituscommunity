@@ -5,6 +5,7 @@
  import style from "./Invitado.module.css"
  import { useState, useEffect } from 'react';
 import { prepareServerConnection } from "../../functions/serverInteractions";
+
  
  
  export default function Invitado() {
@@ -45,13 +46,10 @@ import { prepareServerConnection } from "../../functions/serverInteractions";
 
 console.log(ticket)
 
-function mosImg(imgRoute){
-  if (!imgRoute) {
-    return imgRoute
-  } else {
-    return "iniciado"
-  }
-}
+const datos = []
+datos.push(ticket)
+console.log(datos)
+
    return (
      <div className={style.content}>
     <div className={style.contTitle}>
@@ -59,16 +57,20 @@ function mosImg(imgRoute){
       <span className={style.subtitle}>Invites you <br/>to collaborate</span>
     </div>
     { 
-      ticket ? (
-        <div className={style.contCard}>
+      datos ? datos.map((e) => {
+           
+        return(
+        <div className={style.contCard} key={e.ticketId}>
         <CardShare 
-       img={mosImg(ticket.imgRoute)}
-        referals = {ticket.referrals}
-        id = {ticket.ticketId}
+         img={e.imgRoute}
+         referals = {e.referrals}
+         id = {e.ticketId}
         />
        </div>
-      ) : ( <p> You have no tickets </p>)
-    }
+       )
+       }): (    <p> You have no tickets </p>)
+         
+     }
       <div className={style.contLogo}>
         <span className={style.subtitle}>Colaborate and <br/>Keep it rolling!</span>
         <img src={img} className={style.img} alt="Logoicon" />

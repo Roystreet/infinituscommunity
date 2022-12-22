@@ -8,12 +8,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CloseButton from "react-bootstrap/CloseButton";
 
 const CardShare = ({img, referals, id}) => {
+  function mosImg(imgRoute){
+    if (imgRoute) {
+      return `../../../public/packagesAvatar/${imgRoute}.png`
+    } else {
+      return "../../../public/packagesAvatar/iniciado.png"
+    }
+  }
   const [smShow, setSmShow] = useState(false);
   function iconRegUser(referals) {
     const expr = referals;
     switch (expr) {
       case 0:
-       
+        
         return(
           <div>
               <FaRegUser className={style.iconUser}/>
@@ -75,7 +82,7 @@ const CardShare = ({img, referals, id}) => {
     <div className={style.card}>
       <div>
         <div>
-        <img className={style.img} src={`../../../public/packagesAvatar/${img}.png`} alt="" />
+        <img className={style.img} src={mosImg(imgRoute)} alt="" />
           <div className={style.contIcon}>
             <span className={style.icons}>
             {iconRegUser(referals)}
