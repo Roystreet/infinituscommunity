@@ -10,6 +10,7 @@ import { prepareServerConnection } from "../../functions/serverInteractions";
  export default function Invitado() {
    // Mostrar Tikets    
    const [myInfo, setmyInfo] = useState({});
+   const [ticket, setTicket] = useState();
   
 
 
@@ -26,16 +27,48 @@ import { prepareServerConnection } from "../../functions/serverInteractions";
   }
   data()
 	}, []);
-console.log(myInfo)
+
+  useEffect( () => {
+    const dataTicket = async ()=>{
+      setTicket(
+        await prepareServerConnection(
+          { _id: 1, 
+            ownerAddress: localStorage.getItem('address') },
+          '/user/getticketrefered',
+           'json',
+        )
+      )
+      }
+      dataTicket()
+    
+  },[])
+
+console.log(ticket)
+
+function mosImg(imgRoute){
+  if (!imgRoute) {
+    return imgRoute
+  } else {
+    return "iniciado"
+  }
+}
    return (
      <div className={style.content}>
     <div className={style.contTitle}>
       <h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
       <span className={style.subtitle}>Invites you <br/>to collaborate</span>
     </div>
-      <div className={style.contCard}>
-       <CardShare/>
-      </div>
+    { 
+      ticket ? (
+        <div className={style.contCard}>
+        <CardShare 
+       img={mosImg(ticket.imgRoute)}
+        referals = {ticket.referrals}
+        id = {ticket.ticketId}
+        />
+       </div>
+      ) : ( <p> You have no tickets </p>)
+    }
       <div className={style.contLogo}>
         <span className={style.subtitle}>Colaborate and <br/>Keep it rolling!</span>
         <img src={img} className={style.img} alt="Logoicon" />
