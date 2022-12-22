@@ -22,7 +22,8 @@
 }
 .contIcon{
   width: 100%;
-  height: 150px;
+  height: 40px;
+  margin-bottom: 112px;
   background: rgb(2,2,3); 
   background: linear-gradient(180deg, rgba(2,2,3,1) 0%, rgba(40,40,40,0.7637429971988796) 13%, rgba(70,70,70,0.6096813725490196) 82%, rgba(117,117,117,0.15309873949579833) 100%);
   border-top-left-radius:14px;

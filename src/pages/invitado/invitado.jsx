@@ -30,7 +30,7 @@ console.log(myInfo)
    return (
      <div className={style.content}>
     <div className={style.contTitle}>
-      <h1 className={style.name}>Name</h1>
+      <h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
       <span className={style.subtitle}>Invites you <br/>to collaborate</span>
     </div>
       <div className={style.contCard}>

@@ -29,7 +29,7 @@ export default function AlertDialogSlideTiket() {
     let str =  nameAddress
 
     if (nameAddress && err == false && str.substr(0,2) == "0x") {
-      if (str.length === 43 ) {
+      if (str.length > 40 ) {
         setErr(
           true
         )

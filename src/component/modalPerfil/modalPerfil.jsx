@@ -56,7 +56,7 @@ const textError = (errorInfi)=>{
   const handleClose = () => {
     setOpen(false);
   };
-console.log(errorInf)
+// console.log(errorInf)
   return (
     <div className={style.cont}>
       <Button  onClick={handleClickOpen} className={style.contImg}>
@@ -108,13 +108,13 @@ console.log(errorInf)
         </DialogContent>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          You are about to withdraw: <spam className={style.spam}>{infi} INFI</spam>
+          You are about to withdraw: <span className={style.spam}>{infi} INFI</span>
           </DialogContentText>
           <DialogContentText id="alert-dialog-slide-description">
           Transaction fee: <spam className={style.spam}>10%</spam>
           </DialogContentText>
           <DialogContentText id="alert-dialog-slide-description">
-          You will receive: <spam className={style.spam}>{calcularPorcentaje(infi)} BUSD</spam>
+          You will receive: <span className={style.spam}>{calcularPorcentaje(infi)} BUSD</span>
           </DialogContentText> 
         </DialogContent>
         <DialogActions>
