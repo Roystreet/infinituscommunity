@@ -104,7 +104,7 @@ export default function Login() {
 			window.ethereum.on("chainChanged", () => {
 				if (window.ethereum.chainId != "0x38" && window.ethereum.networkVersion != "1") {
 					setOpen(true);
-					setMessage({ tittle: "Notificacion", message: "Se cambio la Red, vuelve a la Red BSC" });
+					setMessage({ tittle: "Notificacion", message: "Vuelve a la Red BSC" });
 				}
 			});
 		}
