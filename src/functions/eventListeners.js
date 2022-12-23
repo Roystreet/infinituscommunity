@@ -1,41 +1,30 @@
-export const activateEventListeners = (/* setIsModal */) => {
+/**Descripcion: Inicia la escucha de eventos de cambio de cuenta y de cambio de red
+ *Entradas: N/A
+ *Retorna: N/A
+ */
+export const activateEventListeners = (setOpen, setMessage) => {
 	window.ethereum.on("accountsChanged", (accounts) => {
 		if (accounts.length === 0) {
-			localStorage.removeItem("jwt");
-			localStorage.removeItem("address");
-			//Afecta el modal para notificar que debe conectarse a metamask
-			console.log("Conectate a Metamask");
+			setOpen(true);
+			setMessage({ tittle: "Notificacion", message: "Conecta alguna cuenta de Metamask" });
 		} else {
-			localStorage.removeItem("jwt");
-			localStorage.removeItem("address");
-			//Afecta el modal para notificar que debe iniciar sesion nuevamente
-			console.log("Cambio de cuenta");
+			setOpen(true);
+			setMessage({ tittle: "Notificacion", message: "Se cambio la cuenta conectada, vuelve a hacer Login" });
 		}
 	});
 
 	window.ethereum.on("chainChanged", () => {
-		console.log("cambio de red");
-		//Afecta el modal para notificar que debe devolver a la red BNB
+		if (window.ethereum.chainId != "0x38" && window.ethereum.networkVersion != "1") {
+			setOpen(true);
+			setMessage({ tittle: "Notificacion", message: "Se cambio la Red, vuelve a la Red BSC y vuelve a hacer Login" });
+		}
 	});
 };
 
-export const deactivateEventListeners = (/* setIsModal */) => {
-	window.ethereum.off("accountsChanged", (accounts) => {
-		if (accounts.length === 0) {
-			localStorage.removeItem("jwt");
-			localStorage.removeItem("address");
-			//Afecta el modal para notificar que debe conectarse a metamask
-			console.log("Conectate a Metamask");
-		} else {
-			localStorage.removeItem("jwt");
-			localStorage.removeItem("address");
-			//Afecta el modal para notificar que debe iniciar sesion nuevamente
-			console.log("Cambio de cuenta");
-		}
-	});
-
-	window.ethereum.off("chainChanged", () => {
-		console.log("cambio de red");
-		//Afecta el modal para notificar que debe devolver a la red BNB
-	});
+/**Descripcion: Descativa todas las escuchas de eventos activas
+ *Entradas: N/A
+ *Retorna: N/A
+ */
+export const deactivateEventListeners = () => {
+	window.ethereum.removeAllListeners();
 };
