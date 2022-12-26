@@ -7,7 +7,7 @@ import lineDiv from './assets/lineDiv.svg'
 import style from './styles/settings.module.css'
 // import { SwitchComponent } from './switch'
 import SwitchComponent from './assets/switchComponent.svg'
-import { prepareServerConnection } from '../../functions/serverInteractions'
+import { sendServerPost } from '../../functions/serverInteractions'
 
 const Settings = () => {
 
@@ -17,7 +17,7 @@ const Settings = () => {
     const [MyInfo, setMyInfo] = useState([])
     const [errorNick, setErrorNick] = useState(null)
     const getMyInfo = async () => {
-        const result = await prepareServerConnection(
+        const result = await sendServerPost(
             {address: localStorage.getItem('address')},
             '/user/getmyinfo',
             'json',
@@ -48,7 +48,7 @@ const Settings = () => {
     
     const setChangeName = async () => {
         setActive(true)
-        await prepareServerConnection(
+        await sendServerPost(
             {
                 address: localStorage.getItem('address'),
                 oldNickName: oldName,
