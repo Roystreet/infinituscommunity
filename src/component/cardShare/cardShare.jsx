@@ -1,11 +1,7 @@
 import { useState } from "react";
 import style from "./cardShare.module.css";
-import img from "./assets/Vector.png";
 import { FaUser, FaRegUser } from "react-icons/fa";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CloseButton from "react-bootstrap/CloseButton";
 
 const CardShare = ({ img, referals, id }) => {
 	function mosImg(imgRoute) {
