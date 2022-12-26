@@ -1,32 +1,38 @@
-:root{
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.body {
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
   box-sizing: content-box;
   background: #fafafa;
 }
-.container-main{
+.container-main {
   width: 100vw;
   height: calc(100vh - 19px - 91.5px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.progressive_bar{
+.progressive_bar {
   border-radius: 20px;
 }
-.text_gradiant{
-background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+.text_gradiant {
+  background: linear-gradient(60.23deg, #51badb 19.54%, #662489 106.78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.text_offer{
-font-style: normal;
-font-weight: 600;
-font-size: 32px;
-line-height: 100%;
-text-align: center;
-letter-spacing: 0.05em;
-text-decoration-line: underline;
- }
-.button_presale_buy{
+.text_offer {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 100%;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-decoration-line: underline;
+}
+.button_presale_buy {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -35,26 +41,26 @@ text-decoration-line: underline;
   gap: 16px;
   width: 107px;
   height: 36px;
-  background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+  background: linear-gradient(60.23deg, #51badb 19.54%, #662489 106.78%);
   border-radius: 8px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .center {
- display: flex;
- justify-content: center;
- flex-direction: column;
- align-items: center;
- justify-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }
-.container-message{
- background: #FFFFFF;
- box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
- border-radius: 14px;
- width: auto;
- padding: 40px;
- height: 271px;
+.container-message {
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  width: auto;
+  padding: 40px;
+  height: 271px;
 }
-.container_presale{
+.container_presale {
   width: 100vw;
   height: calc(100vh - 19px - 91.5px);
   overflow-y: scroll;
@@ -63,18 +69,17 @@ text-decoration-line: underline;
   flex-wrap: wrap;
   justify-content: center;
 }
-.card_presale{
+.card_presale {
   width: 266px;
   height: 230px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 14px;
   margin-top: 20px;
   position: relative;
   overflow: hidden;
-
 }
-.container_image_presale{
+.container_image_presale {
   width: 266px;
   height: 151px;
   padding: 0px;
@@ -89,15 +94,14 @@ text-decoration-line: underline;
   left: -10px;
   top: -20px;
   right: -20px;
-  
 }
-.container_actions_presale{
+.container_actions_presale {
   height: calc(230px - 151px);
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
-@media screen and (min-width: 769px) { 
+@media screen and (min-width: 769px) {
   .hidden-message {
     position: absolute;
     height: 100vh;
@@ -116,4 +120,4 @@ text-decoration-line: underline;
   .hidden-message {
     display: none !important;
   }
- }
+}

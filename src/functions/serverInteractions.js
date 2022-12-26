@@ -1,11 +1,8 @@
-const urlServer = import.meta.env.VITE_APP_SERVER_URL;
-const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
-<<<<<<< HEAD
+// const urlServer = import.meta.env.VITE_APP_SERVER_URL;
+// const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
 //const urlServer = "http://localhost:3001";
-// const urlServer = "http://146.190.120.63:3001";
-// const urlOrigin = "http://127.0.0.1:5173";
-=======
->>>>>>> 2fe7237da8a2b86c68ef8a5071f4dafbff83f3e1
+const urlServer = "https://api.infinituscommunity.com";
+const urlOrigin = "http://127.0.0.1:5173";
 
 /**Descripcion: Interactua con las rutas Post. -
  * Entradas:

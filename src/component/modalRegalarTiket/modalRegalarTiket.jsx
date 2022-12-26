@@ -1,20 +1,19 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import style from "./ModalRegalarTiket.module.css"
-import img from "../../assets/retiro.png"
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import  {useState}  from 'react';
-import { sendServerGet } from '../../functions/serverInteractions';
-import { sendWriteTransactions } from "../../functions/Web3Interactions"
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import style from "./ModalRegalarTiket.module.css";
+import img from "../../assets/retiro.png";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import { sendServerGet } from "../../functions/serverInteractions";
+import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import imgError from "../../assets/on.png";
-
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,22 +21,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlideTiket() {
   const [open, setOpen] = React.useState();
-  const [nameAddress,  setNameAddress] = useState("")
-  const [err, setErr] = useState(false)
+  const [nameAddress, setNameAddress] = useState("");
+  const [err, setErr] = useState(false);
 
-  function controlError(nameAddress){
-    let str =  nameAddress
+  function controlError(nameAddress) {
+    let str = nameAddress;
 
-    if (nameAddress && err == false && str.substr(0,2) == "0x") {
-      if (str.length > 40 ) {
-        setErr(
-          true
-        )
+    if (nameAddress && err == false && str.substr(0, 2) == "0x") {
+      if (str.length > 40) {
+        setErr(true);
       }
     }
   }
-controlError(nameAddress)
-// console.log(err)
+  controlError(nameAddress);
+  // console.log(err)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -46,10 +43,9 @@ controlError(nameAddress)
     setOpen(false);
   };
 
-
   return (
-    <div  className={style.btnPrincipal}>
-      <Button  onClick={handleClickOpen} className={style.contImg}>
+    <div className={style.btnPrincipal}>
+      <Button onClick={handleClickOpen} className={style.contImg}>
         Give Await
       </Button>
       <Dialog
@@ -59,57 +55,63 @@ controlError(nameAddress)
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-         <DialogContent>
-          <DialogContentText  id="alert-dialog-slide-description">
-            <p className={style.titleModal}>wallet address to which you want to send</p>
+        <DialogContent>
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            sx={{ fontFamily: "Poppins" }}
+          >
+            <p className={style.titleModal}>
+              Wallet address to which you want to send
+            </p>
           </DialogContentText>
           <DialogContentText id="alert-dialog-slide-description">
-          <Box
-            component="form"
-            sx={{
-             '& .MuiTextField-root': { m: 1, width: '35ch' },
-            }}
-            noValidate
-            autoComplete="off"
-            
-             >
-        <div>
-          <TextField
-          
-             required
-             id="outlined-required"
-             label="Address"
-             onChange={(e) => {
-              
-              setNameAddress(e.target.value)
-             
-             }}
-            
-          />
-          {/* { textError(errorInfi)} */}
-        </div>
-        
-        </Box>
+            <Box
+              component="form"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                "& .MuiTextField-root": { m: 1, width: "35ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <div>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Address"
+                  onChange={(e) => {
+                    setNameAddress(e.target.value);
+                  }}
+                />
+                {/* { textError(errorInfi)} */}
+              </div>
+            </Box>
           </DialogContentText>
-      
         </DialogContent>
-       
+
         <DialogActions>
-          <Button onClick={handleClose} className={style.btn}>Go back</Button>
-          <Button 
-          disabled={!err}
-           onClick={async () => {
-            await sendWriteTransactions(
-              await sendServerGet('/addressContract', 'text'),
-              await sendServerGet('/abiContract', 'json'),
-              'changeTicketOwner',
-              [8, nameAddress] //<===falta direccion
-            ).then(response => {
-              // console.log(response);
-              setTicketSendedResponse('Ticket Enviado Exitosamente!');
-            });
-          }}
-            className={style.btnModal}>Give await</Button>
+          <Button onClick={handleClose} className={style.btn}>
+            Go back
+          </Button>
+          <Button
+            disabled={!err}
+            onClick={async () => {
+              await sendWriteTransactions(
+                await sendServerGet("/addressContract", "text"),
+                await sendServerGet("/abiContract", "json"),
+                "changeTicketOwner",
+                [8, nameAddress] //<===falta direccion
+              ).then((response) => {
+                // console.log(response);
+                setTicketSendedResponse("Ticket Enviado Exitosamente!");
+              });
+            }}
+            className={style.btnModal}
+          >
+            Give await
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

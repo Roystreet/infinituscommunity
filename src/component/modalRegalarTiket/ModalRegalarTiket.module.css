@@ -1,74 +1,74 @@
 .btnPrincipal {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 25px;
-	width: auto;
-	background: none;
-	text-decoration: none;
-	border: 1px solid #3971a8;
-	color: #3971a8;
-	font-size: 11px;
-	padding-left: 10px;
-	padding-right: 10px;
-	border-radius: 8px;
-	margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: auto;
+  background: none;
+  text-decoration: none;
+  border: 1px solid #3971a8;
+  color: #3971a8;
+  font-size: 11px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+  margin-left: 10px;
 }
 
 .btnModal {
-	display: flex;
+  display: flex;
 
-	justify-content: center;
-	align-items: center;
-	height: 36px;
-	color: #fff !important;
-	background: linear-gradient(60.23deg, #51badb 19.54%, #662489 106.78%);
-	border-radius: 18px;
-	width: 126px;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  color: #fff !important;
+  background: linear-gradient(60.23deg, #51badb 19.54%, #662489 106.78%);
+  border-radius: 18px;
+  width: 126px;
 }
 .btn {
-	width: 50%;
+  width: 50%;
 }
 
 .errorTextInfi {
-	margin-left: 2vh;
-	height: 8px;
-	font-family: "Poppins";
-	font-style: normal;
-	font-weight: 400;
-	font-size: 8px;
-	line-height: 100%;
-	display: flex;
-	align-items: center;
-	letter-spacing: 0.05em;
-	color: #b3261e;
-	flex: none;
-	order: 0;
-	flex-grow: 0;
+  margin-left: 2vh;
+  height: 8px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.05em;
+  color: #b3261e;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 .imgErr {
-	margin-right: 1vh;
+  margin-right: 1vh;
 }
 .titleModal {
-	font-family: "Poppins";
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 130%;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	letter-spacing: 0.05em;
-	color: #25292a;
-	flex: none;
-	order: 0;
-	flex-grow: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: #25292a;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 .spam {
-	font-style: normal;
-	font-weight: 700;
-	font-size: 12px;
-	line-height: 100%;
-	color: #282828;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 100%;
+  color: #282828;
 }
