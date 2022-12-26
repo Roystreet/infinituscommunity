@@ -123,7 +123,6 @@ export default function Profile({ setUserLoged }) {
 				allowBackdropClick={true}
 				exitRoute={"/"}
 				finalFunction={() => {
-					console.log(setUserLoged);
 					setUserLoged(false);
 					clearUnusedProcess();
 				}}
