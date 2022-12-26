@@ -12,7 +12,7 @@ import logoInfinitus from "../../component/header/assets/infinitus.svg";
 import { deactivateEventListeners } from "../../functions/eventListeners";
 import { useEffect } from "react";
 
-export default function Login() {
+export default function Login({ setUserLoged }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
@@ -73,6 +73,7 @@ export default function Login() {
 									if (jwt.jwt) {
 										localStorage.setItem("jwt", jwt.jwt);
 										deactivateEventListeners();
+										setUserLoged(true);
 										navigate("/perfil");
 									} else {
 										setOpen(true);
@@ -153,7 +154,7 @@ export default function Login() {
 				<Box className={style.contLogo}>
 					<img src={logoInfinitus} alt="infinitus-log" className={style.logo} />
 				</Box>
-				<DisplayMessage open={open} messageData={message} setOpen={setOpen} />
+				<DisplayMessage open={open} messageData={message} setOpen={setOpen} allowBackdropClick={true} />
 			</Box>
 		</Box>
 	);
