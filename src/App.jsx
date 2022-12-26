@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
@@ -23,9 +23,7 @@ function App() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (localStorage.getItem("jwt") == undefined) {
-			navigate("/");
-		} else {
+		if (localStorage.getItem("jwt") != undefined) {
 			navigate("/perfil");
 		}
 	}, []);
@@ -34,7 +32,7 @@ function App() {
 		<>
 			<Layout>
 				<Routes>
-					<Route path="/" element={<Login />} />
+					<Route path="/" element={!localStorage.getItem("jwt") ? <Login /> : <Invitado />} />
 					<Route path="/preventa" element={<Presale />} />
 					<Route path="/perfil" element={<Profile />} />
 					<Route path="/paquetes" element={<Package />} />
