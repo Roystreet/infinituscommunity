@@ -65,7 +65,7 @@ function App() {
 								<DisplayMessage
 									open={true}
 									setOpen={setOpen}
-									messageData={{ tittle: "Error", message: "Esta ruta no Existe" }}
+									messageData={{ tittle: "Error", message: "Esta ruta no existe o esta en mantenimiento" }}
 									allowBackdropClick={true}
 									exitRoute={"/"}
 								/>
