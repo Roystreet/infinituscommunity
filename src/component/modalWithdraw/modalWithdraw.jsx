@@ -1,25 +1,24 @@
 import * as React from "react";
+import style from "./modalWithdraw.module.css";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import style from "./ModalPerfil.module.css";
-import img from "../../assets/retiro.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState, forwardRef, useEffect } from "react";
 import { sendServerGet } from "../../functions/serverInteractions";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
+import img from "../../assets/retiro.png";
 import imgError from "../../assets/on.png";
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ bINFI }) {
+export default function ModalWithdraw({ bINFI }) {
 	const [open, setOpen] = useState(false);
 	const [infi, setInfi] = useState("");
 	const [errorInf, setErrorInf] = useState(true);
