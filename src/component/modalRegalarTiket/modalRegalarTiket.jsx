@@ -11,7 +11,7 @@ import img from "../../assets/retiro.png"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import  {useState}  from 'react';
-import { getContractData } from '../../functions/serverInteractions';
+import { sendServerGet } from '../../functions/serverInteractions';
 import { sendWriteTransactions } from "../../functions/Web3Interactions"
 import imgError from "../../assets/on.png";
 
@@ -100,8 +100,8 @@ controlError(nameAddress)
           disabled={!err}
            onClick={async () => {
             await sendWriteTransactions(
-              await getContractData('/addressContract', 'text'),
-              await getContractData('/abiContract', 'json'),
+              await sendServerGet('/addressContract', 'text'),
+              await sendServerGet('/abiContract', 'json'),
               'changeTicketOwner',
               [8, nameAddress] //<===falta direccion
             ).then(response => {

@@ -1,13 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  Button,
-  DialogActions,
-} from "@mui/material";
 import "./App.css";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
@@ -26,89 +18,33 @@ import Error from "./pages/error/error";
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
-import ModalSession from "./component/modalSession/modalSession";
 
 function App() {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+	const navigate = useNavigate();
 
-  let address = localStorage.getItem("address");
-  let token = localStorage.getItem("jwt");
+	useEffect(() => {
+		if (localStorage.getItem("jwt") == undefined) {
+			navigate("/");
+		} else {
+			navigate("/perfil");
+		}
+	}, []);
 
-  const checkIfWalletIsConnected = async () => {
-    try {
-      window.ethereum.on("accountsChanged", () => {
-        if (address !== null) {
-          console.log("Cambio de cuenta ? ");
-          address = null;
-          localStorage.removeItem("jwt");
-          localStorage.removeItem("address");
-          setOpen(true);
-        }
-      });
-      window.ethereum.on("disconnect", () => {
-        // console.log('Disconect wallet')
-        address = null;
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("address");
-        navigate("/");
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-    if (!address || !token) {
-      handleRedirect();
-    }
-  }, [address, token]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    navigate("/");
-  };
-
-  const handleRedirect = () => {
-    !address || !token ? navigate("/") : navigate("/perfil");
-  };
-
-  return (
-    <>
-      <Layout>
-        <ModalSession open={open} handleClose={handleClose} />
-        <Routes>
-          {!token || (token === undefined && !address) ? (
-            <>
-              <Route path="/" element={<Login />} />
-              <Route
-                path="/share/:idticket/owner/:address"
-                element={<Invitado />}
-              />
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<Login />} />
-              <Route path="/preventa" element={<Presale />} />
-              <Route path="/perfil" element={<Profile />} />
-              <Route path="/paquetes" element={<Package />} />
-              <Route path="/error" element={<Error />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route
-                path="/share/:idticket/owner/:address"
-                element={<Invitado />}
-              />
-            </>
-          )}
-        </Routes>
-      </Layout>
-    </>
-  );
+	return (
+		<>
+			<Layout>
+				<Routes>
+					<Route path="/" element={<Login />} />
+					<Route path="/preventa" element={<Presale />} />
+					<Route path="/perfil" element={<Profile />} />
+					<Route path="/paquetes" element={<Package />} />
+					<Route path="/error" element={<Error />} />
+					<Route path="/settings" element={<Settings />} />
+					<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+				</Routes>
+			</Layout>
+		</>
+	);
 }
 
 export default App;

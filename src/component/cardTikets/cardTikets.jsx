@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { sendWriteTransactions } from '../../functions/Web3Interactions';
-import { getContractData } from '../../functions/serverInteractions';
+import { sendServerGet } from '../../functions/serverInteractions';
 import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
 // import tickets from '../../pages/package/infoTikets';
 import { CopyToClipboard } from "react-copy-to-clipboard"
@@ -92,8 +92,8 @@ function btnColect(referals){
        <button className={style.btn}
       onClick={async () => {
         await sendWriteTransactions(
-          await getContractData('/addressContract', 'text'),
-          await getContractData('/abiContract', 'json'),
+          await sendServerGet('/addressContract', 'text'),
+          await sendServerGet('/abiContract', 'json'),
           'collectTickets',
           [[3]]
         ).then(response => {
