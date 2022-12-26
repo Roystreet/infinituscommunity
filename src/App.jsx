@@ -9,7 +9,7 @@ import Presale from "./pages/presale/presale";
 //Ruta Perfil
 import Profile from "./pages/profile/profile";
 //Ruta Ranking
-import Ranking from "./pages/ranking/ranking";
+/* import Ranking from "./pages/ranking/ranking"; */
 // Ruta para mostrar los paquetes
 import Package from "./pages/package/package";
 // Ruta de error
