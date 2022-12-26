@@ -9,7 +9,9 @@ const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
  * jwt: JSON Web Token, en caso de ser una llamada de autenticacion omitir este parametro -
  * Retorna: Respuesta del servidor
  */
+
 export const sendServerPost = async (params, route, output, jwt = undefined) => {
+ev
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
 	if (response.status == 200) {
 		const responseHanded = await ServerResponseHandler(response, output);
@@ -38,6 +40,7 @@ export const sendServerGet = async (route, output) => {
 };
 
 /**Descripcion: Realiza el fetch al servidor -
+
  *Entradas:
  *url: ruta del servidor,
  *method: tipo de ruta 'GET' o 'POST'
