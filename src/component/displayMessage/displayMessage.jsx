@@ -3,20 +3,30 @@ import { Button, Dialog, DialogTitle, DialogActions, DialogContentText, DialogCo
 import { useNavigate } from "react-router-dom";
 
 /**
- * @param {*} open - buleano que identifica como true "abrir modal" y false "cerrar modal"
- * @param {*} setOpen - funcion de useState para para setear el valor enviado del parametro "open"
+ * @param {*} open - Buleano que identifica como true "abrir modal" y false "cerrar modal"
+ * @param {*} setOpen - Funcion de useState para para setear el valor enviado del parametro "open"
  * @param {*} messageData - Objeto con la informacion a desplegar al usuario
+ * @param {*} allowBackdropClick - Buleano que habilita el cierre del modal si se hace click fuera del mismo.
  * @param {*} exitRoute - Ruta a redirigir en caso de ser necesario, por defecto solo cierra el modal
  * @param {*} finalFunction - Proceso a ejecutar al cerrar el modal, por defecto solo cierra el modal
  */
-export default function DisplayMessage({ open, setOpen, messageData, exitRoute = null, finalFunction = null }) {
+export default function DisplayMessage({ open, setOpen, messageData, allowBackdropClick, exitRoute = null, finalFunction = null }) {
 	const navigate = useNavigate();
 	const [message, setMessage] = useState({});
 
-	const handleClose = () => {
-		setOpen(!open);
-		if (exitRoute != null) navigate(exitRoute);
-		if (finalFunction != null) finalFunction();
+	const handleClose = (event, reason) => {
+		if (allowBackdropClick == true) {
+			if (reason && reason == "backdropClick");
+			else {
+				setOpen(!open);
+				if (finalFunction != null) finalFunction();
+				if (exitRoute != null) navigate(exitRoute);
+			}
+		} else {
+			setOpen(!open);
+			if (finalFunction != null) finalFunction();
+			if (exitRoute != null) navigate(exitRoute);
+		}
 	};
 
 	useEffect(() => {

@@ -19,6 +19,7 @@ import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
 import DisplayMessage from "./component/displayMessage/displayMessage";
+import Message from "./component/message/message";
 
 function App() {
 	const [userLoged, setUserLoged] = useState(false);
@@ -39,10 +40,25 @@ function App() {
 			{userLoged ? (
 				<Layout>
 					<Routes>
-						<Route path="/" element={!userLoged ? <Login /> : <Profile />} />
-						<Route path="/login" element={<Login />} />
+						<Route path="/" element={<Profile setUserLoged={setUserLoged} />} />
+						<Route
+							path="/login"
+							element={
+								!userLoged ? (
+									<Login setUserLoged={setUserLoged} />
+								) : (
+									<DisplayMessage
+										open={true}
+										setOpen={setOpen}
+										messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
+										allowBackdropClick={false}
+										exitRoute={"/"}
+									/>
+								)
+							}
+						/>
 						<Route path="/preventa" element={<Presale />} />
-						<Route path="/perfil" element={<Profile />} />
+						<Route path="/perfil" element={<Profile setUserLoged={setUserLoged} />} />
 						<Route path="/paquetes" element={<Package />} />
 						<Route path="/error" element={<Error />} />
 						<Route path="/settings" element={<Settings />} />
@@ -54,6 +70,7 @@ function App() {
 									open={true}
 									setOpen={setOpen}
 									messageData={{ tittle: "Error", message: "Esta ruta no Existe" }}
+									allowBackdropClick={true}
 									exitRoute={"/"}
 								/>
 							}
@@ -61,21 +78,25 @@ function App() {
 					</Routes>
 				</Layout>
 			) : (
-				<Routes>
-					<Route path="/" element={<Login />} />
-					<Route
-						path="*"
-						element={
-							<DisplayMessage
-								open={true}
-								setOpen={setOpen}
-								messageData={{ tittle: "Error", message: "Debe Iniciar Sesion " }}
-								exitRoute={"/"}
-							/>
-						}
-					/>
-					<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
-				</Routes>
+				<>
+					<Message />
+					<Routes>
+						<Route path="/" element={<Login setUserLoged={setUserLoged} />} />
+						<Route
+							path="*"
+							element={
+								<DisplayMessage
+									open={!open}
+									setOpen={setOpen}
+									messageData={{ tittle: "Error", message: "Debe Iniciar Sesion " }}
+									allowBackdropClick={true}
+									exitRoute={"/"}
+								/>
+							}
+						/>
+						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+					</Routes>
+				</>
 			)}
 		</>
 	);
