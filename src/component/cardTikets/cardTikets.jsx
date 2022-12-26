@@ -146,78 +146,72 @@ function mosImg(imgRoute){
   }
 }
 
-  return(
-    <div className={style.card}>
-        <div>
-          <div>
-          <img className={style.img} src={`../../../public/packagesAvatar/${mosImg(imgRoute)}.png`} alt="" />
-          <div className={style.contIcon}> <span className={style.icons}> 
-         {iconRegUser(referals)}
-          </span>
-            <div className={style.contShare}>
-              <Button onClick={() => setSmShow(true)} className={style.btnBoots} >
- 
-                <img src={img} className={style.vector} alt="" />
-              </Button>
-              <Modal
-                size="sm"
-                show={smShow}
-                onHide={() => setSmShow(false)}
-                aria-labelledby="example-modal-sizes-title-sm"
-                className={style.conModal}
-              >
-               <Modal.Header closeButton className={style.modalHeader}>
-                  <Modal.Title id="example-modal-sizes-title-sm" >
-                    <h2 className={style.titleModal}>Share white</h2>
-                  </Modal.Title>
-               </Modal.Header>
-              <Modal.Body className={style.modaldiv}>
-             <div className={style.contIconsModal}>
-             <Link   
-             target="_blank"
-             rel="noopener noreferrer">
-              <a href={message("wsp")} target="_blank" rel="noopener noreferrer">
-            <button 
-                // onClick={cerrar()} 
-               className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4>
-               </button>
-                  </a></Link>
+	return (
+		<div className={style.card}>
+			<div>
+				<div>
+					<img className={style.img} src={`../../../public/packagesAvatar/${mosImg(imgRoute)}.png`} alt="" />
+					<div className={style.contIcon}>
+						<span className={style.icons}>{iconRegUser(referals)}</span>
+						<div className={style.contShare}>
+							<Button onClick={() => setSmShow(true)} className={style.btnBoots}>
+								<img src={img} className={style.vector} alt="" />
+							</Button>
+							<Modal
+								size="sm"
+								show={smShow}
+								onHide={() => setSmShow(false)}
+								aria-labelledby="example-modal-sizes-title-sm"
+								className={style.conModal}
+							>
+								<Modal.Header closeButton className={style.modalHeader}>
+									<Modal.Title id="example-modal-sizes-title-sm">
+										<h2 className={style.titleModal}>Share white</h2>
+									</Modal.Title>
+								</Modal.Header>
+								<Modal.Body className={style.modaldiv}>
+									<div className={style.contIconsModal}>
+										<button disabled className={style.contIconTitle}>
+											<FaWhatsapp className={style.iconModal} /> <h4 className={style.subTitleModal}>WhatsApp</h4>
+										</button>
 
-                  <Link
-                     target="_blank"
-                     rel="noopener noreferrer"
-                   >
-                    <a href={message("tel")} target="_blank" rel="noopener noreferrer">
-               <button className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4>
-               </button>  
-               </a></Link>
-               < CopyToClipboard text={rutaParaCompartir()}>
-                 <button  
-                //  onClick={ cerrar()} 
-                 className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></button>  
-               </CopyToClipboard >
-               <Toaster toastOptions={{
-                  style: {
-                  padding: '16px',
-                  color:'blue',
-                  marginTop: '250px',
-            },
-             }}/>
-             </div>
-        </Modal.Body>
-      </Modal>
-        </div>
-        </div>
-          </div>
-        </div>
-       
-        <div className={style.contBtn}>
-          
-         <AlertDialogSlideTiket/>
-         { btnColect(referals)}
-        </div>
-    </div>
-  )
-}
+										<button disabled className={style.contIconTitle}>
+											<FaTelegram className={style.iconModal} />
+											<h4 className={style.subTitleModal}>Telegram</h4>
+										</button>
+										<CopyToClipboard text={rutaParaCompartir()}>
+											<button
+												onClick={() => {
+													toast.success("Link copied"), cerrar();
+												}}
+												className={style.contIconTitle}
+											>
+												<FaLink className={style.iconModal} />
+												<h4 className={style.subTitleModal}>Copy Link </h4>
+											</button>
+										</CopyToClipboard>
+										<Toaster
+											toastOptions={{
+												style: {
+													padding: "16px",
+													color: "blue",
+													marginTop: "250px",
+												},
+											}}
+										/>
+									</div>
+								</Modal.Body>
+							</Modal>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className={style.contBtn}>
+				<AlertDialogSlideTiket ticketId={ticketId} />
+				{btnColect(referals)}
+			</div>
+		</div>
+	);
+};
 export default CardTikets;
 
