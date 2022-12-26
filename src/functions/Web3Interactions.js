@@ -53,7 +53,7 @@ export const sendWriteTransactions = async (contractAddress, abi, functionName, 
 	return TrxResponse;
 };
 
-/*Descripcion: Envia llamadas a funciones estaticas o getters.
+/**Descripcion: Envia llamadas a funciones estaticas o getters.
  *Entradas: contractAddress = direccion del contrato a interactuar,
  *abi = abi del contracto a interactuar,
  *functionName = nombre de la funcion a llamar del contrato,
@@ -68,7 +68,7 @@ export const nonWriteContractFunctions = async (contractAddress, abi, functionNa
 	return TrxResponse;
 };
 
-/*Descripcion: Realiza el call a la funcion estatica o getters.
+/**Descripcion: Realiza el call a la funcion estatica o getters.
  *Entradas: Contract = objeto contrato que contiene la funcion,
  *functionName = nombre de la funcion a llamar del contrato,
  *params: parametro (Actualmente admite uno),
