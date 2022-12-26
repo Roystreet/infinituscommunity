@@ -44,17 +44,13 @@ function App() {
 						<Route
 							path="/login"
 							element={
-								!userLoged ? (
-									<Login setUserLoged={setUserLoged} />
-								) : (
-									<DisplayMessage
-										open={true}
-										setOpen={setOpen}
-										messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
-										allowBackdropClick={false}
-										exitRoute={"/"}
-									/>
-								)
+								<DisplayMessage
+									open={true}
+									setOpen={setOpen}
+									messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
+									allowBackdropClick={false}
+									exitRoute={"/"}
+								/>
 							}
 						/>
 						<Route path="/preventa" element={<Presale />} />
