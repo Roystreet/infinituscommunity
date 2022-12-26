@@ -11,7 +11,6 @@ const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
  */
 
 export const sendServerPost = async (params, route, output, jwt = undefined) => {
-ev
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
 	if (response.status == 200) {
 		const responseHanded = await ServerResponseHandler(response, output);
