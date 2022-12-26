@@ -80,13 +80,13 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
 							await sendServerGet("/addressContract", "text"),
 							await sendServerGet("/abiContract", "json"),
 							"collectTickets",
-							[[3]]
+							[[ticketId]]
 						).then((response) => {
 							console.log(response);
 						});
 					}}
 				>
-					Recolet
+					Collect Ticket
 				</button>
 			);
 		}

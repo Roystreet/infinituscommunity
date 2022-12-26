@@ -3,7 +3,7 @@ import imgI from "./assets/INFINITUS.png";
 import CardShare from "../../component/CardShare/CardShare";
 import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
-import { sendServerPost } from "../../functions/serverInteractions";
+import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
 
 export default function Invitado() {
@@ -11,18 +11,23 @@ export default function Invitado() {
 	let { idticket } = useParams();
 
 	const [myInfo, setmyInfo] = useState({});
+	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 
 	const dataTicket = async () => {
 		idticket = parseInt(idticket);
-		console.log(idticket, address);
 		const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
 		setTicket(ticket);
-		console.log(ticket);
+	};
+	///value
+	const dataPackage = async () => {
+		const pack = await sendServerGet("/user/getpackagesid", "json");
+		setPackages(pack);
 	};
 
 	useEffect(() => {
 		dataTicket();
+		dataPackage();
 	}, []);
 
 	return (
@@ -38,7 +43,14 @@ export default function Invitado() {
 				ticket.map((e) => {
 					return (
 						<div className={style.contCard} key={e.ticketId}>
-							<CardShare img={e.imgRoute} referals={e.referrals} id={e.ticketId} />
+							<CardShare
+								img={e.imgRoute}
+								referals={e.referrals}
+								id={e.ticketId}
+								addressReferer={e.ownerAddress}
+								packageId={e.packageId}
+								value={packages[e.packageId - 1].value}
+							/>
 						</div>
 					);
 				})

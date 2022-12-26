@@ -46,7 +46,7 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 	return (
 		<div className={style.btnPrincipal}>
 			<Button onClick={handleClickOpen} className={style.contImg}>
-				Give Await
+				Make a Gift
 			</Button>
 			<Dialog
 				open={open}
