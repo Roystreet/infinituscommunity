@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
@@ -20,19 +20,24 @@ import Settings from "./pages/settings/Settings";
 import Invitado from "./pages/invitado/invitado";
 
 function App() {
-	const navigate = useNavigate();
+	const [userLoged, setUserLoged] = useState(false);
+
+	const chekUserLoged = () => {
+		if (localStorage.getItem("jwt") != undefined) {
+			setUserLoged(true);
+		}
+	};
 
 	useEffect(() => {
-		if (localStorage.getItem("jwt") != undefined) {
-			navigate("/perfil");
-		}
+		chekUserLoged();
 	}, []);
 
 	return (
 		<>
 			<Layout>
 				<Routes>
-					<Route path="/" element={!localStorage.getItem("jwt") ? <Login /> : <Invitado />} />
+					<Route path="/" element={!userLoged ? <Login /> : <Profile />} />
+					<Route path="/login" element={<Login />} />
 					<Route path="/preventa" element={<Presale />} />
 					<Route path="/perfil" element={<Profile />} />
 					<Route path="/paquetes" element={<Package />} />

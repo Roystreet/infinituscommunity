@@ -116,7 +116,7 @@ export default function Profile() {
 					</div>
 				</div>
 			</div>
-			<DisplayMessage open={open} setOpen={setOpen} messageData={message} exitRoute={"/"} finalFunction={() => clearUnusedProcess()} />
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} exitRoute={"/login"} finalFunction={() => clearUnusedProcess()} />
 		</>
 	);
 }

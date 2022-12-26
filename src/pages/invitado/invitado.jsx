@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 export default function Invitado() {
 	const { address } = useParams();
 	let { idticket } = useParams();
-	// Mostrar Tikets
+
 	const [myInfo, setmyInfo] = useState({});
 	const [ticket, setTicket] = useState([]);
 
@@ -24,12 +24,6 @@ export default function Invitado() {
 	useEffect(() => {
 		dataTicket();
 	}, []);
-
-	/* 	console.log(ticket);
-
-	const datos = [];
-	datos.push(ticket);
-	console.log(datos); */
 
 	return (
 		<div className={style.content}>
