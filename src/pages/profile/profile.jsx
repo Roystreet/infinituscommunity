@@ -1,7 +1,7 @@
 import style from "./Profile.module.css";
 import imgFlecha from "../../assets/Group67.png";
 import copyImg from "../../assets/copyIcon.png";
-import AlertDialogSlide from "../../component/modalPerfil/modalPerfil";
+import ModalWithdraw from "../../component/modalWithdraw/modalWithdraw";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Toaster, toast } from "react-hot-toast";
@@ -107,7 +107,7 @@ export default function Profile() {
 					<div className={style.cardIToken}>
 						<h4 className={style.titleToken}>Infinitus Token</h4>
 						<p className={style.numbT}>{balanceINFI}</p>
-						<AlertDialogSlide bINFI={balanceINFI} />
+						<ModalWithdraw bINFI={balanceINFI} />
 					</div>
 					<img src={imgFlecha} className={style.imgFlecha} alt="not found" />
 					<div className={style.card}>
@@ -116,7 +116,7 @@ export default function Profile() {
 					</div>
 				</div>
 			</div>
-			<DisplayMessage open={open} setOpen={setOpen} messageData={message} exitRoute={"/"} finalFunction={() => clearUnusedProcess()} />
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} exitRoute={"/login"} finalFunction={() => clearUnusedProcess()} />
 		</>
 	);
 }

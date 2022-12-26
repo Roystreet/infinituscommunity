@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
@@ -9,7 +9,7 @@ import Presale from "./pages/presale/presale";
 //Ruta Perfil
 import Profile from "./pages/profile/profile";
 //Ruta Ranking
-import Ranking from "./pages/ranking/ranking";
+/* import Ranking from "./pages/ranking/ranking"; */
 // Ruta para mostrar los paquetes
 import Package from "./pages/package/package";
 // Ruta de error
@@ -18,31 +18,65 @@ import Error from "./pages/error/error";
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
+import DisplayMessage from "./component/displayMessage/displayMessage";
 
 function App() {
-	const navigate = useNavigate();
+	const [userLoged, setUserLoged] = useState(false);
+	const [open, setOpen] = useState(false);
+
+	const chekUserLoged = () => {
+		if (localStorage.getItem("jwt") != undefined) {
+			setUserLoged(true);
+		}
+	};
 
 	useEffect(() => {
-		if (localStorage.getItem("jwt") == undefined) {
-			navigate("/");
-		} else {
-			navigate("/perfil");
-		}
-	}, []);
+		chekUserLoged();
+	}, [userLoged]);
 
 	return (
 		<>
-			<Layout>
+			{userLoged ? (
+				<Layout>
+					<Routes>
+						<Route path="/" element={!userLoged ? <Login /> : <Profile />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/preventa" element={<Presale />} />
+						<Route path="/perfil" element={<Profile />} />
+						<Route path="/paquetes" element={<Package />} />
+						<Route path="/error" element={<Error />} />
+						<Route path="/settings" element={<Settings />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route
+							path="*"
+							element={
+								<DisplayMessage
+									open={true}
+									setOpen={setOpen}
+									messageData={{ tittle: "Error", message: "Esta ruta no Existe" }}
+									exitRoute={"/"}
+								/>
+							}
+						/>
+					</Routes>
+				</Layout>
+			) : (
 				<Routes>
 					<Route path="/" element={<Login />} />
-					<Route path="/preventa" element={<Presale />} />
-					<Route path="/perfil" element={<Profile />} />
-					<Route path="/paquetes" element={<Package />} />
-					<Route path="/error" element={<Error />} />
-					<Route path="/settings" element={<Settings />} />
+					<Route
+						path="*"
+						element={
+							<DisplayMessage
+								open={true}
+								setOpen={setOpen}
+								messageData={{ tittle: "Error", message: "Debe Iniciar Sesion " }}
+								exitRoute={"/"}
+							/>
+						}
+					/>
 					<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
 				</Routes>
-			</Layout>
+			)}
 		</>
 	);
 }
