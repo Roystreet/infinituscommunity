@@ -1,14 +1,14 @@
 import PresalePackage from "./presalePackege";
 import { useState, useEffect } from "react";
 import CardPresale from "../../component/cardPresale/cardPresale";
-import { getContractData } from "../../functions/serverInteractions";
+import { sendServerGet } from "../../functions/serverInteractions";
 
 export default function Presale() {
   const [totalSupply, setTotalSupply] = useState(null);
   useEffect(() => {
     async function getData() {
       try {
-        const data = await getContractData("/user/getpackagesid", "json");
+        const data = await sendServerGet("/user/getpackagesid", "json");
         setTotalSupply(data);
         console.log(totalSupply);
       } catch (err) {

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
-import { getContractData } from "../../functions/serverInteractions";
+import { sendServerGet } from "../../functions/serverInteractions";
 function addDecimal(input) {
   const decimalString = "000000000000000000";
   const decimalSpecial = "00000000000000000";
@@ -29,15 +29,15 @@ export default function CardPresale({
     try {
       console.log(id, value);
       await sendWriteTransactions(
-        await getContractData("/addressCoin", "text"),
-        await getContractData("/abiCoin", "json"),
+        await sendServerGet("/addressCoin", "text"),
+        await sendServerGet("/abiCoin", "json"),
         "approve",
-        [await getContractData("/addressContract", "text"), addDecimal(value)]
+        [await sendServerGet("/addressContract", "text"), addDecimal(value)]
       ).then(async (response) => {
         console.log(response);
         await sendWriteTransactions(
-          await getContractData("/addressContract", "text"),
-          await getContractData("/abiContract", "json"),
+          await sendServerGet("/addressContract", "text"),
+          await sendServerGet("/abiContract", "json"),
           "buyTicketFather",
           [1, id]
         ).then((response) => {
