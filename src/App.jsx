@@ -18,9 +18,11 @@ import Error from "./pages/error/error";
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
+import DisplayMessage from "./component/displayMessage/displayMessage";
 
 function App() {
 	const [userLoged, setUserLoged] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	const chekUserLoged = () => {
 		if (localStorage.getItem("jwt") != undefined) {
@@ -30,22 +32,51 @@ function App() {
 
 	useEffect(() => {
 		chekUserLoged();
-	}, []);
+	}, [userLoged]);
 
 	return (
 		<>
-			<Layout>
+			{userLoged ? (
+				<Layout>
+					<Routes>
+						<Route path="/" element={!userLoged ? <Login /> : <Profile />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/preventa" element={<Presale />} />
+						<Route path="/perfil" element={<Profile />} />
+						<Route path="/paquetes" element={<Package />} />
+						<Route path="/error" element={<Error />} />
+						<Route path="/settings" element={<Settings />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route
+							path="*"
+							element={
+								<DisplayMessage
+									open={true}
+									setOpen={setOpen}
+									messageData={{ tittle: "Error", message: "Esta ruta no Existe" }}
+									exitRoute={"/"}
+								/>
+							}
+						/>
+					</Routes>
+				</Layout>
+			) : (
 				<Routes>
-					<Route path="/" element={!userLoged ? <Login /> : <Profile />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/preventa" element={<Presale />} />
-					<Route path="/perfil" element={<Profile />} />
-					<Route path="/paquetes" element={<Package />} />
-					<Route path="/error" element={<Error />} />
-					<Route path="/settings" element={<Settings />} />
+					<Route path="/" element={<Login />} />
+					<Route
+						path="*"
+						element={
+							<DisplayMessage
+								open={true}
+								setOpen={setOpen}
+								messageData={{ tittle: "Error", message: "Debe Iniciar Sesion " }}
+								exitRoute={"/"}
+							/>
+						}
+					/>
 					<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
 				</Routes>
-			</Layout>
+			)}
 		</>
 	);
 }
