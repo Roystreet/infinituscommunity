@@ -1,8 +1,8 @@
 const urlServer = import.meta.env.VITE_APP_SERVER_URL;
 const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
 //const urlServer = "http://localhost:3001";
-//const urlServer = "http://146.190.120.63:3000";
-//const urlOrigin = "http://127.0.0.1:5173";
+// const urlServer = "http://146.190.120.63:3001";
+// const urlOrigin = "http://127.0.0.1:5173";
 
 // console.log('URLS', urlServer, urlOrigin)+
 
