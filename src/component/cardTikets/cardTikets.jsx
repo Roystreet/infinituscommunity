@@ -118,12 +118,21 @@ function rutaParaCompartir() {
   )
 }
 
+function mosImg(imgRoute){
+  if (imgRoute) {
+    
+    return imgRoute
+  } else {
+
+    return "iniciado"
+  }
+}
 
   return(
     <div className={style.card}>
         <div>
           <div>
-          <img className={style.img} src={`../../../public/packagesAvatar/${imgRoute}.png`} alt="" />
+          <img className={style.img} src={`../../../public/packagesAvatar/${mosImg(imgRoute)}.png`} alt="" />
           <div className={style.contIcon}> <span className={style.icons}> 
          {iconRegUser(referals)}
           </span>

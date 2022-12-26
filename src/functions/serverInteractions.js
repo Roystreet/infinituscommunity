@@ -15,6 +15,7 @@ const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
  * Retorna: Respuesta del servidor
  */
 export const prepareServerConnection = async (params, route, output, jwt = undefined) => {
+  
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
 	if (response.status == 401) {
 		// console.log('Response ServerConnection', response)
@@ -37,6 +38,20 @@ export const getContractData = async (route, output) => {
   const responseHanded = await ServerResponseHandler(response, output);
   return responseHanded;
 };
+
+
+
+// //traer un tiket en especial
+// export const getTicket = async (route, id,ownerAddress) => {
+//   // console.log(urlServer + route+"/"+id +"/"+ownerAddress)
+  
+//   response = await fetch (`${urlServer} ${route} "/" ${id} "/" ${ownerAddress}`);
+//   console.log(response)
+//   return response;
+// };
+
+
+
 
 /*Descripcion: Realiza el fetch al servidor
  *Entradas:
