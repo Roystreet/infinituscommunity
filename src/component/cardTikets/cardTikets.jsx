@@ -11,7 +11,7 @@ import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
 // import tickets from '../../pages/package/infoTikets';
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { Toaster, toast } from "react-hot-toast"
-
+import { Link } from 'react-router-dom';
 const CardTikets = ( 
   {
     ticketId, 
@@ -24,6 +24,8 @@ const CardTikets = (
   const [smShow, setSmShow] = useState(false);
   
 // console.log(tickets)
+
+
 
 function iconRegUser(referals) {
   const expr = referals;
@@ -118,6 +120,22 @@ function rutaParaCompartir() {
   )
 }
 
+function message(wsp, tel){
+console.log(rutaParaCompartir())
+if (wsp) {
+ const msj=`https://wa.me/?text=Hello, I want to give you this ticket so that you can join the infinitus community ` +  rutaParaCompartir()
+return (
+  msj
+)
+}
+if (tel){
+  const msj=`https://t.me/share/url?url=Hello, I want to give you this ticket so that you can join the infinitus community ` +  rutaParaCompartir()
+  return (
+    msj
+  )
+}
+
+}
 function mosImg(imgRoute){
   if (imgRoute) {
     
@@ -155,13 +173,27 @@ function mosImg(imgRoute){
                </Modal.Header>
               <Modal.Body className={style.modaldiv}>
              <div className={style.contIconsModal}>
-               <button disabled className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4></button>
-              
-               <button disabled className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4></button>
+             <Link   
+             target="_blank"
+             rel="noopener noreferrer">
+              <a href={message("wsp")} target="_blank" rel="noopener noreferrer">
+            <button 
+                // onClick={cerrar()} 
+               className={style.contIconTitle}><FaWhatsapp className={style.iconModal}/> <h4 className={style.subTitleModal}>WhatsApp</h4>
+               </button>
+                  </a></Link>
+
+                  <Link
+                     target="_blank"
+                     rel="noopener noreferrer"
+                   >
+                    <a href={message("tel")} target="_blank" rel="noopener noreferrer">
+               <button className={style.contIconTitle}><FaTelegram className={style.iconModal}/><h4 className={style.subTitleModal}>Telegram</h4>
+               </button>  
+               </a></Link>
                < CopyToClipboard text={rutaParaCompartir()}>
                  <button  
-                 onClick={()=>{ toast.success('Link copied'),
-                  cerrar()}} 
+                //  onClick={ cerrar()} 
                  className={style.contIconTitle}><FaLink className={style.iconModal}/><h4 className={style.subTitleModal}>Copy Link </h4></button>  
                </CopyToClipboard >
                <Toaster toastOptions={{
