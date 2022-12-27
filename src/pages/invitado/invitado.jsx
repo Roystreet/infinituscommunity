@@ -40,8 +40,14 @@ export default function Invitado() {
 	};
 
 	useEffect(() => {
-		dataTicket();
-		dataPackage();
+		const getObjs = async () => {
+			idticket = parseInt(idticket);
+			const pack = await sendServerGet("/user/getpackagesid", "json");
+			const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
+			setPackages(pack);
+			setTicket(ticket);
+		};
+		getObjs();
 	}, []);
 console.log(myInfo)
 	return (
