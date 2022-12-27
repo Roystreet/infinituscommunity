@@ -9,15 +9,16 @@ const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
  * jwt: JSON Web Token, en caso de ser una llamada de autenticacion omitir este parametro -
  * Retorna: Respuesta del servidor
  */
-
 export const sendServerPost = async (params, route, output, jwt = undefined) => {
 	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
 	if (response.status == 200) {
 		const responseHanded = await ServerResponseHandler(response, output);
 		return responseHanded;
+	} else if (response.status == undefined) {
+		return response;
 	} else {
-		const LogErrorUserNotRegister = await ServerResponseHandler(response, output);
-		return LogErrorUserNotRegister;
+		const responseHanded = await ServerResponseHandler(response, output);
+		return responseHanded;
 	}
 };
 
@@ -32,9 +33,11 @@ export const sendServerGet = async (route, output) => {
 	if (response.status == 200) {
 		const responseHanded = await ServerResponseHandler(response, output);
 		return responseHanded;
+	} else if (response.status == undefined) {
+		return response;
 	} else {
-		const LogErrorUserNotRegister = await ServerResponseHandler(response, output);
-		return LogErrorUserNotRegister;
+		const responseHanded = await ServerResponseHandler(response, output);
+		return responseHanded;
 	}
 };
 
@@ -51,36 +54,40 @@ const ServerConnection = async (url, method, body, authorization) => {
 	let headersList;
 	let httpOptions;
 	let response;
+	try {
+		if (authorization) {
+			headersList = {
+				Accept: "*/*",
+				"Access-Control-Allow-Origin": urlOrigin,
+				"Content-Type": "application/json",
+				Authorization: authorization,
+			};
+		} else {
+			headersList = {
+				Accept: "*/*",
+				"Access-Control-Allow-Origin": urlOrigin,
+				"Content-Type": "application/json",
+			};
+		}
 
-	if (authorization) {
-		headersList = {
-			Accept: "*/*",
-			"Access-Control-Allow-Origin": urlOrigin,
-			"Content-Type": "application/json",
-			Authorization: authorization,
-		};
-	} else {
-		headersList = {
-			Accept: "*/*",
-			"Access-Control-Allow-Origin": urlOrigin,
-			"Content-Type": "application/json",
-		};
-	}
+		if (method === "GET") {
+			httpOptions = {
+				method: method,
+				headers: headersList,
+			};
+		} else {
+			httpOptions = {
+				method: method,
+				headers: headersList,
+				body: body,
+			};
+		}
 
-	if (method === "GET") {
-		httpOptions = {
-			method: method,
-			headers: headersList,
-		};
-	} else {
-		httpOptions = {
-			method: method,
-			headers: headersList,
-			body: body,
-		};
+		response = await fetch(urlServer + url, httpOptions);
+		return response;
+	} catch (error) {
+		return { tittle: "Error", message: error.message + " to URL:" + url };
 	}
-	response = await fetch(urlServer + url, httpOptions);
-	return response;
 };
 
 /**Descripcion: transforma la respuesta del servidor en un formato legible. -
