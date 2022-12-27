@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { nonWriteContractFunctions, sendWriteTransactions } from "../../functions/Web3Interactions";
+import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import { sendServerGet } from "../../functions/serverInteractions";
 async function addDecimal(input) {
 	let output;
@@ -21,7 +21,6 @@ function getAddres() {
 }
 
 export default function CardPresale({ id, name, value, image, amount, supply }) {
-	console.log(supply);
 	const buyPresale = async (id, value) => {
 		try {
 			console.log(id, value);

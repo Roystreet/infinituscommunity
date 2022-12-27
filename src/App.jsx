@@ -22,43 +22,47 @@ import DisplayMessage from "./component/displayMessage/displayMessage";
 import Message from "./component/message/message";
 
 function App() {
-	const [userLoged, setUserLoged] = useState(false);
+	const [userLogged, setUserLogged] = useState(false);
 	const [open, setOpen] = useState(false);
 
 	const chekUserLoged = () => {
 		if (localStorage.getItem("jwt") != undefined) {
-			setUserLoged(true);
+			setUserLogged(true);
 		}
 	};
 
 	useEffect(() => {
 		chekUserLoged();
-	}, [userLoged]);
+	}, [userLogged]);
 
 	return (
 		<>
-			{userLoged ? (
+			{userLogged ? (
 				<Layout>
 					<Routes>
-						<Route path="/" element={<Profile setUserLoged={setUserLoged} />} />
+						<Route path="/" element={<Profile setUserLogged={setUserLogged} />} />
 						<Route
 							path="/login"
 							element={
-								<DisplayMessage
-									open={true}
-									setOpen={setOpen}
-									messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
-									allowBackdropClick={false}
-									exitRoute={"/"}
-								/>
+								!userLogged ? (
+									<Login setUserLogged={setUserLogged} />
+								) : (
+									<DisplayMessage
+										open={true}
+										setOpen={setOpen}
+										messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
+										allowBackdropClick={false}
+										exitRoute={"/"}
+									/>
+								)
 							}
 						/>
 						<Route path="/preventa" element={<Presale />} />
-						<Route path="/perfil" element={<Profile setUserLoged={setUserLoged} />} />
+						<Route path="/perfil" element={<Profile setUserLogged={setUserLogged} />} />
 						<Route path="/paquetes" element={<Package />} />
 						<Route path="/error" element={<Error />} />
 						<Route path="/settings" element={<Settings />} />
-						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -77,7 +81,7 @@ function App() {
 				<>
 					<Message />
 					<Routes>
-						<Route path="/" element={<Login setUserLoged={setUserLoged} />} />
+						<Route path="/" element={<Login setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -90,7 +94,7 @@ function App() {
 								/>
 							}
 						/>
-						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
 					</Routes>
 				</>
 			)}

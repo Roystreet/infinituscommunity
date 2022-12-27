@@ -4,7 +4,7 @@ import { FaUser, FaRegUser } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalCollaborate from "../modalCollaborate/modalCollaborate";
 
-const CardShare = ({ img, referals, id, addressReferer, packageId, value }) => {
+const CardShare = ({ userLogged, setUserLogged, img, referals, id, addressReferer, packageId, value }) => {
 	const [open, setOpen] = useState(false);
 	const [nameAddress, setNameAddress] = useState("");
 	const [smShow, setSmShow] = useState(false);
@@ -79,6 +79,8 @@ const CardShare = ({ img, referals, id, addressReferer, packageId, value }) => {
 					</div>
 					<div className={style.btn}>
 						<ModalCollaborate
+							userLogged={userLogged}
+							setUserLogged={setUserLogged}
 							open={open}
 							setOpen={setOpen}
 							ticketId={id}

@@ -7,19 +7,27 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 import style from "./ModalCollaborate.module.css";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { sendServerGet } from "../../functions/serverInteractions";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
-import imgError from "../../assets/on.png";
+import DisplayMessage from "../displayMessage/displayMessage";
+import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalCollaborate({ open, setOpen, ticketId, addressReferer, packageId, value }) {
+export default function ModalCollaborate({ userLogged, setUserLogged, open, setOpen, ticketId, addressReferer, packageId, value }) {
+	const [openDisplay, setOpenDisplay] = useState(false);
+	const [message, setMessage] = useState({});
+
 	const handleClickOpen = () => {
-		setOpen(true);
+		if (userLogged == true) {
+			setOpen(true);
+		} else {
+			setOpenDisplay(true);
+			setMessage({ tittle: "Notificacion", message: "Debe Iniciar Sesion y volver a escribir este enlace!" });
+		}
 	};
 
 	const handleClose = () => {
@@ -76,6 +84,17 @@ export default function ModalCollaborate({ open, setOpen, ticketId, addressRefer
 					{"INFI (Infinitus Token)"}
 				</Button>
 			</Dialog>
+			<DisplayMessage
+				open={openDisplay}
+				messageData={message}
+				setOpen={setOpen}
+				allowBackdropClick={true}
+				exitRoute={"/"}
+				finalFunction={() => {
+					setUserLogged(false);
+					clearUnusedProcess();
+				}}
+			/>
 		</div>
 	);
 }
