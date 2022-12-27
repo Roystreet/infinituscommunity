@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 import style from "./ModalCollaborate.module.css";
+
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { sendServerGet } from "../../functions/serverInteractions";
@@ -48,19 +49,22 @@ export default function ModalCollaborate({referals,  userLogged, setUserLogged, 
 	btnDisabled(referals)
 	return (
 		<div >
-			<Button
-				sx={{
-					display:"flex",
-					justifyContent:"flex-start",
-				}}
+			<button
+	
 				disabled={btnDis}
-			onClick={handleClickOpen} className={style.btnPrincipal}>
+			 onClick={handleClickOpen} 
+			 className={style.btnPrincipal}
+			 >
 				Collaborate
-			</Button>
+			</button>
 
 
 
 <Dialog
+				sx={{
+					display: "center",
+					width: '100%'
+				}}
 				open={open}
 				TransitionComponent={Transition}
 				keepMounted
@@ -73,28 +77,21 @@ export default function ModalCollaborate({referals,  userLogged, setUserLogged, 
 							borderRadius: "8px",
 							color: "#51BADB",
 							fontSize: "20px",
+							
 						}}>
 					X
 					</Button>
 				<DialogContent>
-				
-					<DialogContentText  id="alert-dialog-slide-description">
 						<p className={style.titleModal}>
-Select your payment method</p>
-					</DialogContentText>
-					<DialogContentText id="alert-dialog-slide-description">
-						<Box
-							component="form"
-							sx={{
-								"& .MuiTextField-root": { m: 1, width: "35ch" },
-							}}
-							noValidate
-							autoComplete="off"
-						>
-						</Box>
-					</DialogContentText>
+							Select your payment method</p>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions 	sx={{
+					
+							display:"flex",
+							flexDirection:"row",
+							justifyContent:"center"
+
+						}}>
 			
 				<Button className={style.btnPago}
 					onClick={async () => {

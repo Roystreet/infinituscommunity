@@ -1,34 +1,37 @@
 .btnPrincipal {
-	margin-left: -125px !important;
-	margin-top: 245px !important;
-	border: 1px solid #51BADB !important;
-
+	margin-left: -125px;
+	margin-top: 240px ;
+	font-family: 'Poppins';
+font-style: normal;
+color: #0D4983;
+font-size: 11px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 4px 14px;
+	text-decoration: none;
+	background-color: none;
+	width: auto;
+	height: 25px;
+	border: 1px solid #0D4983;
+	border-radius: 8px;
+	flex: none;
+	order: 0;
+	align-self: stretch;
+	flex-grow: 0;
 }
-
 
 
 .btnPago{
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	padding: 0px 14px;
-	gap: 8px;
 	color: #fff !important;
-	width: auto;
+	width: 155px;
 	height: 36px;
-	
-	/* INF/Gradient/1 */
-	
 	background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
 	border-radius: 8px;
-	
-	/* Inside auto layout */
-	
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 1;
+	font-size: 11px;
 }
 
 .titleModal {
