@@ -5,12 +5,20 @@ import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
+import { activateEventListeners } from "../../functions/eventListeners";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
 export default function Invitado({ userLogged, setUserLogged }) {
 	const [nickName, setNickname] = useState("");
-	const [packages, setPackages] = useState([]);
+	// const [packages, setPackages] = useState([]);
+	// const [ticket, setTicket] = useState([]);
+	// const [open, setOpen] = useState(false);
+	// const [message, setMessage] = useState({});
+	const { address } = useParams();
+	let { idticket } = useParams();
+	const [myInfo, setmyInfo] = useState({});
+	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});

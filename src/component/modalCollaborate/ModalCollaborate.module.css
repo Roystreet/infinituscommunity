@@ -1,54 +1,40 @@
 .btnPrincipal {
+	margin-left: -125px;
+	margin-top: 240px ;
+	font-family: 'Poppins';
+font-style: normal;
+color: #0D4983;
+font-size: 11px;
 	display: flex;
-	justify-content: center;
+	flex-direction: row;
 	align-items: center;
-	height: 25px;
-	width: auto;
-	background: none;
+	padding: 4px 14px;
 	text-decoration: none;
-	border: 1px solid #3971a8;
-	color: #3971a8;
-	font-size: 11px;
-	padding-left: 10px;
-	padding-right: 10px;
+	background-color: transparent;
+	width: auto;
+	height: 25px;
+	border: 1px solid #0D4983;
 	border-radius: 8px;
-	margin-left: 10px;
-}
-
-.btnModal {
-	display: flex;
-
-	justify-content: center;
-	align-items: center;
-	height: 36px;
-	color: #fff !important;
-	background: linear-gradient(60.23deg, #51badb 19.54%, #662489 106.78%);
-	border-radius: 18px;
-	width: 126px;
-}
-.btn {
-	width: 50%;
-}
-
-.errorTextInfi {
-	margin-left: 2vh;
-	height: 8px;
-	font-family: "Poppins";
-	font-style: normal;
-	font-weight: 400;
-	font-size: 8px;
-	line-height: 100%;
-	display: flex;
-	align-items: center;
-	letter-spacing: 0.05em;
-	color: #b3261e;
 	flex: none;
 	order: 0;
+	align-self: stretch;
 	flex-grow: 0;
 }
-.imgErr {
-	margin-right: 1vh;
+
+
+.btnPago{
+	display: flex;
+	justify-content: center;
+	border: none;
+	align-items: center;
+	color: #fff !important;
+	width: 155px;
+	height: 36px;
+	background: linear-gradient(60.23deg, #51BADB 19.54%, #662489 106.78%);
+	border-radius: 8px;
+	font-size: 11px;
 }
+
 .titleModal {
 	font-family: "Poppins";
 	font-style: normal;
@@ -65,10 +51,4 @@
 	flex-grow: 0;
 }
 
-.spam {
-	font-style: normal;
-	font-weight: 700;
-	font-size: 12px;
-	line-height: 100%;
-	color: #282828;
-}
+
