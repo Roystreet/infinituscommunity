@@ -1,5 +1,7 @@
-const urlServer = import.meta.env.VITE_APP_SERVER_URL;
-const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+//const urlServer = import.meta.env.VITE_APP_SERVER_URL;
+//const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
+const urlServer = "https://api.infinituscommunity.com";
+const urlOrigin = "https://infinituscommunity.com";
 
 /**Descripcion: Interactua con las rutas Post. -
  * Entradas:
@@ -9,17 +11,27 @@ const urlOrigin = import.meta.env.VITE_APP_ORIGIN_URL;
  * jwt: JSON Web Token, en caso de ser una llamada de autenticacion omitir este parametro -
  * Retorna: Respuesta del servidor
  */
-export const sendServerPost = async (params, route, output, jwt = undefined) => {
-	const response = await ServerConnection(route, "POST", JSON.stringify(params), jwt);
-	if (response.status == 200) {
-		const responseHanded = await ServerResponseHandler(response, output);
-		return responseHanded;
-	} else if (response.status == undefined) {
-		return response;
-	} else {
-		const responseHanded = await ServerResponseHandler(response, output);
-		return responseHanded;
-	}
+export const sendServerPost = async (
+  params,
+  route,
+  output,
+  jwt = undefined
+) => {
+  const response = await ServerConnection(
+    route,
+    "POST",
+    JSON.stringify(params),
+    jwt
+  );
+  if (response.status == 200) {
+    const responseHanded = await ServerResponseHandler(response, output);
+    return responseHanded;
+  } else if (response.status == undefined) {
+    return response;
+  } else {
+    const responseHanded = await ServerResponseHandler(response, output);
+    return responseHanded;
+  }
 };
 
 /**Descripcion: Interactua con las rutas Get -
@@ -29,16 +41,16 @@ export const sendServerPost = async (params, route, output, jwt = undefined) => 
  *Retorna: Respuesta del servidor
  */
 export const sendServerGet = async (route, output) => {
-	const response = await ServerConnection(route, "GET", undefined, undefined);
-	if (response.status == 200) {
-		const responseHanded = await ServerResponseHandler(response, output);
-		return responseHanded;
-	} else if (response.status == undefined) {
-		return response;
-	} else {
-		const responseHanded = await ServerResponseHandler(response, output);
-		return responseHanded;
-	}
+  const response = await ServerConnection(route, "GET", undefined, undefined);
+  if (response.status == 200) {
+    const responseHanded = await ServerResponseHandler(response, output);
+    return responseHanded;
+  } else if (response.status == undefined) {
+    return response;
+  } else {
+    const responseHanded = await ServerResponseHandler(response, output);
+    return responseHanded;
+  }
 };
 
 /**Descripcion: Realiza el fetch al servidor -
@@ -51,43 +63,43 @@ export const sendServerGet = async (route, output) => {
  *Retorna: Respuesta del servidor
  */
 const ServerConnection = async (url, method, body, authorization) => {
-	let headersList;
-	let httpOptions;
-	let response;
-	try {
-		if (authorization) {
-			headersList = {
-				Accept: "*/*",
-				"Access-Control-Allow-Origin": urlOrigin,
-				"Content-Type": "application/json",
-				Authorization: authorization,
-			};
-		} else {
-			headersList = {
-				Accept: "*/*",
-				"Access-Control-Allow-Origin": urlOrigin,
-				"Content-Type": "application/json",
-			};
-		}
+  let headersList;
+  let httpOptions;
+  let response;
+  try {
+    if (authorization) {
+      headersList = {
+        Accept: "*/*",
+        "Access-Control-Allow-Origin": urlOrigin,
+        "Content-Type": "application/json",
+        Authorization: authorization,
+      };
+    } else {
+      headersList = {
+        Accept: "*/*",
+        "Access-Control-Allow-Origin": urlOrigin,
+        "Content-Type": "application/json",
+      };
+    }
 
-		if (method === "GET") {
-			httpOptions = {
-				method: method,
-				headers: headersList,
-			};
-		} else {
-			httpOptions = {
-				method: method,
-				headers: headersList,
-				body: body,
-			};
-		}
+    if (method === "GET") {
+      httpOptions = {
+        method: method,
+        headers: headersList,
+      };
+    } else {
+      httpOptions = {
+        method: method,
+        headers: headersList,
+        body: body,
+      };
+    }
 
-		response = await fetch(urlServer + url, httpOptions);
-		return response;
-	} catch (error) {
-		return { tittle: "Error", message: error.message + " to URL:" + url };
-	}
+    response = await fetch(urlServer + url, httpOptions);
+    return response;
+  } catch (error) {
+    return { tittle: "Error", message: error.message + " to URL:" + url };
+  }
 };
 
 /**Descripcion: transforma la respuesta del servidor en un formato legible. -
@@ -97,6 +109,6 @@ const ServerConnection = async (url, method, body, authorization) => {
  *Retorna: Respuesta del servidor en formato legible
  */
 const ServerResponseHandler = async (response, type) => {
-	if (type === "text") return await response.text();
-	if (type === "json") return await response.json();
+  if (type === "text") return await response.text();
+  if (type === "json") return await response.json();
 };
