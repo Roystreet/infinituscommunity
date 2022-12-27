@@ -126,7 +126,7 @@ export default function ModalWithdraw({ bINFI }) {
 								const substring = infi.substring(index, length);
 								sendValue = sendValue + "0".repeat(18 - (substring.length - 1));
 							} else {
-								sendValue = sendValue + "0".repeat(18 - (substring.length - 1));
+								sendValue = sendValue + "0".repeat(18);
 							}
 
 							await sendWriteTransactions(
