@@ -5,6 +5,7 @@ import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
+	import { activateEventListeners } from "../../functions/eventListeners";
 
 export default function Invitado() {
 	const { address } = useParams();
@@ -13,20 +14,23 @@ export default function Invitado() {
 	const [myInfo, setmyInfo] = useState({});
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [message, setMessage] = useState({});
 
-	useEffect( () => {
-		const data = async ()=>{
-		setmyInfo(
-			await prepareServerConnection(
-				{ address: localStorage.getItem('address') },
-				'/user/getmyinfo',
-				'json',
-				localStorage.getItem('jwt')
-			)
-		); 
-		}
-		data()
-		}, []);
+	const data = async () => {
+		await sendServerPost({ address: localStorage.getItem("address") }, "/user/getmyinfo", "json", localStorage.getItem("jwt")).then(
+			(response) => {
+				if (response.tittle === "Error") {
+					setOpen(true);
+					setMessage(response);
+				} else setmyInfo(response);
+			}
+		);
+	};
+	useEffect(() => {
+		activateEventListeners(setOpen, setMessage);
+		data();
+	}, []);
 
 	const dataTicket = async () => {
 		idticket = parseInt(idticket);
