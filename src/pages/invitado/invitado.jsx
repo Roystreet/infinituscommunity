@@ -83,7 +83,7 @@ console.log(myInfo)
 			)}
 			<div className={style.contLogo}>
 				<span className={style.subtitle}>
-					Colaborate and <br />
+					Colaborate and 
 					Keep it rolling!
 				</span>
 				<img src={img} className={style.img} alt="Logoicon" />
@@ -92,28 +92,3 @@ console.log(myInfo)
 		</div>
 	);
 }
-// const [myInfo, setmyInfo] = useState({});
-// const [ticket, setTicket] = useState([]);
-
-// useEffect( () => {
-// const data = async ()=>{
-// setmyInfo(
-// 	await prepareServerConnection(
-// 		{ address: localStorage.getItem('address') },
-// 		'/user/getmyinfo',
-// 		'json',
-// 		localStorage.getItem('jwt')
-// 	)
-// ); 
-// }
-// data()
-// }, []);
-
-
-
-
-
-//  return (
-// 	 <div className={style.content}>
-// 	<div className={style.contTitle}>
-// 		<h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
