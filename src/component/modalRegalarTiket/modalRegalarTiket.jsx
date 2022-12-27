@@ -68,8 +68,9 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 							noValidate
 							autoComplete="off"
 						>
-							<div>
+							<div className={style.inputadd}>
 								<TextField
+									 sx={{ width: 1 }}
 									required
 									id="outlined-required"
 									label="Address"
