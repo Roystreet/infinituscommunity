@@ -68,14 +68,14 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 						<Box
 							component="form"
 							sx={{
-								"& .MuiTextField-root": { m: 1, width: "35ch" },
+								"& .MuiTextField-root": { width: "28ch", display:"flex", justifyContent:"center", alignItems:"center" },
 							}}
 							noValidate
 							autoComplete="off"
 						>
-							<div className={style.inputadd}>
+		
 								<TextField
-									 sx={{ width: "80%",
+									 sx={{ width: 1,
 									 display: "flex",
 									 justifyContent: 'center',}}
 									required
@@ -85,8 +85,7 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 										setNameAddress(e.target.value);
 									}}
 								/>
-								{/* { textError(errorInfi)} */}
-							</div>
+						
 						</Box>
 					</DialogContentText>
 				</DialogContent>
