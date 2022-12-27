@@ -49,7 +49,7 @@ export default function Invitado() {
 								id={e.ticketId}
 								addressReferer={e.ownerAddress}
 								packageId={e.packageId}
-								value={packages[e.packageId - 1].value}
+								// value={packages[e.packageId - 1].value}
 							/>
 						</div>
 					);
