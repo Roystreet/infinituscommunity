@@ -16,6 +16,7 @@ export default function Profile({ setUserLogged }) {
 	const [balanceBUSD, setbalanceBUSD] = useState("");
 	const [balanceINFI, setbalanceINFI] = useState("");
 	const [open, setOpen] = useState(false);
+	const [openMessages, setOpenMessages] = useState(false);
 	const [message, setMessage] = useState({});
 
 	function intialName(data) {
@@ -27,36 +28,53 @@ export default function Profile({ setUserLogged }) {
 	}
 
 	const balnceInfi = async () => {
-		const value = await nonWriteContractFunctions(
+		await nonWriteContractFunctions(
 			await sendServerGet("/addressContract", "text"),
 			await sendServerGet("/abiContract", "json"),
 			"balanceOf",
 			localStorage.getItem("address"),
 			18
-		);
-		setbalanceINFI(value);
+		)
+			.then((value) => {
+				setbalanceINFI(value);
+			})
+			.catch((error) => {
+				setOpenMessages(true);
+				message({ tittle: "Metamask Error", message: error });
+			});
 	};
 
 	const balnceBusd = async () => {
-		const value = await nonWriteContractFunctions(
+		nonWriteContractFunctions(
 			await sendServerGet("/addressCoin", "text"),
 			await sendServerGet("/abiCoin", "json"),
 			"balanceOf",
 			localStorage.getItem("address"),
 			18
-		);
-		setbalanceBUSD(value);
+		)
+			.then((value) => {
+				setbalanceBUSD(value);
+			})
+			.catch((error) => {
+				setOpenMessages(true);
+				message({ tittle: "Metamask Error", message: error });
+			});
 	};
 
 	const data = async () => {
-		await sendServerPost({ address: localStorage.getItem("address") }, "/user/getmyinfo", "json", localStorage.getItem("jwt")).then(
-			(response) => {
-				if (response.tittle === "Error") {
-					setOpen(true);
-					setMessage(response);
-				} else setmyInfo(response);
-			}
+		const response = await sendServerPost(
+			{ address: localStorage.getItem("address") },
+			"/user/getmyinfo",
+			"json",
+			localStorage.getItem("jwt")
 		);
+
+		if (response.tittle == "Error") {
+			setOpen(true);
+			setMessage(response);
+		} else {
+			setmyInfo(response);
+		}
 	};
 
 	useEffect(() => {
@@ -116,6 +134,7 @@ export default function Profile({ setUserLogged }) {
 					</div>
 				</div>
 			</div>
+			<DisplayMessage open={openMessages} setOpen={setOpenMessages} messageData={message} allowBackdropClick={true} />
 			<DisplayMessage
 				open={open}
 				setOpen={setOpen}

@@ -14,25 +14,30 @@ export default function Invitado({ userLogged, setUserLogged }) {
 	const [ticket, setTicket] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
-	const { address } = useParams();
-	let { idticket } = useParams();
+	const { address, idticket } = useParams();
 
 	useEffect(() => {
-		const getObjs = async () => {
-			idticket = parseInt(idticket);
-			const pack = await sendServerGet("/user/getpackagesid", "json");
-			const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
+		if (userLogged) {
+			const getObjs = async () => {
+				const idTicketNumber = Number(idticket);
+				const pack = await sendServerGet("/user/getpackagesid", "json");
+				const ticket = await sendServerPost({ _id: idTicketNumber, ownerAddress: address }, "/user/getticketrefered", "json");
 
-			if (pack.tittle == "Error" || ticket.tittle == "Error") {
-				setOpen(true);
-				setMessage(pack);
-			} else {
-				setPackages(pack);
-				setTicket(ticket);
-				setNickname(ticket[0].nickName);
-			}
-		};
-		getObjs();
+				if (pack.tittle == "Error" || ticket.tittle == "Error") {
+					setOpen(true);
+					if (pack.tittle == "Error") setMessage(pack);
+					setMessage(ticket);
+				} else {
+					setPackages(pack);
+					setTicket(ticket);
+					setNickname(ticket[0].nickName);
+				}
+			};
+			getObjs();
+		} else {
+			setOpen(true);
+			setMessage({ tittle: "Notificacion", message: "Debe Iniciar Sesion y volver a escribir este enlace!" });
+		}
 	}, []);
 
 	return (
