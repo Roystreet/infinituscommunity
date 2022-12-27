@@ -13,32 +13,12 @@ import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 const Settings = ({ setUserLogged }) => {
 	const [errorNick, setErrorNick] = useState(null);
 	const [open, setOpen] = useState(false);
-	const [openMessages, setOpenMessages] = useState(false);
+	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
 	const [message, setMessage] = useState({});
 	const [obtainedName, setObtainedName] = useState("");
 	const [temporalName, setTemporalName] = useState("");
 	const [newName, setNewName] = useState("");
 	const [activeTexBox, setActiveTexBox] = useState(true);
-
-	useEffect(() => {
-		const getMyInfo = async () => {
-			const result = await sendServerPost(
-				{ address: localStorage.getItem("address") },
-				"/user/getmyinfo",
-				"json",
-				localStorage.getItem("jwt")
-			);
-
-			if (result.tittle == "Error") {
-				setOpen(true);
-				setMessage(result);
-			} else {
-				setObtainedName(result.nickName);
-			}
-		};
-
-		getMyInfo();
-	}, [newName]);
 
 	const handleChange = (e) => {
 		setTemporalName(e.target.value);
@@ -64,13 +44,35 @@ const Settings = ({ setUserLogged }) => {
 			localStorage.getItem("jwt")
 		);
 
-		if (response.tittle != "Error") {
+		if (response.tittle == "Error") {
+			setOpenMessagesDisplay(true);
+			setMessage(response);
+		} else {
 			setNewName(temporalName);
 			setTemporalName("");
+			setOpenMessagesDisplay(true);
+			setMessage(response);
 		}
-		setOpenMessages(true);
-		setMessage(response);
 	};
+
+	useEffect(() => {
+		const getMyInfo = async () => {
+			const result = await sendServerPost(
+				{ address: localStorage.getItem("address") },
+				"/user/getmyinfo",
+				"json",
+				localStorage.getItem("jwt")
+			);
+
+			if (result.tittle == "Error") {
+				setOpen(true);
+				setMessage(result);
+			} else {
+				setObtainedName(result.nickName);
+			}
+		};
+		getMyInfo();
+	}, [newName]);
 
 	return (
 		<Box>
@@ -222,7 +224,7 @@ const Settings = ({ setUserLogged }) => {
 					</Alert>
 				) : null}
 			</Box>
-			<DisplayMessage open={openMessages} setOpen={setOpenMessages} messageData={message} allowBackdropClick={true} />
+			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
 			<DisplayMessage
 				open={open}
 				setOpen={setOpen}
