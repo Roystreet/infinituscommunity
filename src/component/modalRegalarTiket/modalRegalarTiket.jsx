@@ -49,6 +49,11 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 				Make a Gift
 			</Button>
 			<Dialog
+			 sx={{ 
+				display: "flex",
+				justifyContent: 'center',
+				alignItems: 'center',
+				width: "100%"}}
 				open={open}
 				TransitionComponent={Transition}
 				keepMounted
@@ -70,7 +75,9 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 						>
 							<div className={style.inputadd}>
 								<TextField
-									 sx={{ width: 1 }}
+									 sx={{ width: "80%",
+									 display: "flex",
+									 justifyContent: 'center',}}
 									required
 									id="outlined-required"
 									label="Address"
