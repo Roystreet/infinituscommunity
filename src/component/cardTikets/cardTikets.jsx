@@ -137,7 +137,7 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
         <div>
           <img
             className={style.img}
-            src={`/packagesAvatar/${mosImg(imgRoute)}.png`}
+            src={`/packages/${mosImg(imgRoute)}.png`}
             alt=""
           />
           <div className={style.contIcon}>

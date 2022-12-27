@@ -19,7 +19,7 @@ const CardShare = ({
   const [smShow, setSmShow] = useState(false);
   function mosImg(imgRoute) {
     if (imgRoute) {
-      return `/packagesAvatar/${imgRoute}.png`;
+      return `/packages/${imgRoute}.png`;
     } else {
       //error
     }
