@@ -1,15 +1,19 @@
 import { ethers } from "ethers";
 
-var provider
-if (window.ethereum){
-	provider = new ethers.providers.Web3Provider(window.ethereum);
-} 
+let provider;
+
+const setProvider = () => {
+	if (window.ethereum && window.ethereum.chainId == "0x38" && window.ethereum.networkVersion == "56") {
+		provider = new ethers.providers.Web3Provider(window.ethereum);
+	}
+};
 
 /**Descripcion: Solicita la conexion de la cuenta de metamask
  *Entradas: N/A
  *Retorna: N/A
  */
 export const setAddress = async (/* setIsModal */) => {
+	setProvider();
 	const accounts = await provider.send("eth_requestAccounts", []);
 	localStorage.setItem("address", accounts[0]);
 };
@@ -21,6 +25,7 @@ export const setAddress = async (/* setIsModal */) => {
  */
 export const signMessage = async () => {
 	//obtenemos el firmante, el nonce de la cuenta y firmamos el mensaje
+	setProvider();
 	const signer = provider.getSigner(localStorage.getItem("address"));
 	const message = `Nonce: ${await signer.getTransactionCount("latest")}`;
 	const signedMessage = await signer.signMessage(message);
@@ -36,10 +41,11 @@ export const signMessage = async () => {
  *Retorna: Un objeto TrxResponse, contiene el Hash de la transaccion y datos adicionales.
  */
 export const sendWriteTransactions = async (contractAddress, abi, functionName, params) => {
-	console.log(contractAddress, "tiene que ser el ccontractadress")
-	console.log(abi, "tiene que ser el abi")
-	console.log(functionName, "tiene que ser el functionname")
-	console.log(params, "tiene que ser el params")
+	setProvider();
+	console.log(contractAddress, "tiene que ser el ccontractadress");
+	console.log(abi, "tiene que ser el abi");
+	console.log(functionName, "tiene que ser el functionname");
+	console.log(params, "tiene que ser el params");
 	const signer = provider.getSigner(localStorage.getItem("address"));
 	const ethersInterface = new ethers.utils.Interface(abi);
 	const encodedFunction = ethersInterface.encodeFunctionData(functionName, params);
@@ -47,7 +53,7 @@ export const sendWriteTransactions = async (contractAddress, abi, functionName, 
 	return TrxResponse;
 };
 
-/*Descripcion: Envia llamadas a funciones estaticas o getters.
+/**Descripcion: Envia llamadas a funciones estaticas o getters.
  *Entradas: contractAddress = direccion del contrato a interactuar,
  *abi = abi del contracto a interactuar,
  *functionName = nombre de la funcion a llamar del contrato,
@@ -56,12 +62,13 @@ export const sendWriteTransactions = async (contractAddress, abi, functionName, 
  *Retorna: Un valor dependiendo de la funcion a llamar
  */
 export const nonWriteContractFunctions = async (contractAddress, abi, functionName, params, decimals) => {
+	setProvider();
 	const Contract = new ethers.Contract(contractAddress, abi, provider);
 	const TrxResponse = await contractCalls(Contract, functionName, params, decimals);
 	return TrxResponse;
 };
 
-/*Descripcion: Realiza el call a la funcion estatica o getters.
+/**Descripcion: Realiza el call a la funcion estatica o getters.
  *Entradas: Contract = objeto contrato que contiene la funcion,
  *functionName = nombre de la funcion a llamar del contrato,
  *params: parametro (Actualmente admite uno),

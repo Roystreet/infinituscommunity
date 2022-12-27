@@ -2,7 +2,7 @@
  import imgFilter from "../../assets/Light.png"
  import CardTikets from "../../component/cardTikets/cardTikets";
 import style from "./Package.module.css"
-import { prepareServerConnection } from "../../functions/serverInteractions";
+import { sendServerPost } from "../../functions/serverInteractions";
 import { useState, useEffect } from "react";
 import tikets from "./infoTikets"
 export default function Package() {
@@ -11,7 +11,7 @@ export default function Package() {
   useEffect( () => {
     const getTikets = async () =>{
     	setmyTickets(
-        await prepareServerConnection(
+        await sendServerPost(
           { address: localStorage.getItem('address') },
           '/user/getmytickets',
           'json',
