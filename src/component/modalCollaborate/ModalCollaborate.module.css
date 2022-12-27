@@ -10,7 +10,7 @@ font-size: 11px;
 	align-items: center;
 	padding: 4px 14px;
 	text-decoration: none;
-	background-color: none;
+	background-color: transparent;
 	width: auto;
 	height: 25px;
 	border: 1px solid #0D4983;
@@ -25,6 +25,7 @@ font-size: 11px;
 .btnPago{
 	display: flex;
 	justify-content: center;
+	border: none;
 	align-items: center;
 	color: #fff !important;
 	width: 155px;

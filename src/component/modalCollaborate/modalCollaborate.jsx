@@ -93,7 +93,7 @@ export default function ModalCollaborate({referals,  userLogged, setUserLogged, 
 
 						}}>
 			
-				<Button className={style.btnPago}
+				<button className={style.btnPago}
 					onClick={async () => {
 						await sendWriteTransactions(await sendServerGet("/addressCoin", "text"), await sendServerGet("/abiCoin", "json"), "approve", [
 							await sendServerGet("/addressContract", "text"),
@@ -122,8 +122,8 @@ export default function ModalCollaborate({referals,  userLogged, setUserLogged, 
 					}}
 				>
 					{"BUSD (Binance USD)"}
-				</Button>
-				<Button
+				</button>
+				<button
 				className={style.btnPago}
 					onClick={async () => {
 						await sendWriteTransactions(
@@ -155,7 +155,7 @@ export default function ModalCollaborate({referals,  userLogged, setUserLogged, 
 					}}
 				>
 					{"INFI (Infinitus Token)"}
-				</Button>
+				</button>
 			
 				</DialogActions>
 		
