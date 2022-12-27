@@ -181,16 +181,10 @@ h5{
     .link{
         text-decoration: none;
         width: 80%;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .navInput:checked + .backdrop {
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
     }
-
-    .navInput:checked + .headerItems{
-        
-    }
-
-
 }
