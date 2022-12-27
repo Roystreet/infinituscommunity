@@ -17,6 +17,9 @@ const CardShare = ({
   const [open, setOpen] = useState(false);
   const [nameAddress, setNameAddress] = useState("");
   const [smShow, setSmShow] = useState(false);
+
+  
+
   function mosImg(imgRoute) {
     if (imgRoute) {
       return `/packages/${imgRoute}.png`;
@@ -88,6 +91,8 @@ const CardShare = ({
           </div>
           <div className={style.btn}>
             <ModalCollaborate
+            
+              referals={referals}
               userLogged={userLogged}
               setUserLogged={setUserLogged}
               open={open}
