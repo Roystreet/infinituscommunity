@@ -12,16 +12,15 @@ import { sendServerGet } from "../../functions/serverInteractions";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import DisplayMessage from "../displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
-
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalCollaborate({ userLogged, setUserLogged, open, setOpen, ticketId, addressReferer, packageId, value }) {
+export default function ModalCollaborate({referals,  userLogged, setUserLogged, open, setOpen, ticketId, addressReferer, packageId, value }) {
 	const [openDisplay, setOpenDisplay] = useState(false);
 	const [openErrMeta, setOpenErrMeta] = useState(false);
 	const [message, setMessage] = useState({});
-
+	const [btnDis, setBtnDis] = useState(false);
 	const handleClickOpen = () => {
 		if (userLogged == true) {
 			setOpen(true);
@@ -35,13 +34,68 @@ export default function ModalCollaborate({ userLogged, setUserLogged, open, setO
 		setOpen(false);
 	};
 
+
+	function btnDisabled(ref) {
+		if (ref == 4 && btnDis === false) {
+			console.log("true")
+			return	setBtnDis(true);
+		}
+		if (ref < 4 && btnDis === true){
+			console.log("falses")
+			return	setBtnDis(false);
+		}
+	}
+	btnDisabled(referals)
 	return (
-		<div className={style.btnPrincipal}>
-			<Button onClick={handleClickOpen} className={style.contImg}>
+		<div >
+			<Button
+				sx={{
+					display:"flex",
+					justifyContent:"flex-start",
+				}}
+				disabled={btnDis}
+			onClick={handleClickOpen} className={style.btnPrincipal}>
 				Collaborate
 			</Button>
-			<Dialog className={style.dial} open={open} onClose={handleClose}>
-				<h3> Seleccione su forma de Pago</h3>
+
+
+
+<Dialog
+				open={open}
+				TransitionComponent={Transition}
+				keepMounted
+				onClose={handleClose}
+				aria-describedby="alert-dialog-slide-description"
+			>
+					<Button onClick={handleClose} 
+						sx={{
+							justifyContent:"end",
+							borderRadius: "8px",
+							color: "#51BADB",
+							fontSize: "20px",
+						}}>
+					X
+					</Button>
+				<DialogContent>
+				
+					<DialogContentText  id="alert-dialog-slide-description">
+						<p className={style.titleModal}>
+Select your payment method</p>
+					</DialogContentText>
+					<DialogContentText id="alert-dialog-slide-description">
+						<Box
+							component="form"
+							sx={{
+								"& .MuiTextField-root": { m: 1, width: "35ch" },
+							}}
+							noValidate
+							autoComplete="off"
+						>
+						</Box>
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+			
 				<Button className={style.btnPago}
 					onClick={async () => {
 						await sendWriteTransactions(await sendServerGet("/addressCoin", "text"), await sendServerGet("/abiCoin", "json"), "approve", [
@@ -105,6 +159,9 @@ export default function ModalCollaborate({ userLogged, setUserLogged, open, setO
 				>
 					{"INFI (Infinitus Token)"}
 				</Button>
+			
+				</DialogActions>
+		
 			</Dialog>
 			<DisplayMessage
 				open={openDisplay}
