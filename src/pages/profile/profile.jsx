@@ -11,7 +11,7 @@ import { sendServerGet, sendServerPost } from "../../functions/serverInteraction
 import { activateEventListeners } from "../../functions/eventListeners";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
-export default function Profile({ setUserLoged }) {
+export default function Profile({ setUserLogged }) {
 	const [myInfo, setmyInfo] = useState({});
 	const [balanceBUSD, setbalanceBUSD] = useState("");
 	const [balanceINFI, setbalanceINFI] = useState("");
@@ -123,7 +123,7 @@ export default function Profile({ setUserLoged }) {
 				allowBackdropClick={true}
 				exitRoute={"/"}
 				finalFunction={() => {
-					setUserLoged(false);
+					setUserLogged(false);
 					clearUnusedProcess();
 				}}
 			/>
