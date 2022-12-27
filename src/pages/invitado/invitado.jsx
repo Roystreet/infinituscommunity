@@ -14,34 +14,15 @@ export default function Invitado() {
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 
-	useEffect( () => {
-		const data = async ()=>{
-		setmyInfo(
-			await prepareServerConnection(
-				{ address: localStorage.getItem('address') },
-				'/user/getmyinfo',
-				'json',
-				localStorage.getItem('jwt')
-			)
-		); 
-		}
-		data()
-		}, []);
-
-	const dataTicket = async () => {
-		idticket = parseInt(idticket);
-		const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
-		setTicket(ticket);
-	};
-	///value
-	const dataPackage = async () => {
-		const pack = await sendServerGet("/user/getpackagesid", "json");
-		setPackages(pack);
-	};
-
 	useEffect(() => {
-		dataTicket();
-		dataPackage();
+		const getObjs = async () => {
+			idticket = parseInt(idticket);
+			const pack = await sendServerGet("/user/getpackagesid", "json");
+			const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
+			setPackages(pack);
+			setTicket(ticket);
+		};
+		getObjs();
 	}, []);
 console.log(myInfo)
 	return (
