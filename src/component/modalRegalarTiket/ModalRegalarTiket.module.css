@@ -1,4 +1,5 @@
-.btnPrincipal {
+@media screen and (max-width:480px){
+	.btnPrincipal {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -71,4 +72,10 @@
 	font-size: 12px;
 	line-height: 100%;
 	color: #282828;
+}
+.inputAdd{
+	margin: auto !important;
+	width: 90% !important;
+	
+}
 }

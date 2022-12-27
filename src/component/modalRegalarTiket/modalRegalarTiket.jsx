@@ -68,18 +68,21 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 						<Box
 							component="form"
 							sx={{
-								"& .MuiTextField-root": { width: "28ch", display:"flex", justifyContent:"center", alignItems:"center" },
+								"& .MuiTextField-root": { width: "30ch"},
 							}}
 							noValidate
 							autoComplete="off"
 						>
 		
 								<TextField
-									 sx={{ width: 1,
-									 display: "flex",
-									 justifyContent: 'center',}}
+								className={style.inputAdd}
+									//  sx={{
+									// 	"& .MuiTextField-root":{
+									// 	width: "20ch",
+									//  display: "flex",
+									//  justifyContent: 'center'},}}
 									required
-									id="outlined-required"
+									id="outlined-uncontrolled"
 									label="Address"
 									onChange={(e) => {
 										setNameAddress(e.target.value);
@@ -89,7 +92,7 @@ export default function AlertDialogSlideTiket({ ticketId }) {
 						</Box>
 					</DialogContentText>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions >
 					<Button onClick={handleClose} className={style.btn}>
 						Go back
 					</Button>
