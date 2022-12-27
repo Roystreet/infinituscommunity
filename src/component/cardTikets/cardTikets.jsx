@@ -101,14 +101,14 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
 		return urlCompartir;
 	}
 
-	function message(wsp, tel) {
+	function message(data) {
 		console.log(rutaParaCompartir());
-		if (wsp) {
+		if (data === "wsp") {
 			const msj =
 				`https://wa.me/?text=Hello, I want to give you this ticket so that you can join the infinitus community ` + rutaParaCompartir();
 			return msj;
 		}
-		if (tel) {
+		if (data === "tel") {
 			const msj =
 				`https://t.me/share/url?url=Hello, I want to give you this ticket so that you can join the infinitus community ` +
 				rutaParaCompartir();
@@ -148,14 +148,19 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
 								</Modal.Header>
 								<Modal.Body className={style.modaldiv}>
 									<div className={style.contIconsModal}>
+									<a href={message("wsp")} target="_blank">
 										<button disabled className={style.contIconTitle}>
 											<FaWhatsapp className={style.iconModal} /> <h4 className={style.subTitleModal}>WhatsApp</h4>
 										</button>
+										</a>
+										<a href={message("tel")} target="_blank">
 
+									
 										<button disabled className={style.contIconTitle}>
 											<FaTelegram className={style.iconModal} />
 											<h4 className={style.subTitleModal}>Telegram</h4>
 										</button>
+											</a>
 										<CopyToClipboard text={rutaParaCompartir()}>
 											<button
 												onClick={() => {
