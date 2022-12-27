@@ -143,12 +143,24 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
           <div className={style.contIcon}>
             <span className={style.icons}>{iconRegUser(referals)}</span>
             <div className={style.contShare}>
-              <Button
+              {/* <Button
+                onClick={() => setSmShow(true)}
+                className={style.btnBoots}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+
+                <img src={img} className={style.vector} alt="" />
+              </Button> */}
+              <button
                 onClick={() => setSmShow(true)}
                 className={style.btnBoots}
               >
                 <img src={img} className={style.vector} alt="" />
-              </Button>
+              </button>
               <Modal
                 size="sm"
                 show={smShow}
@@ -163,18 +175,27 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
                 </Modal.Header>
                 <Modal.Body className={style.modaldiv}>
                   <div className={style.contIconsModal}>
-
-                    <a href={message("wsp")} target="_blank" rel="noopener noreferrer">
-                    <button className={style.contIconTitle}>
-                      <FaWhatsapp className={style.iconModal} />{" "}
-                      <h4 className={style.subTitleModal}>WhatsApp</h4>
-                    </button>
+                    <a
+                      href={message("wsp")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={style.link}
+                    >
+                      <button className={style.contIconTitle}>
+                        <FaWhatsapp className={style.iconModal} />{" "}
+                        <h4 className={style.subTitleModal}>WhatsApp</h4>
+                      </button>
                     </a>
-                    <a href={message("tel")} target="_blank" rel="noopener noreferrer">
-                    <button  className={style.contIconTitle}>
-                      <FaTelegram className={style.iconModal} />
-                      <h4 className={style.subTitleModal}>Telegram</h4>
-                    </button>
+                    <a
+                      href={message("tel")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={style.link}
+                    >
+                      <button className={style.contIconTitle}>
+                        <FaTelegram className={style.iconModal} />
+                        <h4 className={style.subTitleModal}>Telegram</h4>
+                      </button>
                     </a>
                     <CopyToClipboard text={rutaParaCompartir()}>
                       <button

@@ -16,103 +16,98 @@ import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import imgError from "../../assets/on.png";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-	return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertDialogSlideTiket({ ticketId }) {
-	const [open, setOpen] = React.useState();
-	const [nameAddress, setNameAddress] = useState("");
-	const [err, setErr] = useState(false);
+  const [open, setOpen] = React.useState();
+  const [nameAddress, setNameAddress] = useState("");
+  const [err, setErr] = useState(false);
 
-	function controlError(nameAddress) {
-		let str = nameAddress;
+  function controlError(nameAddress) {
+    let str = nameAddress;
 
-		if (nameAddress && err == false && str.substr(0, 2) == "0x") {
-			if (str.length > 40) {
-				setErr(true);
-			}
-		}
-	}
-	controlError(nameAddress);
-	// console.log(err)
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
+    if (nameAddress && err == false && str.substr(0, 2) == "0x") {
+      if (str.length > 40) {
+        setErr(true);
+      }
+    }
+  }
+  controlError(nameAddress);
+  // console.log(err)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-	const handleClose = () => {
-		setOpen(false);
-	};
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-	return (
-		<div className={style.btnPrincipal}>
-			<Button onClick={handleClickOpen} className={style.contImg}>
-				Make a Gift
-			</Button>
-			<Dialog
-			 sx={{ 
-				display: "flex",
-				justifyContent: 'center',
-				alignItems: 'center',
-				width: "100%"}}
-				open={open}
-				TransitionComponent={Transition}
-				keepMounted
-				onClose={handleClose}
-				aria-describedby="alert-dialog-slide-description"
-			>
-				<DialogContent>
-					<DialogContentText id="alert-dialog-slide-description">
-						<p className={style.titleModal}>Paste the destiny wallet</p>
-					</DialogContentText>
-					<DialogContentText id="alert-dialog-slide-description">
-						<Box
-							component="form"
-							sx={{
-								"& .MuiTextField-root": { m: 1, width: "35ch" },
-							}}
-							noValidate
-							autoComplete="off"
-						>
-							<div className={style.inputadd}>
-								<TextField
-									 sx={{ width: "80%",
-									 display: "flex",
-									 justifyContent: 'center',}}
-									required
-									id="outlined-required"
-									label="Address"
-									onChange={(e) => {
-										setNameAddress(e.target.value);
-									}}
-								/>
-								{/* { textError(errorInfi)} */}
-							</div>
-						</Box>
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose} className={style.btn}>
-						Go back
-					</Button>
-					<Button
-						disabled={!err}
-						onClick={async () => {
-							await sendWriteTransactions(
-								await sendServerGet("/addressContract", "text"),
-								await sendServerGet("/abiContract", "json"),
-								"changeTicketOwner",
-								[ticketId, nameAddress]
-							).then((response) => {
-								// console.log(response);
-								window.alert("Ticket Enviado Exitosamente!");
-							});
-						}}
-						className={style.btnModal}
-					>
-						Gift
-					</Button>
-				</DialogActions>
-			</Dialog>
-		</div>
-	);
+  return (
+    <div className={style.btnPrincipal}>
+      <Button onClick={handleClickOpen} className={style.contImg}>
+        Make a Gift
+      </Button>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <p className={style.titleModal}>Paste the destiny wallet</p>
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-slide-description">
+            <Box
+              component="form"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                "& .MuiTextField-root": { m: 1, width: "31ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <div className={style.inputadd}>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Address"
+                  onChange={(e) => {
+                    setNameAddress(e.target.value);
+                  }}
+                />
+                {/* { textError(errorInfi)} */}
+              </div>
+            </Box>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} className={style.btn}>
+            Go back
+          </Button>
+          <Button
+            disabled={!err}
+            onClick={async () => {
+              await sendWriteTransactions(
+                await sendServerGet("/addressContract", "text"),
+                await sendServerGet("/abiContract", "json"),
+                "changeTicketOwner",
+                [ticketId, nameAddress]
+              ).then((response) => {
+                // console.log(response);
+                window.alert("Ticket Enviado Exitosamente!");
+              });
+            }}
+            className={style.btnModal}
+          >
+            Gift
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }
