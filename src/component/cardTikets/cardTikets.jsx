@@ -164,14 +164,14 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
                 <Modal.Body className={style.modaldiv}>
                   <div className={style.contIconsModal}>
 
-                    <a href={message(wsp)} target="_blank" rel="noopener noreferrer">
-                    <button disabled className={style.contIconTitle}>
+                    <a href={message("wsp")} target="_blank" rel="noopener noreferrer">
+                    <button className={style.contIconTitle}>
                       <FaWhatsapp className={style.iconModal} />{" "}
                       <h4 className={style.subTitleModal}>WhatsApp</h4>
                     </button>
                     </a>
-                    <a href={message(tel)} target="_blank" rel="noopener noreferrer">
-                    <button disabled className={style.contIconTitle}>
+                    <a href={message("tel")} target="_blank" rel="noopener noreferrer">
+                    <button  className={style.contIconTitle}>
                       <FaTelegram className={style.iconModal} />
                       <h4 className={style.subTitleModal}>Telegram</h4>
                     </button>

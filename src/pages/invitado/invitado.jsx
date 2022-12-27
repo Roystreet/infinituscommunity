@@ -11,18 +11,17 @@ import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
 export default function Invitado({ userLogged, setUserLogged }) {
 	const [nickName, setNickname] = useState("");
-	const [packages, setPackages] = useState([]);
-	const [ticket, setTicket] = useState([]);
-	const [open, setOpen] = useState(false);
-	const [message, setMessage] = useState({});
-	const { address } = useParams();
-	let { idticket } = useParams();
-
-	// const [myInfo, setmyInfo] = useState({});
-	// const [packages, setPackages] = useState({});
+	// const [packages, setPackages] = useState([]);
 	// const [ticket, setTicket] = useState([]);
 	// const [open, setOpen] = useState(false);
 	// const [message, setMessage] = useState({});
+	const { address } = useParams();
+	let { idticket } = useParams();
+	const [myInfo, setmyInfo] = useState({});
+	const [packages, setPackages] = useState({});
+	const [ticket, setTicket] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [message, setMessage] = useState({});
 
 	const data = async () => {
 		await sendServerPost({ address: localStorage.getItem("address") }, "/user/getmyinfo", "json", localStorage.getItem("jwt")).then(
@@ -68,52 +67,48 @@ export default function Invitado({ userLogged, setUserLogged }) {
 		getObjs();
 	}, []);
 console.log(myInfo)
-	return (
-		<div className={style.content}>
-			<div className={style.contTitle}>
-			<h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
-				<span className={style.subtitle}>
-					Invites you <br />
-					to collaborate
-				</span>
+	
+return (
+	<>
+	<div className={style.content}>
+		<div className={style.contTitle}>
+			<h4 className={style.name}>{nickName}</h4>
+			<span className={style.subtitle}>Invited you to collaborate</span>
+		</div>
+		{ticket.map((e) => (
+			<div className={style.contCard} key={e.ticketId}>
+				<CardShare
+					userLogged={userLogged}
+					setUserLogged={setUserLogged}
+					img={e.imgRoute}
+					referals={e.referrals}
+					id={e.ticketId}
+					addressReferer={e.ownerAddress}
+					packageId={e.packageId}
+					value={packages[e.packageId - 1].value}
+				/>
 			</div>
-			{ticket ? (
-				ticket.map((e) => {
-					return (
-						<div className={style.contCard} key={e.ticketId}>
-							<CardShare
-								img={e.imgRoute}
-								referals={e.referrals}
-								id={e.ticketId}
-								addressReferer={e.ownerAddress}
-								packageId={e.packageId}
-								// value={packages[e.packageId - 1].value}
-							/>
-						</div>
-					);
-				})
-			) : (
-				<p> You have no tickets </p>
-			)}
-			<div className={style.contLogo}>
-				<span className={style.subtitle}>
-					Colaborate and 
-					Keep it rolling!
-				</span>
-				<img src={img} className={style.img} alt="Logoicon" />
-				<img src={imgI} className={style.imgInf} alt="Logoicon" />
-			</div>
-			<DisplayMessage
-				open={open}
-				messageData={message}
-				setOpen={setOpen}
-				allowBackdropClick={true}
-				exitRoute={"/"}
-				finalFunction={() => {
-					setUserLogged(false);
-					clearUnusedProcess();
-				}}
-			/>
-		</>
+		))}
+		<div className={style.contLogo}>
+			<span className={style.subtitle}>
+				Colaborate and <br />
+				Keep it rolling!
+			</span>
+			<img src={img} className={style.img} alt="Logoicon" />
+			<img src={imgI} className={style.imgInf} alt="Logoicon" />
+		</div>
+	</div>
+	<DisplayMessage
+		open={open}
+		messageData={message}
+		setOpen={setOpen}
+		allowBackdropClick={true}
+		exitRoute={"/"}
+		finalFunction={() => {
+			setUserLogged(false);
+			clearUnusedProcess();
+		}}
+	/>
+</>
 	);
 }
