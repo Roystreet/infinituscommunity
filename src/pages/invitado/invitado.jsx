@@ -14,6 +14,20 @@ export default function Invitado() {
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 
+	useEffect( () => {
+		const data = async ()=>{
+		setmyInfo(
+			await prepareServerConnection(
+				{ address: localStorage.getItem('address') },
+				'/user/getmyinfo',
+				'json',
+				localStorage.getItem('jwt')
+			)
+		); 
+		}
+		data()
+		}, []);
+
 	const dataTicket = async () => {
 		idticket = parseInt(idticket);
 		const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
@@ -29,11 +43,11 @@ export default function Invitado() {
 		dataTicket();
 		dataPackage();
 	}, []);
-
+console.log(myInfo)
 	return (
 		<div className={style.content}>
 			<div className={style.contTitle}>
-				<h1 className={style.name}>{myInfo ? myInfo.nickName : X}</h1>
+			<h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
 				<span className={style.subtitle}>
 					Invites you <br />
 					to collaborate
@@ -68,3 +82,28 @@ export default function Invitado() {
 		</div>
 	);
 }
+// const [myInfo, setmyInfo] = useState({});
+// const [ticket, setTicket] = useState([]);
+
+// useEffect( () => {
+// const data = async ()=>{
+// setmyInfo(
+// 	await prepareServerConnection(
+// 		{ address: localStorage.getItem('address') },
+// 		'/user/getmyinfo',
+// 		'json',
+// 		localStorage.getItem('jwt')
+// 	)
+// ); 
+// }
+// data()
+// }, []);
+
+
+
+
+
+//  return (
+// 	 <div className={style.content}>
+// 	<div className={style.contTitle}>
+// 		<h1 className={style.name}>{myInfo ? (myInfo.nickName) : (X)}</h1>
