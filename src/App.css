@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 :root{
   box-sizing: content-box;
   background: #fafafa;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
 }
 .container-main{
   width: 100vw;
