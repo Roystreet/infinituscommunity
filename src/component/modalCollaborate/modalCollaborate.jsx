@@ -40,9 +40,9 @@ export default function ModalCollaborate({ userLogged, setUserLogged, open, setO
 			<Button onClick={handleClickOpen} className={style.contImg}>
 				Collaborate
 			</Button>
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog className={style.dial} open={open} onClose={handleClose}>
 				<h3> Seleccione su forma de Pago</h3>
-				<Button
+				<Button className={style.btnPago}
 					onClick={async () => {
 						await sendWriteTransactions(await sendServerGet("/addressCoin", "text"), await sendServerGet("/abiCoin", "json"), "approve", [
 							await sendServerGet("/addressContract", "text"),
@@ -73,6 +73,7 @@ export default function ModalCollaborate({ userLogged, setUserLogged, open, setO
 					{"BUSD (Binance USD)"}
 				</Button>
 				<Button
+				className={style.btnPago}
 					onClick={async () => {
 						await sendWriteTransactions(
 							await sendServerGet("/addressContract", "text"),

@@ -5,17 +5,49 @@ import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
+	import { activateEventListeners } from "../../functions/eventListeners";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
 export default function Invitado({ userLogged, setUserLogged }) {
 	const [nickName, setNickname] = useState("");
-	const [packages, setPackages] = useState([]);
+	// const [packages, setPackages] = useState([]);
+	// const [ticket, setTicket] = useState([]);
+	// const [open, setOpen] = useState(false);
+	// const [message, setMessage] = useState({});
+	const { address } = useParams();
+	let { idticket } = useParams();
+	const [myInfo, setmyInfo] = useState({});
+	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
-	const { address } = useParams();
-	let { idticket } = useParams();
+
+	const data = async () => {
+		await sendServerPost({ address: localStorage.getItem("address") }, "/user/getmyinfo", "json", localStorage.getItem("jwt")).then(
+			(response) => {
+				if (response.tittle === "Error") {
+					setOpen(true);
+					setMessage(response);
+				} else setmyInfo(response);
+			}
+		);
+	};
+	useEffect(() => {
+		activateEventListeners(setOpen, setMessage);
+		data();
+	}, []);
+
+	const dataTicket = async () => {
+		idticket = parseInt(idticket);
+		const ticket = await sendServerPost({ _id: idticket, ownerAddress: address }, "/user/getticketrefered", "json");
+		setTicket(ticket);
+	};
+	///value
+	const dataPackage = async () => {
+		const pack = await sendServerGet("/user/getpackagesid", "json");
+		setPackages(pack);
+	};
 
 	useEffect(() => {
 		const getObjs = async () => {
@@ -34,48 +66,49 @@ export default function Invitado({ userLogged, setUserLogged }) {
 		};
 		getObjs();
 	}, []);
-
-	return (
-		<>
-			<div className={style.content}>
-				<div className={style.contTitle}>
-					<h4 className={style.name}>{nickName}</h4>
-					<span className={style.subtitle}>Invited you to collaborate</span>
-				</div>
-				{ticket.map((e) => (
-					<div className={style.contCard} key={e.ticketId}>
-						<CardShare
-							userLogged={userLogged}
-							setUserLogged={setUserLogged}
-							img={e.imgRoute}
-							referals={e.referrals}
-							id={e.ticketId}
-							addressReferer={e.ownerAddress}
-							packageId={e.packageId}
-							value={packages[e.packageId - 1].value}
-						/>
-					</div>
-				))}
-				<div className={style.contLogo}>
-					<span className={style.subtitle}>
-						Colaborate and <br />
-						Keep it rolling!
-					</span>
-					<img src={img} className={style.img} alt="Logoicon" />
-					<img src={imgI} className={style.imgInf} alt="Logoicon" />
-				</div>
+console.log(myInfo)
+	
+return (
+	<>
+	<div className={style.content}>
+		<div className={style.contTitle}>
+			<h4 className={style.name}>{nickName}</h4>
+			<span className={style.subtitle}>Invited you to collaborate</span>
+		</div>
+		{ticket.map((e) => (
+			<div className={style.contCard} key={e.ticketId}>
+				<CardShare
+					userLogged={userLogged}
+					setUserLogged={setUserLogged}
+					img={e.imgRoute}
+					referals={e.referrals}
+					id={e.ticketId}
+					addressReferer={e.ownerAddress}
+					packageId={e.packageId}
+					value={packages[e.packageId - 1].value}
+				/>
 			</div>
-			<DisplayMessage
-				open={open}
-				messageData={message}
-				setOpen={setOpen}
-				allowBackdropClick={true}
-				exitRoute={"/"}
-				finalFunction={() => {
-					setUserLogged(false);
-					clearUnusedProcess();
-				}}
-			/>
-		</>
+		))}
+		<div className={style.contLogo}>
+			<span className={style.subtitle}>
+				Colaborate and <br />
+				Keep it rolling!
+			</span>
+			<img src={img} className={style.img} alt="Logoicon" />
+			<img src={imgI} className={style.imgInf} alt="Logoicon" />
+		</div>
+	</div>
+	<DisplayMessage
+		open={open}
+		messageData={message}
+		setOpen={setOpen}
+		allowBackdropClick={true}
+		exitRoute={"/"}
+		finalFunction={() => {
+			setUserLogged(false);
+			clearUnusedProcess();
+		}}
+	/>
+</>
 	);
 }
