@@ -17,8 +17,9 @@
 		border-radius: 0px 0px 14px 14px;
 	}
 	.name {
-	  font-size: 36px; 
+	   font-size: 36px; 
 		margin-top: 50px;
+		font-family: 'Raleway';
 	}
 	.subtitle {
 		font-size: 20px;
