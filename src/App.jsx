@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import DisplayMessage from "./component/displayMessage/displayMessage";
+import Message from "./component/message/message";
 import Layout from "./component/layout/layout";
 //Ruta iniciar sesion
 import Login from "./pages/login/login";
@@ -18,47 +20,39 @@ import Error from "./pages/error/error";
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
-import DisplayMessage from "./component/displayMessage/displayMessage";
-import Message from "./component/message/message";
 
-function App() {
-	const [userLoged, setUserLoged] = useState(false);
+function App({ userConnected }) {
+	const [userLogged, setUserLogged] = useState(userConnected);
 	const [open, setOpen] = useState(false);
-
-	const chekUserLoged = () => {
-		if (localStorage.getItem("jwt") != undefined) {
-			setUserLoged(true);
-		}
-	};
-
-	useEffect(() => {
-		chekUserLoged();
-	}, [userLoged]);
 
 	return (
 		<>
-			{userLoged ? (
+			{userLogged ? (
 				<Layout>
 					<Routes>
-						<Route path="/" element={<Profile setUserLoged={setUserLoged} />} />
+						<Route path="/" element={<Profile setUserLogged={setUserLogged} />} />
 						<Route
 							path="/login"
 							element={
-								<DisplayMessage
-									open={true}
-									setOpen={setOpen}
-									messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
-									allowBackdropClick={false}
-									exitRoute={"/"}
-								/>
+								!userLogged ? (
+									<Login setUserLogged={setUserLogged} />
+								) : (
+									<DisplayMessage
+										open={true}
+										setOpen={setOpen}
+										messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
+										allowBackdropClick={false}
+										exitRoute={"/"}
+									/>
+								)
 							}
 						/>
 						<Route path="/preventa" element={<Presale />} />
-						<Route path="/perfil" element={<Profile setUserLoged={setUserLoged} />} />
+						<Route path="/perfil" element={<Profile setUserLogged={setUserLogged} />} />
 						<Route path="/paquetes" element={<Package />} />
 						<Route path="/error" element={<Error />} />
-						<Route path="/settings" element={<Settings />} />
-						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route path="/settings" element={<Settings setUserLogged={setUserLogged} />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -77,7 +71,7 @@ function App() {
 				<>
 					<Message />
 					<Routes>
-						<Route path="/" element={<Login setUserLoged={setUserLoged} />} />
+						<Route path="/" element={<Login setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -90,7 +84,7 @@ function App() {
 								/>
 							}
 						/>
-						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
 					</Routes>
 				</>
 			)}

@@ -13,6 +13,7 @@ import { sendServerGet } from "../../functions/serverInteractions";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import img from "../../assets/retiro.png";
 import imgError from "../../assets/on.png";
+import DisplayMessage from "../displayMessage/displayMessage";
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -20,6 +21,8 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 export default function ModalWithdraw({ bINFI }) {
 	const [open, setOpen] = useState(false);
+	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
+	const [message, setMessage] = useState({});
 	const [infi, setInfi] = useState("");
 	const [errorInf, setErrorInf] = useState(true);
 
@@ -32,10 +35,8 @@ export default function ModalWithdraw({ bINFI }) {
 
 	function errorInfi(infi, bINFI) {
 		if (infi > bINFI || infi < 0) {
-			// console.log("No se puede")
 			setErrorInf(false);
 		} else {
-			// console.log("si se puede")
 			setErrorInf(true);
 		}
 	}
@@ -119,8 +120,17 @@ export default function ModalWithdraw({ bINFI }) {
 					<Button
 						disabled={!errorInf}
 						onClick={async () => {
-							let sendValue = infi.replace(".", "");
-							sendValue = sendValue + "0".repeat(17);
+							let sendValue;
+
+							if (infi.includes(".")) {
+								sendValue = infi.replace(".", "");
+								const index = infi.indexOf(".");
+								const length = infi.length;
+								const substring = infi.substring(index, length);
+								sendValue = sendValue + "0".repeat(18 - (substring.length - 1));
+							} else {
+								sendValue = sendValue + "0".repeat(18);
+							}
 
 							await sendWriteTransactions(
 								await sendServerGet("/addressContract", "text"),
@@ -132,7 +142,10 @@ export default function ModalWithdraw({ bINFI }) {
 									console.log(response);
 									handleClose();
 								})
-								.catch((error) => console.log(error));
+								.catch((error) => {
+									setOpenMessagesDisplay(true);
+									setMessage({ tittle: "Metamask Error", message: error });
+								});
 						}}
 						className={style.btnWhiteDraw}
 					>
@@ -140,6 +153,7 @@ export default function ModalWithdraw({ bINFI }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
+			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
 		</div>
 	);
 }
