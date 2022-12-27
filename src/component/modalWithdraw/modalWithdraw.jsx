@@ -32,10 +32,8 @@ export default function ModalWithdraw({ bINFI }) {
 
 	function errorInfi(infi, bINFI) {
 		if (infi > bINFI || infi < 0) {
-			// console.log("No se puede")
 			setErrorInf(false);
 		} else {
-			// console.log("si se puede")
 			setErrorInf(true);
 		}
 	}
@@ -119,8 +117,15 @@ export default function ModalWithdraw({ bINFI }) {
 					<Button
 						disabled={!errorInf}
 						onClick={async () => {
-							let sendValue = infi.replace(".", "");
-							sendValue = sendValue + "0".repeat(17);
+							let sendValue;
+							console.log(infi);
+							if (infi.includes(".")) {
+								sendValue = infi.replace(".", "");
+								const index = infi.indexOf(".");
+								const length = infi.length;
+								const substring = infi.substring(index, length);
+								sendValue = sendValue + "0".repeat(18 - (substring.length - 1));
+							}
 
 							await sendWriteTransactions(
 								await sendServerGet("/addressContract", "text"),

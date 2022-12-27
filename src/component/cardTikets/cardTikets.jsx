@@ -11,6 +11,7 @@ import AlertDialogSlideTiket from "../modalRegalarTiket/modalRegalarTiket";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
+
 const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
 	const [smShow, setSmShow] = useState(false);
 
