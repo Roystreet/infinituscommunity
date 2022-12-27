@@ -1,6 +1,6 @@
 .btnPrincipal {
 	margin-left: -125px;
-	margin-top: 245px ;
+	margin-top: 240px ;
 	font-family: 'Poppins';
 font-style: normal;
 color: #0D4983;
@@ -13,14 +13,8 @@ font-size: 11px;
 	background-color: none;
 	width: auto;
 	height: 25px;
-	
-	/* INF/Ref/Primary/40 */
-	
 	border: 1px solid #0D4983;
 	border-radius: 8px;
-	
-	/* Inside auto layout */
-	
 	flex: none;
 	order: 0;
 	align-self: stretch;
