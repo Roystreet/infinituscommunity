@@ -109,7 +109,7 @@ export default function ModalCollaborate({
 										.then((response) => {
 											console.log(response);
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.Hash}` });
+											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.hash}` });
 										})
 										.catch((error) => {
 											setOpenMessagesDisplay(true);
@@ -144,7 +144,7 @@ export default function ModalCollaborate({
 										.then((response) => {
 											console.log(response);
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.Hash}` });
+											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.hash}` });
 										})
 										.catch((error) => {
 											setOpenMessagesDisplay(true);
