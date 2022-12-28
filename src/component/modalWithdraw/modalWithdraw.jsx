@@ -95,7 +95,8 @@ export default function ModalWithdraw({ bINFI }) {
 							defaultValue={bINFI}
 							type="number"
 							onChange={(e) => {
-								errorInfi(e.target.value, bINFI), setInfi(e.target.value);
+								errorInfi(e.target.value, bINFI);
+								setInfi(e.target.value);
 							}}
 						/>
 						{textError(errorInfi)}
@@ -129,7 +130,7 @@ export default function ModalWithdraw({ bINFI }) {
 								const substring = infi.substring(index, length);
 								sendValue = sendValue + "0".repeat(18 - (substring.length - 1));
 							} else {
-								sendValue = sendValue + "0".repeat(18);
+								sendValue = infi + "0".repeat(18);
 							}
 
 							await sendWriteTransactions(
