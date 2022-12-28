@@ -95,7 +95,8 @@ export default function ModalWithdraw({ bINFI }) {
 							defaultValue={bINFI}
 							type="number"
 							onChange={(e) => {
-								errorInfi(e.target.value, bINFI), setInfi(e.target.value);
+								errorInfi(e.target.value, bINFI);
+								setInfi(e.target.value);
 							}}
 						/>
 						{textError(errorInfi)}
