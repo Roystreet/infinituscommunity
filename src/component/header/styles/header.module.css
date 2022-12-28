@@ -1,196 +1,199 @@
-.contNav{
+.contNav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-family: "Poppins";
+}
+
+.headerIcon {
+  width: 15%;
+}
+
+.headerItems {
+  display: flex;
+  justify-content: end;
+  width: 70%;
+}
+
+.cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.contTitle {
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h5 {
+  margin: 0;
+}
+
+.navLabel,
+.navInput {
+  display: none;
+}
+
+.contItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logo {
+  height: 19px;
+  width: 38px;
+}
+
+.link {
+  text-decoration: none;
+  color: #0d4983;
+  display: flex;
+  align-items: center;
+}
+
+.linkAux {
+  text-decoration: none;
+  color: #0d4983;
+  display: flex;
+  align-items: center;
+}
+
+.iconHeader {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .contNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
+    height: 100%;
+  }
+
+  .headerIcon {
+    padding-left: 1.5rem;
+  }
+
+  .logo {
+    height: 2.5rem;
+  }
+
+  .navTitle {
+    position: absolute;
+    left: calc(50% - 94px / 2);
+    font-size: 20px;
+    line-height: 25px;
     display: flex;
     align-items: center;
+    text-align: center;
+    letter-spacing: -0.05em;
+    color: #ffffff;
+  }
 
-}
+  .navLabel {
+    display: block;
+    cursor: pointer;
+    margin-right: 1.5rem;
+  }
 
-.headerIcon{
-    width: 15%;
-}
+  .navSvg {
+    width: 24px;
+    height: 24px;
+  }
 
-.headerItems{
+  .backdrop {
     display: flex;
-    justify-content: end;
-    width: 70%;
-}
-
-.cont{
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
     width: 100%;
-}
+    height: calc(100vh - 19px - 91.5px);
+    top: 50px;
+    backdrop-filter: blur(1px);
+    border-radius: 4px 0px 4px 4px;
+    clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
+    transition: clip-path 0.5s ease-in-out;
+    z-index: 4;
+  }
 
-.contTitle{
-    width: 85%;
+  .headerItems {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-}
-
-h5{
-    margin: 0;
-}
-
-.navLabel, .navInput{
-    display: none;
-}
-
-.contItem{
-    display: flex;
     align-items: center;
-    justify-content: space-evenly;
-}
+    padding: 2px 4px;
+    gap: 2px;
+    position: absolute;
+    width: 239px;
+    height: 144px;
+    right: 0px;
+    top: 0px;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 4px 0px 4px 4px;
+    z-index: 4;
+  }
 
-.logo{
-    height: 19px;
-    width: 38px;
-}
-
-.link{
-    text-decoration: none;
-    color: #0D4983;
-    display: flex;
-    align-items: center;
-}
-
-.linkAux{
-    text-decoration: none;
-    color: #0D4983;
-    display: flex;
-    align-items: center;
-}
-
-
-.iconHeader{
+  .iconHeader {
     height: 24px;
     width: 24px;
-    padding: 10px;
-}
+    padding: 0px;
+    margin-right: 10px;
+    color: #0d4983;
+  }
 
-@media screen and (max-width: 768px){
-    .contNav{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
+  .contItem {
+    width: 100%;
+    flex-direction: column;
+  }
 
-    .headerIcon{
-        padding-left: 1.5rem;
-    }
+  .contLinkSup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 2px;
+    width: 214px;
+    height: 44px;
+    border-bottom: 0.5px solid #a2a2a2;
+    width: 90%;
+    color: #0d4983;
+    font-size: 18px;
+  }
 
-    .logo{
-        height: 2.5rem;
-    }
+  .contLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 2px;
+    width: 90%;
+    height: 44px;
+    font-size: 18px;
+  }
 
-    .navTitle{
-        position: absolute;
-        left: calc(50% - 94px/2);
-        font-size: 20px;
-        line-height: 25px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        letter-spacing: -0.05em;
-        color: #FFFFFF;
-    }
+  .link {
+    text-decoration: none;
+    width: 80%;
+    font-size: 1.2rem;
+  }
 
-    .navLabel{
-        display: block;
-        cursor: pointer;
-        margin-right: 1.5rem;
-    }
+  .linkAux {
+    text-decoration: none;
+    width: 80%;
+    font-size: 1.2rem;
+  }
 
-    .navSvg{
-        width: 24px;
-        height: 24px;
-    }
-
-    .backdrop{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        width: 100%;
-        height: calc(100vh - 19px - 91.5px);
-        top: 50px;
-        backdrop-filter: blur(1px);
-        border-radius: 4px 0px 4px 4px;
-        clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
-        transition: clip-path 0.5s ease-in-out;
-        z-index: 4;
-    }
-
-    .headerItems{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2px 4px;
-        gap: 2px;
-        position: absolute;
-        width: 239px;
-        height: 144px;
-        right: 0px;
-        top: 0px;
-        background: #FFFFFF;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-        border-radius: 4px 0px 4px 4px;
-        z-index: 4;
-    }
-
-    .iconHeader{
-        height: 24px;
-        width: 24px;
-        padding: 10px;
-    }
-
-    .contItem{
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .contLinkSup{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 0px;
-        gap: 2px;
-        width: 214px;
-        height: 44px;
-        border-bottom: 0.5px solid #A2A2A2;
-        width: 90%;
-        color: #0D4983;
-        font-size: 1.5rem;
-    }
-
-    .contLink{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 0px;
-        gap: 2px;
-        width: 214px;
-        height: 44px;
-    }
-
-    .link{
-        text-decoration: none;
-        width: 80%;
-        font-size: 1.5rem;
-    }
-
-    .navInput:checked + .backdrop {
-        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
-    }
-
-    .navInput:checked + .headerItems{
-        
-    }
-
-
+  .navInput:checked + .backdrop {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0);
+  }
 }
