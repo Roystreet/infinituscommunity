@@ -14,6 +14,7 @@ export default function Invitado({ userLogged, setUserLogged }) {
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 	const [open, setOpen] = useState(false);
+	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
 	const [message, setMessage] = useState({});
 	const { address, idticket } = useParams();
 
@@ -28,6 +29,9 @@ export default function Invitado({ userLogged, setUserLogged }) {
 					setOpen(true);
 					if (pack.tittle == "Error") setMessage(pack);
 					setMessage(ticket);
+				} else if (ticket[0].referals > 3) {
+					setOpenMessagesDisplay(true);
+					setMessage({ tittle: "Notificacion", message: "El ticket referidor ya completo sus tareas. Usa otro enlace de referido." });
 				} else {
 					setPackages(pack);
 					setTicket(ticket);
@@ -71,6 +75,7 @@ export default function Invitado({ userLogged, setUserLogged }) {
 					<img src={imgI} className={style.imgInf} alt="Logoicon" />
 				</div>
 			</div>
+			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
 			<DisplayMessage
 				open={open}
 				messageData={message}
