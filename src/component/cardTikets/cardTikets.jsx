@@ -143,18 +143,9 @@ const CardTikets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
           <div className={style.contIcon}>
             <span className={style.icons}>{iconRegUser(referals)}</span>
             <div className={style.contShare}>
-              {/* <Button
-                onClick={() => setSmShow(true)}
-                className={style.btnBoots}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-
-                <img src={img} className={style.vector} alt="" />
-              </Button> */}
+              <div className={style.contId}>
+                <h5 className={style.txtId}>{`ID ${ticketId}`}</h5>
+              </div>
               <button
                 onClick={() => setSmShow(true)}
                 className={style.btnBoots}

@@ -141,4 +141,24 @@
   .link {
     text-decoration: none;
   }
+
+  .contId {
+    position: absolute;
+    z-index: 15;
+    left: 10px;
+    top: 114px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+  }
+
+  .txtId {
+    margin: 0;
+    color: #333333;
+    font-family: Poppins;
+    font-weight: 700;
+  }
 }
