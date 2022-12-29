@@ -25,7 +25,7 @@ export default function ModalWithdraw({ bINFI }) {
 	const [message, setMessage] = useState({});
 	const [infi, setInfi] = useState("");
 	const [errorInf, setErrorInf] = useState(true);
-
+	const [btnAct, setBtnAct] = useState(true);
 	function calcularPorcentaje(infi) {
 		let porcentaje = (infi * 10) / 100;
 		let result = infi - porcentaje;
@@ -34,10 +34,14 @@ export default function ModalWithdraw({ bINFI }) {
 	}
 
 	function errorInfi(infi, bINFI) {
-		if (infi > bINFI || infi < 0) {
-			setErrorInf(false);
+		if (infi > bINFI || infi <=0) {
+			setBtnAct(true);
+			if (infi > bINFI) {
+				setErrorInf(false);
+			}
 		} else {
 			setErrorInf(true);
+			setBtnAct(false);
 		}
 	}
 
@@ -92,7 +96,7 @@ export default function ModalWithdraw({ bINFI }) {
 							required
 							id="outlined-required"
 							label="INFI"
-							defaultValue={bINFI}
+						
 							type="number"
 							onChange={(e) => {
 								errorInfi(e.target.value, bINFI);
@@ -119,7 +123,8 @@ export default function ModalWithdraw({ bINFI }) {
 						Return
 					</Button>
 					<Button
-						disabled={!errorInf}
+						// disabled={!errorInf}
+						disabled={btnAct}
 						onClick={async () => {
 							let sendValue;
 
