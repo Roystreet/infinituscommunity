@@ -7,5 +7,4 @@ import { deactivateEventListeners } from "./eventListeners";
 export const clearUnusedProcess = () => {
 	localStorage.removeItem("jwt");
 	localStorage.removeItem("address");
-	deactivateEventListeners();
 };

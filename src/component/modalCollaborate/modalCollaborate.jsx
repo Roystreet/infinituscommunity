@@ -17,28 +17,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalCollaborate({
-	referals,
-	userLogged,
-	setUserLogged,
-	open,
-	setOpen,
-	ticketId,
-	addressReferer,
-	packageId,
-	value,
-}) {
-	const [openDisplay, setOpenDisplay] = useState(false);
+export default function ModalCollaborate({ referals, open, setOpen, ticketId, addressReferer, packageId, value }) {
 	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
 	const [message, setMessage] = useState({});
 	const [btnDis, setBtnDis] = useState(false);
 	const handleClickOpen = () => {
-		if (userLogged == true) {
-			setOpen(true);
-		} else {
-			setOpenDisplay(true);
-			setMessage({ tittle: "Notificacion", message: "Debe Iniciar Sesion y volver a escribir este enlace!" });
-		}
+		setOpen(true);
 	};
 
 	const handleClose = () => {
@@ -161,17 +145,6 @@ export default function ModalCollaborate({
 					</button>
 				</DialogActions>
 			</Dialog>
-			<DisplayMessage
-				open={openDisplay}
-				messageData={message}
-				setOpen={setOpenDisplay}
-				allowBackdropClick={true}
-				exitRoute={"/"}
-				finalFunction={() => {
-					setUserLogged(false);
-					clearUnusedProcess();
-				}}
-			/>
 			<DisplayMessage open={openMessagesDisplay} messageData={message} setOpen={setOpenMessagesDisplay} allowBackdropClick={true} />
 		</div>
 	);
