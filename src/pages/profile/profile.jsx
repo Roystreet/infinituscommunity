@@ -123,9 +123,11 @@ export default function Profile({ setUserLogged }) {
 				<div className={style.contCards}>
 					<h3>Balances</h3>
 					<div className={style.cardIToken}>
-						<h4 className={style.titleToken}>Infinitus Token</h4>
+					<div className={style.contdatos}>
+					<h4 className={style.titleToken}>Infinitus Token</h4>
 						<p className={style.numbT}>{balanceINFI}</p>
-						<ModalWithdraw bINFI={balanceINFI} />
+					</div>
+					<div className={style.contBtnWit}>	<ModalWithdraw bINFI={balanceINFI} /></div>
 					</div>
 					<img src={imgFlecha} className={style.imgFlecha} alt="not found" />
 					<div className={style.card}>
