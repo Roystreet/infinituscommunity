@@ -14,7 +14,7 @@ import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import img from "../../assets/retiro.png";
 import imgError from "../../assets/on.png";
 import DisplayMessage from "../displayMessage/displayMessage";
-
+import { useNavigate } from "react-router-dom";
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -25,7 +25,7 @@ export default function ModalWithdraw({ bINFI }) {
 	const [message, setMessage] = useState({});
 	const [infi, setInfi] = useState("");
 	const [errorInf, setErrorInf] = useState(true);
-
+	const [btnAct, setBtnAct] = useState(true);
 	function calcularPorcentaje(infi) {
 		let porcentaje = (infi * 10) / 100;
 		let result = infi - porcentaje;
@@ -34,10 +34,14 @@ export default function ModalWithdraw({ bINFI }) {
 	}
 
 	function errorInfi(infi, bINFI) {
-		if (infi > bINFI || infi < 0) {
-			setErrorInf(false);
+		if (infi > bINFI || infi <=0) {
+			setBtnAct(true);
+			if (infi > bINFI) {
+				setErrorInf(false);
+			}
 		} else {
 			setErrorInf(true);
+			setBtnAct(false);
 		}
 	}
 
@@ -63,6 +67,12 @@ export default function ModalWithdraw({ bINFI }) {
 		setInfi(bINFI);
 	}, [bINFI]);
 
+	
+	function volverAlPerfil(){
+		window.location.reload(true);
+		}    
+	
+
 	return (
 		<div className={style.cont}>
 			<Button onClick={handleClickOpen} className={style.contImg}>
@@ -83,8 +93,13 @@ export default function ModalWithdraw({ bINFI }) {
 					<Box
 						component="form"
 						sx={{
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							alignItems: "center",
 							"& .MuiTextField-root": { m: 1, width: "30ch" },
 						}}
+					
 						noValidate
 						autoComplete="off"
 					>
@@ -92,7 +107,11 @@ export default function ModalWithdraw({ bINFI }) {
 							required
 							id="outlined-required"
 							label="INFI"
-							defaultValue={bINFI}
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+							}}
+						
 							type="number"
 							onChange={(e) => {
 								errorInfi(e.target.value, bINFI);
@@ -115,11 +134,11 @@ export default function ModalWithdraw({ bINFI }) {
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} className={style.btn}>
+					<Button onClick={volverAlPerfil} className={style.btn}>
 						Return
 					</Button>
 					<Button
-						disabled={!errorInf}
+						disabled={btnAct}
 						onClick={async () => {
 							let sendValue;
 
@@ -141,7 +160,7 @@ export default function ModalWithdraw({ bINFI }) {
 							)
 								.then((response) => {
 									console.log(response);
-									handleClose();
+									volverAlPerfil()
 								})
 								.catch((error) => {
 									setOpenMessagesDisplay(true);
