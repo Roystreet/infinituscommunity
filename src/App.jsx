@@ -28,6 +28,8 @@ function App({ userConnected }) {
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
 	const [exitRoute, setExitRoute] = useState(null);
+	const [displayButton, setDisplayButton] = useState("");
+	const [status, setStatus] = useState("");
 
 	useEffect(() => {
 		if (window.ethereum) {
@@ -35,7 +37,7 @@ function App({ userConnected }) {
 				ListenerAccountChanged(setOpen, setMessage, setExitRoute, setUserLogged, setUserJWT);
 			} else {
 				deactivateEventListeners();
-				ListenerNetworkChanged(setOpen, setMessage);
+				ListenerNetworkChanged(setOpen, setMessage, setDisplayButton, setStatus);
 			}
 		}
 	}, [userLogged]);
@@ -58,7 +60,7 @@ function App({ userConnected }) {
 									<DisplayMessage
 										open={true}
 										setOpen={setOpen}
-										messageData={{ tittle: "Notificacion", message: "Ya estas conectado :)" }}
+										messageData={{ tittle: "Notification", message: "You're already connected" }}
 										allowBackdropClick={false}
 										exitRoute={"/"}
 									/>
@@ -80,9 +82,10 @@ function App({ userConnected }) {
 								<DisplayMessage
 									open={true}
 									setOpen={setOpen}
-									messageData={{ tittle: "Error", message: "Esta ruta no existe o esta en mantenimiento" }}
+									messageData={{ tittle: "Error", message: "This route doesn't exist or is on work" }}
 									allowBackdropClick={true}
 									exitRoute={"/"}
+									status={"warning"}
 								/>
 							}
 						/>
@@ -99,16 +102,25 @@ function App({ userConnected }) {
 								<DisplayMessage
 									open={!open}
 									setOpen={setOpen}
-									messageData={{ tittle: "Error", message: "Debe Iniciar Sesion " }}
+									messageData={{ tittle: "Notification", message: "You need Login" }}
 									allowBackdropClick={true}
 									exitRoute={"/"}
+									status={"warning"}
 								/>
 							}
 						/>
 					</Routes>
 				</>
 			)}
-			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={false} exitRoute={exitRoute} />
+			<DisplayMessage
+				open={open}
+				setOpen={setOpen}
+				messageData={message}
+				allowBackdropClick={true}
+				exitRoute={exitRoute}
+				displayButton={displayButton}
+				status={status}
+			/>
 		</>
 	);
 }

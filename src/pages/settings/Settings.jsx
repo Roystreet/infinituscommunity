@@ -19,6 +19,7 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 	const [temporalName, setTemporalName] = useState("");
 	const [newName, setNewName] = useState("");
 	const [activeTexBox, setActiveTexBox] = useState(true);
+	const [status, setStatus] = useState("");
 
 	const handleChange = (e) => {
 		setTemporalName(e.target.value);
@@ -46,10 +47,12 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 
 		if (response.tittle == "Error") {
 			setOpenMessagesDisplay(true);
+			setStatus("error");
 			setMessage(response);
 		} else {
 			setNewName(temporalName);
 			setTemporalName("");
+			setStatus("success");
 			setOpenMessagesDisplay(true);
 			setMessage(response);
 		}
@@ -66,6 +69,7 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 
 			if (result.tittle == "Error") {
 				setOpen(true);
+				setStatus("error");
 				setMessage(result);
 			} else {
 				setObtainedName(result.nickName);
@@ -169,10 +173,10 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 						}}
 						value={"Español"}
 					>
-						<MenuItem value="Español">Español</MenuItem>
-						<MenuItem disabled>Ingles</MenuItem>
+						<MenuItem value="Español">Spanish</MenuItem>
+						<MenuItem disabled>Englis</MenuItem>
 						<MenuItem disabled>Portugues</MenuItem>
-						<MenuItem disabled>Italiano</MenuItem>
+						<MenuItem disabled>Italian</MenuItem>
 					</Select>
 				</Box>
 			</Box>
@@ -220,12 +224,19 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 						onClose={setClose}
 					>
 						<AlertTitle sx={{ fontSize: "1.2rem" }}>Hubo un error</AlertTitle>
-						No se acepta espacios ni carácteres especiales. Solo: _ y -
+						No spaces, and special characters, just: "_" and "-"
 					</Alert>
 				) : null}
 			</Box>
-			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
 			<DisplayMessage
+				status={status}
+				open={openMessagesDisplay}
+				setOpen={setOpenMessagesDisplay}
+				messageData={message}
+				allowBackdropClick={true}
+			/>
+			<DisplayMessage
+				status={status}
 				open={open}
 				setOpen={setOpen}
 				messageData={message}

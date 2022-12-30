@@ -16,14 +16,16 @@ export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUse
 			setUserLogged(false);
 			setUserJWT(false);
 			clearUnusedProcess();
-			setMessage({ tittle: "Notificacion", message: "Conecta alguna cuenta de Metamask" });
+			setDisableButton("none");
+			setMessage({ tittle: "Notification", message: "Please connect at least one Metamask account" });
 		} else {
 			setOpen(true);
 			setExitRoute("/");
 			setUserLogged(false);
 			setUserJWT(false);
 			clearUnusedProcess();
-			setMessage({ tittle: "Notificacion", message: "Se cambio la cuenta conectada, vuelve a hacer Login" });
+			setDisableButton("");
+			setMessage({ tittle: "Notification", message: "Connected account has changed, make login again" });
 		}
 	});
 };
@@ -34,12 +36,14 @@ export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUse
  	@param {*} setMessage - useState para setear el mensaje a desplegar al usuario
  *@Desc Retorna: N/A
  */
-export const ListenerNetworkChanged = (setOpen, setMessage) => {
+export const ListenerNetworkChanged = (setOpen, setMessage, setDisableButton, setStatus) => {
 	window.ethereum.on("chainChanged", () => {
 		if (window.ethereum.chainId != "0x38" && window.ethereum.networkVersion != "1") {
 			setOpen(true);
-			setMessage({ tittle: "Notificacion", message: "Vuelve a la Red BSC" });
-		}
+			setDisableButton("none");
+			setStatus("warning");
+			setMessage({ tittle: "Notification", message: "Go Back to BSC Network" });
+		} else setOpen(false);
 	});
 };
 
