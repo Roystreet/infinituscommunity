@@ -116,7 +116,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 					<h2 className={style.name}>{myInfo?.nickName}</h2>
 				</div>
 				<div className={style.contDataCuenta}>
-					<h3>Cuenta</h3>
+					<h3>Your Address</h3>
 					<div className={style.contData}>
 						<span className={style.data}>{myInfo?.address}</span>
 						<CopyToClipboard text={myInfo?.address}>
