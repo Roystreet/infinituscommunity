@@ -41,10 +41,10 @@ export default function Navbar() {
 	);
 
 	const routes = [
-		{ route: "/paquetes", id: 1 },
+		{ route: "/mytickets", id: 1 },
 		{ route: "/colabroom", id: 2 },
 		{ route: "/ranking", id: 3 },
-		{ route: "/preventa", id: 4 },
+		{ route: "/presale", id: 4 },
 	];
 
 	const handleChange = (event, newValue) => {

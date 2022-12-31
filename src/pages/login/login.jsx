@@ -79,7 +79,7 @@ export default function Login({ setUserJWT, setUserLogged }) {
 										localStorage.setItem("jwt", jwt.jwt);
 										setUserJWT(true);
 										setUserLogged(true);
-										navigate("/perfil");
+										navigate("/profile");
 									} else {
 										setOpen(true);
 										setStatus("error");

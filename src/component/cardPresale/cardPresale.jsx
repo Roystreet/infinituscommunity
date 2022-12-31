@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import { sendServerGet } from "../../functions/serverInteractions";
 import { useState } from "react";
+import DisplayMessage from "../displayMessage/displayMessage";
+
 async function addDecimal(input) {
 	let output;
 	let number = Number(input);
@@ -26,6 +28,7 @@ export default function CardPresale({ id, name, value, image, amount, supply }) 
 	const [message, setMessage] = useState({});
 	const [open, setOpen] = useState(false);
 	const [status, setStatus] = useState("");
+
 	const buyPresale = async (id, value) => {
 		try {
 			console.log(id, value);
@@ -170,7 +173,7 @@ export default function CardPresale({ id, name, value, image, amount, supply }) 
 					</Box>
 				</Box>
 			</Box>
-			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} exitRoute={exitRoute} status={status} />
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} status={status} />
 		</div>
 	);
 }

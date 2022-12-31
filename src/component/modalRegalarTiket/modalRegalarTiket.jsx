@@ -1,113 +1,127 @@
-import * as React from "react";
+import { forwardRef, useState } from "react";
+import { sendServerGet } from "../../functions/serverInteractions";
+import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import style from "./ModalRegalarTiket.module.css";
-import img from "../../assets/retiro.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
-import { sendServerGet } from "../../functions/serverInteractions";
-import { sendWriteTransactions } from "../../functions/Web3Interactions";
-import imgError from "../../assets/on.png";
+import DisplayMessage from "../displayMessage/displayMessage";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+const Transition = forwardRef(function Transition(props, ref) {
+	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlideTiket({ ticketId }) {
-  const [open, setOpen] = React.useState();
-  const [nameAddress, setNameAddress] = useState("");
-  const [err, setErr] = useState(false);
+export default function ModalRegalarTiket({ ticketId }) {
+	const [open, setOpen] = useState(false);
+	const [nameAddress, setNameAddress] = useState("");
+	const [err, setErr] = useState(false);
+	const [openDisplayMessage, setOpenDisplayMessage] = useState(false);
+	const [message, setMessage] = useState({});
+	const [exitRoute, setExitRoute] = useState(null);
+	const [status, setStatus] = useState("");
 
-  function controlError(nameAddress) {
-    let str = nameAddress;
+	function controlError(nameAddress) {
+		let str = nameAddress;
 
-    if (nameAddress && err == false && str.substr(0, 2) == "0x") {
-      if (str.length > 40) {
-        setErr(true);
-      }
-    }
-  }
-  controlError(nameAddress);
-  // console.log(err)
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+		if (nameAddress && err == false && str.substr(0, 2) == "0x") {
+			if (str.length > 40) {
+				setErr(true);
+			}
+		}
+	}
+	controlError(nameAddress);
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+	const handleClose = () => {
+		setOpen(false);
+	};
 
-  return (
-    <div className={style.btnPrincipal}>
-      <Button onClick={handleClickOpen} className={style.contImg}>
-        Make a Gift
-      </Button>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <p className={style.titleModal}>Paste the destiny wallet</p>
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-slide-description">
-            <Box
-              component="form"
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                "& .MuiTextField-root": { m: 1, width: "31ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <div className={style.inputadd}>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Address"
-                  onChange={(e) => {
-                    setNameAddress(e.target.value);
-                  }}
-                />
-                {/* { textError(errorInfi)} */}
-              </div>
-            </Box>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} className={style.btn}>
-            Go back
-          </Button>
-          <Button
-            disabled={!err}
-            onClick={async () => {
-              await sendWriteTransactions(
-                await sendServerGet("/addressContract", "text"),
-                await sendServerGet("/abiContract", "json"),
-                "changeTicketOwner",
-                [ticketId, nameAddress]
-              ).then((response) => {
-                // console.log(response);
-                window.alert("Ticket Enviado Exitosamente!");
-              });
-            }}
-            className={style.btnModal}
-          >
-            Gift
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+	return (
+		<div className={style.btnPrincipal}>
+			<Button disableRipple={true} disableFocusRipple={true} onClick={handleClickOpen} className={style.contImg}>
+				Make a Gift
+			</Button>
+			<Dialog
+				open={open}
+				TransitionComponent={Transition}
+				keepMounted
+				onClose={handleClose}
+				aria-describedby="alert-dialog-slide-description"
+			>
+				<DialogContent>
+					<DialogContentText className={style.titleModal} id="alert-dialog-slide-description">
+						Paste the Wallet to Gift the Ticket
+					</DialogContentText>
+					<DialogContentText component={"span"} id="alert-dialog-slide-description">
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								"& .MuiTextField-root": { m: 1, width: "31ch" },
+							}}
+							noValidate
+							autoComplete="off"
+						>
+							<TextField
+								className={style.inputadd}
+								required
+								id="outlined-required"
+								label="Address"
+								onChange={(e) => {
+									setNameAddress(e.target.value);
+								}}
+							/>
+						</Box>
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} className={style.btn}>
+						Return
+					</Button>
+					<Button
+						disabled={!err}
+						className={style.btnModal}
+						onClick={async () => {
+							await sendWriteTransactions(
+								await sendServerGet("/addressContract", "text"),
+								await sendServerGet("/abiContract", "json"),
+								"changeTicketOwner",
+								[ticketId, nameAddress]
+							)
+								.then((response) => {
+									setExitRoute("/mytickets");
+									setMessage({ tittle: "Success", message: `Ticket Collected Successfully down the Hash: ${response.hash}` });
+									setStatus("success");
+									setOpenDisplayMessage(true);
+								})
+								.catch((error) => {
+									setExitRoute("/mytickets");
+									setMessage({ tittle: "Error", message: error.reason });
+									setStatus("error");
+									setOpenDisplayMessage(true);
+								});
+						}}
+					>
+						Send Gift
+					</Button>
+				</DialogActions>
+			</Dialog>
+			<DisplayMessage
+				open={openDisplayMessage}
+				setOpen={setOpenDisplayMessage}
+				messageData={message}
+				allowBackdropClick={true}
+				exitRoute={exitRoute}
+				status={status}
+			/>
+		</div>
+	);
 }
