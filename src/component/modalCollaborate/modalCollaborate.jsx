@@ -3,16 +3,12 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 import style from "./ModalCollaborate.module.css";
-
-import Box from "@mui/material/Box";
 import { useState } from "react";
 import { sendServerGet } from "../../functions/serverInteractions";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import DisplayMessage from "../displayMessage/displayMessage";
-import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,6 +17,7 @@ export default function ModalCollaborate({ referals, open, setOpen, ticketId, ad
 	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
 	const [message, setMessage] = useState({});
 	const [btnDis, setBtnDis] = useState(false);
+	const [status, setStatus] = useState("");
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -83,7 +80,6 @@ export default function ModalCollaborate({ referals, open, setOpen, ticketId, ad
 								value,
 							])
 								.then(async (response) => {
-									console.log(response);
 									await sendWriteTransactions(
 										await sendServerGet("/addressContract", "text"),
 										await sendServerGet("/abiContract", "json"),
@@ -91,18 +87,21 @@ export default function ModalCollaborate({ referals, open, setOpen, ticketId, ad
 										[packageId, ticketId, addressReferer, true]
 									)
 										.then((response) => {
-											console.log(response);
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.hash}` });
+											setStatus("success");
+											setMessage({ tittle: "Success", message: `Ticket buyed successfully down the Hash:${response.hash}` });
+											handleClose();
 										})
 										.catch((error) => {
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Metamask Error", message: error });
+											setStatus("error");
+											setMessage({ tittle: "Metamask Error", message: error.reason });
 										});
 								})
 								.catch((error) => {
 									setOpenMessagesDisplay(true);
-									setMessage({ tittle: "Metamask Error", message: error });
+									setStatus("error");
+									setMessage({ tittle: "Metamask Error", message: error.reason });
 								});
 						}}
 					>
@@ -128,16 +127,20 @@ export default function ModalCollaborate({ referals, open, setOpen, ticketId, ad
 										.then((response) => {
 											console.log(response);
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Exito!", message: `Ticket comprado y registrado con el siguiente Hash:${response.hash}` });
+											setStatus("success");
+											setMessage({ tittle: "Success", message: `Ticket buyed successfully down the Hash:${response.hash}` });
+											handleClose();
 										})
 										.catch((error) => {
 											setOpenMessagesDisplay(true);
-											setMessage({ tittle: "Metamask Error", message: error });
+											setStatus("error");
+											setMessage({ tittle: "Metamask Error", message: error.reason });
 										});
 								})
 								.catch((error) => {
 									setOpenMessagesDisplay(true);
-									setMessage({ tittle: "Metamask Error", message: error });
+									setStatus("error");
+									setMessage({ tittle: "Metamask Error", message: error.reason });
 								});
 						}}
 					>
@@ -145,7 +148,13 @@ export default function ModalCollaborate({ referals, open, setOpen, ticketId, ad
 					</button>
 				</DialogActions>
 			</Dialog>
-			<DisplayMessage open={openMessagesDisplay} messageData={message} setOpen={setOpenMessagesDisplay} allowBackdropClick={true} />
+			<DisplayMessage
+				open={openMessagesDisplay}
+				messageData={message}
+				setOpen={setOpenMessagesDisplay}
+				allowBackdropClick={true}
+				status={status}
+			/>
 		</div>
 	);
 }

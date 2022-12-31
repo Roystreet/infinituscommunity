@@ -14,9 +14,9 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
 	const [open, setOpen] = useState(false);
-	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
 	const [message, setMessage] = useState({});
 	const { address, idticket } = useParams();
+	const [status, setStatus] = useState("");
 
 	useEffect(() => {
 		const getObjs = async () => {
@@ -26,11 +26,13 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 
 			if (pack.tittle == "Error" || ticket.tittle == "Error") {
 				setOpen(true);
+				setStatus("error");
 				if (pack.tittle == "Error") setMessage(pack);
 				setMessage(ticket);
 			} else if (ticket[0].referals > 3) {
-				setOpenMessagesDisplay(true);
-				setMessage({ tittle: "Notificacion", message: "El ticket referidor ya completo sus tareas. Usa otro enlace de referido." });
+				setOpen(true);
+				setStatus("error");
+				setMessage({ tittle: "Notification", message: "The referrer ticket has completed all the task" });
 			} else {
 				setPackages(pack);
 				setTicket(ticket);
@@ -69,25 +71,7 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 					<img src={imgI} className={style.imgInf} alt="Logoicon" />
 				</div>
 			</div>
-			<DisplayMessage
-				open={openMessagesDisplay}
-				setOpen={setOpenMessagesDisplay}
-				messageData={message}
-				allowBackdropClick={true}
-				exitRoute={"/"}
-			/>
-			<DisplayMessage
-				open={open}
-				messageData={message}
-				setOpen={setOpen}
-				allowBackdropClick={true}
-				exitRoute={"/"}
-				finalFunction={() => {
-					setUserJWT(false);
-					setUserLogged(false);
-					clearUnusedProcess();
-				}}
-			/>
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} status={status} exitRoute={"/"} />
 		</>
 	);
 }

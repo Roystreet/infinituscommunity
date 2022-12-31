@@ -19,6 +19,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 	const [open, setOpen] = useState(false);
 	const [openMessages, setOpenMessages] = useState(false);
 	const [message, setMessage] = useState({});
+	const [status, setStatus] = useState("");
 
 	function intialName(data) {
 		if (data.nickName) {
@@ -41,6 +42,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 			})
 			.catch((error) => {
 				setOpenMessages(true);
+				setStatus("error");
 				setMessage({ tittle: "Network Error", message: error });
 			});
 	};
@@ -58,6 +60,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 			})
 			.catch((error) => {
 				setOpenMessages(true);
+				setStatus("error");
 				setMessage({ tittle: "Network Error", message: error });
 			});
 	};
@@ -76,6 +79,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 				setUserJWT(false);
 				navigate("/");
 			} else if (userJWT == true && userLogged == true) {
+				setStatus("error");
 				setUserLogged(false);
 				setUserJWT(false);
 				setOpen(true);
@@ -145,6 +149,7 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 			</div>
 			<DisplayMessage open={openMessages} setOpen={setOpenMessages} messageData={message} allowBackdropClick={true} />
 			<DisplayMessage
+				status={status}
 				open={open}
 				setOpen={setOpen}
 				messageData={message}

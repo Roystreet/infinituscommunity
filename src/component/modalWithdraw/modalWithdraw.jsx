@@ -25,6 +25,7 @@ export default function ModalWithdraw({ bINFI }) {
 	const [message, setMessage] = useState({});
 	const [infi, setInfi] = useState("");
 	const [errorInf, setErrorInf] = useState(true);
+	const [status, setStatus] = useState("");
 
 	function calcularPorcentaje(infi) {
 		let porcentaje = (infi * 10) / 100;
@@ -140,12 +141,15 @@ export default function ModalWithdraw({ bINFI }) {
 								[sendValue]
 							)
 								.then((response) => {
-									console.log(response);
+									setOpenMessagesDisplay(true);
+									setStatus("success");
+									setMessage({ tittle: "Success", message: `Withdraw completed down the Hash: ${response.hash}` });
 									handleClose();
 								})
 								.catch((error) => {
 									setOpenMessagesDisplay(true);
-									setMessage({ tittle: "Metamask Error", message: error });
+									setStatus("error");
+									setMessage({ tittle: "Metamask Error", message: error.reason });
 								});
 						}}
 						className={style.btnWhiteDraw}
@@ -154,7 +158,13 @@ export default function ModalWithdraw({ bINFI }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
+			<DisplayMessage
+				open={openMessagesDisplay}
+				setOpen={setOpenMessagesDisplay}
+				messageData={message}
+				allowBackdropClick={true}
+				status={status}
+			/>
 		</div>
 	);
 }

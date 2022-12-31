@@ -15,6 +15,7 @@ export default function Login({ setUserJWT, setUserLogged }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
+	const [status, setStatus] = useState("");
 
 	const handleClickRegister = async () => {
 		try {
@@ -30,6 +31,7 @@ export default function Login({ setUserJWT, setUserLogged }) {
 									const aux = await sendServerPost(SignedInfo, "/auth/register", "json");
 									if (aux.tittle === "Error") {
 										setOpen(true);
+										setStatus("error");
 										setMessage(aux);
 									} else {
 										setOpen(true);
@@ -38,21 +40,25 @@ export default function Login({ setUserJWT, setUserLogged }) {
 								})
 								.catch((error) => {
 									setOpen(true);
-									setMessage({ tittle: "Error", message: error });
+									setStatus("error");
+									setMessage({ tittle: "Error", message: error.reason });
 								});
 						})
 						.catch(() => {
 							setOpen(true);
-							setMessage({ tittle: "Error", message: "No se logro obtener la address" });
+							setStatus("error");
+							setMessage({ tittle: "Error", message: "We couldn't get the address" });
 						});
 				} else {
 					setOpen(true);
-					setMessage({ tittle: "Error", message: "No estas la Red BSC" });
+					setStatus("error");
+					setMessage({ tittle: "Error", message: "You are not in BSC Netwkork" });
 				}
 			}
 		} catch (error) {
 			setOpen(true);
-			setMessage({ tittle: "Metamask Error", message: error.code + "  " + error.message });
+			setStatus("error");
+			setMessage({ tittle: "Metamask Error", message: error.code + "  " + error.reason });
 		}
 	};
 
@@ -76,26 +82,31 @@ export default function Login({ setUserJWT, setUserLogged }) {
 										navigate("/perfil");
 									} else {
 										setOpen(true);
+										setStatus("error");
 										setMessage(jwt);
 									}
 								})
 								.catch((error) => {
 									setOpen(true);
-									setMessage({ tittle: "Error", message: error });
+									setStatus("error");
+									setMessage({ tittle: "Error", message: error.reason });
 								});
 						})
 						.catch(() => {
 							setOpen(true);
-							setMessage({ tittle: "Error", message: "No se logro obtener la address" });
+							setStatus("error");
+							setMessage({ tittle: "Error", message: "We couldn't get the address" });
 						});
 				} else {
 					setOpen(true);
-					setMessage({ tittle: "Error", message: "No estas la Red BSC" });
+					setStatus("error");
+					setMessage({ tittle: "Error", message: "You are not in BSC Netwkork" });
 				}
 			}
 		} catch (error) {
 			setOpen(true);
-			setMessage({ tittle: "Metamask Error", message: error.code + "  " + error.message });
+			setStatus("error");
+			setMessage({ tittle: "Metamask Error", message: error.code + "  " + error.reason });
 		}
 	};
 
@@ -154,7 +165,7 @@ export default function Login({ setUserJWT, setUserLogged }) {
 					<Box className={style.contLogo}>
 						<img src={logoInfinitus} alt="infinitus-log" className={style.logo} />
 					</Box>
-					<DisplayMessage open={open} messageData={message} setOpen={setOpen} allowBackdropClick={true} />
+					<DisplayMessage open={open} messageData={message} setOpen={setOpen} allowBackdropClick={true} status={status} />
 				</Box>
 			</Box>
 		</>

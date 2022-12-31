@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
 import { sendWriteTransactions } from "../../functions/Web3Interactions";
 import { sendServerGet } from "../../functions/serverInteractions";
+import { useState } from "react";
 async function addDecimal(input) {
 	let output;
 	let number = Number(input);
 	let result = number / 2;
+
 	if (result.toString().includes(".")) {
 		result = result.toString().replace(".", "");
 		output = result + "0".repeat(17);
@@ -21,27 +23,31 @@ function getAddres() {
 }
 
 export default function CardPresale({ id, name, value, image, amount, supply }) {
+	const [message, setMessage] = useState({});
+	const [open, setOpen] = useState(false);
+	const [status, setStatus] = useState("");
 	const buyPresale = async (id, value) => {
 		try {
 			console.log(id, value);
 			await sendWriteTransactions(await sendServerGet("/addressCoin", "text"), await sendServerGet("/abiCoin", "json"), "approve", [
 				await sendServerGet("/addressContract", "text"),
 				await addDecimal(value),
-			]).then(async (response) => {
-				console.log(response);
+			]).then(async () => {
 				await sendWriteTransactions(
 					await sendServerGet("/addressContract", "text"),
 					await sendServerGet("/abiContract", "json"),
 					"buyTicketFather",
 					[1, id]
 				).then((response) => {
-					console.log("success");
-					console.log(response);
+					setOpen(true);
+					setStatus("success");
+					setMessage({ tittle: "Success", message: `Ticket buyed successfully down the Hash:${response.hash}` });
 				});
 			});
 		} catch (error) {
-			console.log("Error");
-			console.log(error);
+			setOpen(true);
+			setStatus("error");
+			setMessage({ tittle: "Metamask Error", message: error.reason });
 		}
 	};
 
@@ -164,6 +170,7 @@ export default function CardPresale({ id, name, value, image, amount, supply }) 
 					</Box>
 				</Box>
 			</Box>
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} exitRoute={exitRoute} status={status} />
 		</div>
 	);
 }

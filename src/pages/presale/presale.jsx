@@ -2,16 +2,25 @@ import PresalePackage from "./presalePackege";
 import { useState, useEffect } from "react";
 import CardPresale from "../../component/cardPresale/cardPresale";
 import { sendServerGet } from "../../functions/serverInteractions";
+import DisplayMessage from "../../component/displayMessage/displayMessage";
 
 export default function Presale() {
 	const [totalSupply, setTotalSupply] = useState(null);
+	const [message, setMessage] = useState({});
+	const [open, setOpen] = useState(false);
+	const [exitRoute, setExitRoute] = useState(null);
+	const [status, setStatus] = useState("");
+
 	useEffect(() => {
 		async function getData() {
 			try {
 				const data = await sendServerGet("/user/getpackagesid", "json");
 				setTotalSupply(data);
 			} catch (err) {
-				console.log(err);
+				setMessage(err);
+				setExitRoute("/");
+				setStatus("error");
+				setOpen(true);
 			}
 		}
 		getData();
@@ -38,6 +47,7 @@ export default function Presale() {
 					<p></p>
 				)}
 			</div>
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} exitRoute={exitRoute} status={status} />
 		</>
 	);
 }
