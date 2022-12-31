@@ -67,12 +67,12 @@ function App({ userConnected }) {
 								)
 							}
 						/>
-						<Route path="/preventa" element={<Presale />} />
+						<Route path="/presale" element={<Presale />} />
 						<Route
-							path="/perfil"
+							path="/profile"
 							element={<Profile userJWT={userJWT} setUserJWT={setUserJWT} userLogged={userLogged} setUserLogged={setUserLogged} />}
 						/>
-						<Route path="/paquetes" element={<Package setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
+						<Route path="/mytickets" element={<Package setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
 						<Route path="/error" element={<Error />} />
 						<Route path="/settings" element={<Settings setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
 						<Route path="/share/:idticket/owner/:address" element={<Invitado setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
