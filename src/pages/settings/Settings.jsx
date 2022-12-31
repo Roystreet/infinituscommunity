@@ -171,11 +171,11 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 							border: 0,
 							borderRadius: "8px",
 						}}
-						value={"Español"}
+						value={"English"}
 					>
-						<MenuItem value="Español">Spanish</MenuItem>
-						<MenuItem disabled>Englis</MenuItem>
-						<MenuItem disabled>Portugues</MenuItem>
+						<MenuItem value="English">English</MenuItem>
+						<MenuItem disabled>Spanish</MenuItem>
+						<MenuItem disabled>Portuguese</MenuItem>
 						<MenuItem disabled>Italian</MenuItem>
 					</Select>
 				</Box>
