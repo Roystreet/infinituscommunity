@@ -5,11 +5,11 @@ import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
-import { activateEventListeners } from "../../functions/eventListeners";
+import { ListenerAccountChanged } from "../../functions/eventListeners";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
-export default function Invitado({ userLogged, setUserLogged }) {
+export default function Invitado({ setUserJWT, setUserLogged }) {
 	const [nickName, setNickname] = useState("");
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
@@ -19,30 +19,26 @@ export default function Invitado({ userLogged, setUserLogged }) {
 	const { address, idticket } = useParams();
 
 	useEffect(() => {
-		if (userLogged) {
-			const getObjs = async () => {
-				const idTicketNumber = Number(idticket);
-				const pack = await sendServerGet("/user/getpackagesid", "json");
-				const ticket = await sendServerPost({ _id: idTicketNumber, ownerAddress: address }, "/user/getticketrefered", "json");
+		const getObjs = async () => {
+			const idTicketNumber = Number(idticket);
+			const pack = await sendServerGet("/user/getpackagesid", "json");
+			const ticket = await sendServerPost({ _id: idTicketNumber, ownerAddress: address }, "/user/getticketrefered", "json");
 
-				if (pack.tittle == "Error" || ticket.tittle == "Error") {
-					setOpen(true);
-					if (pack.tittle == "Error") setMessage(pack);
-					setMessage(ticket);
-				} else if (ticket[0].referals > 3) {
-					setOpenMessagesDisplay(true);
-					setMessage({ tittle: "Notificacion", message: "El ticket referidor ya completo sus tareas. Usa otro enlace de referido." });
-				} else {
-					setPackages(pack);
-					setTicket(ticket);
-					setNickname(ticket[0].nickName);
-				}
-			};
-			getObjs();
-		} else {
-			setOpen(true);
-			setMessage({ tittle: "Notificacion", message: "Debe Iniciar Sesion y volver a escribir este enlace!" });
-		}
+			if (pack.tittle == "Error" || ticket.tittle == "Error") {
+				setOpen(true);
+				if (pack.tittle == "Error") setMessage(pack);
+				setMessage(ticket);
+			} else if (ticket[0].referals > 3) {
+				setOpenMessagesDisplay(true);
+				setMessage({ tittle: "Notificacion", message: "El ticket referidor ya completo sus tareas. Usa otro enlace de referido." });
+			} else {
+				setPackages(pack);
+				setTicket(ticket);
+				setNickname(ticket[0].nickName);
+			}
+		};
+		setUserLogged(true);
+		getObjs();
 	}, []);
 
 	return (
@@ -55,8 +51,6 @@ export default function Invitado({ userLogged, setUserLogged }) {
 				{ticket.map((e) => (
 					<div className={style.contCard} key={e.ticketId}>
 						<CardShare
-							userLogged={userLogged}
-							setUserLogged={setUserLogged}
 							img={e.imgRoute}
 							referals={e.referrals}
 							id={e.ticketId}
@@ -75,7 +69,13 @@ export default function Invitado({ userLogged, setUserLogged }) {
 					<img src={imgI} className={style.imgInf} alt="Logoicon" />
 				</div>
 			</div>
-			<DisplayMessage open={openMessagesDisplay} setOpen={setOpenMessagesDisplay} messageData={message} allowBackdropClick={true} />
+			<DisplayMessage
+				open={openMessagesDisplay}
+				setOpen={setOpenMessagesDisplay}
+				messageData={message}
+				allowBackdropClick={true}
+				exitRoute={"/"}
+			/>
 			<DisplayMessage
 				open={open}
 				messageData={message}
@@ -83,6 +83,7 @@ export default function Invitado({ userLogged, setUserLogged }) {
 				allowBackdropClick={true}
 				exitRoute={"/"}
 				finalFunction={() => {
+					setUserJWT(false);
 					setUserLogged(false);
 					clearUnusedProcess();
 				}}

@@ -8,10 +8,11 @@ import { Toaster, toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import { nonWriteContractFunctions } from "../../functions/Web3Interactions";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
-import { activateEventListeners } from "../../functions/eventListeners";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
+import { useNavigate } from "react-router-dom";
 
-export default function Profile({ setUserLogged }) {
+export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged }) {
+	const navigate = useNavigate();
 	const [myInfo, setmyInfo] = useState({});
 	const [balanceBUSD, setbalanceBUSD] = useState("");
 	const [balanceINFI, setbalanceINFI] = useState("");
@@ -40,7 +41,7 @@ export default function Profile({ setUserLogged }) {
 			})
 			.catch((error) => {
 				setOpenMessages(true);
-				message({ tittle: "Metamask Error", message: error });
+				setMessage({ tittle: "Network Error", message: error });
 			});
 	};
 
@@ -57,7 +58,7 @@ export default function Profile({ setUserLogged }) {
 			})
 			.catch((error) => {
 				setOpenMessages(true);
-				message({ tittle: "Metamask Error", message: error });
+				setMessage({ tittle: "Network Error", message: error });
 			});
 	};
 
@@ -70,15 +71,23 @@ export default function Profile({ setUserLogged }) {
 		);
 
 		if (response.tittle == "Error") {
-			setOpen(true);
-			setMessage(response);
+			if (userJWT == true && userLogged == false) {
+				clearUnusedProcess();
+				setUserJWT(false);
+				navigate("/");
+			} else if (userJWT == true && userLogged == true) {
+				setUserLogged(false);
+				setUserJWT(false);
+				setOpen(true);
+				setMessage(response);
+			}
 		} else {
+			setUserLogged(true);
 			setmyInfo(response);
 		}
 	};
 
 	useEffect(() => {
-		activateEventListeners(setOpen, setMessage);
 		data();
 	}, []);
 
@@ -142,6 +151,7 @@ export default function Profile({ setUserLogged }) {
 				allowBackdropClick={true}
 				exitRoute={"/"}
 				finalFunction={() => {
+					setUserJWT(false);
 					setUserLogged(false);
 					clearUnusedProcess();
 				}}

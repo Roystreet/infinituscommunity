@@ -10,7 +10,7 @@ import { sendServerPost } from "../../functions/serverInteractions";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
-const Settings = ({ setUserLogged }) => {
+const Settings = ({ setUserJWT, setUserLogged }) => {
 	const [errorNick, setErrorNick] = useState(null);
 	const [open, setOpen] = useState(false);
 	const [openMessagesDisplay, setOpenMessagesDisplay] = useState(false);
@@ -233,6 +233,7 @@ const Settings = ({ setUserLogged }) => {
 				exitRoute={"/"}
 				finalFunction={() => {
 					setUserLogged(false);
+					setUserJWT(true);
 					clearUnusedProcess();
 				}}
 			/>

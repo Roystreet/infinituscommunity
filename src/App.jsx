@@ -20,22 +20,40 @@ import Error from "./pages/error/error";
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
 import Invitado from "./pages/invitado/invitado";
+import { deactivateEventListeners, ListenerAccountChanged, ListenerNetworkChanged } from "./functions/eventListeners";
 
 function App({ userConnected }) {
-	const [userLogged, setUserLogged] = useState(userConnected);
+	const [userJWT, setUserJWT] = useState(userConnected);
+	const [userLogged, setUserLogged] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [message, setMessage] = useState({});
+	const [exitRoute, setExitRoute] = useState(null);
+
+	useEffect(() => {
+		if (window.ethereum) {
+			if (userLogged == true) {
+				ListenerAccountChanged(setOpen, setMessage, setExitRoute, setUserLogged, setUserJWT);
+			} else {
+				deactivateEventListeners();
+				ListenerNetworkChanged(setOpen, setMessage);
+			}
+		}
+	}, [userLogged]);
 
 	return (
 		<>
-			{userLogged ? (
+			{userJWT ? (
 				<Layout>
 					<Routes>
-						<Route path="/" element={<Profile setUserLogged={setUserLogged} />} />
+						<Route
+							path="/"
+							element={<Profile userJWT={userJWT} setUserJWT={setUserJWT} userLogged={userLogged} setUserLogged={setUserLogged} />}
+						/>
 						<Route
 							path="/login"
 							element={
-								!userLogged ? (
-									<Login setUserLogged={setUserLogged} />
+								!userJWT ? (
+									<Login setUserJWT={setUserJWT} setUserLogged={setUserLogged} />
 								) : (
 									<DisplayMessage
 										open={true}
@@ -48,11 +66,14 @@ function App({ userConnected }) {
 							}
 						/>
 						<Route path="/preventa" element={<Presale />} />
-						<Route path="/perfil" element={<Profile setUserLogged={setUserLogged} />} />
-						<Route path="/paquetes" element={<Package />} />
+						<Route
+							path="/perfil"
+							element={<Profile userJWT={userJWT} setUserJWT={setUserJWT} userLogged={userLogged} setUserLogged={setUserLogged} />}
+						/>
+						<Route path="/paquetes" element={<Package setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
 						<Route path="/error" element={<Error />} />
-						<Route path="/settings" element={<Settings setUserLogged={setUserLogged} />} />
-						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
+						<Route path="/settings" element={<Settings setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -71,7 +92,7 @@ function App({ userConnected }) {
 				<>
 					<Message />
 					<Routes>
-						<Route path="/" element={<Login setUserLogged={setUserLogged} />} />
+						<Route path="/" element={<Login setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
 						<Route
 							path="*"
 							element={
@@ -84,10 +105,10 @@ function App({ userConnected }) {
 								/>
 							}
 						/>
-						<Route path="/share/:idticket/owner/:address" element={<Invitado userLogged={userLogged} setUserLogged={setUserLogged} />} />
 					</Routes>
 				</>
 			)}
+			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={false} exitRoute={exitRoute} />
 		</>
 	);
 }
