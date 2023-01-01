@@ -38,7 +38,7 @@ export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUse
  */
 export const ListenerNetworkChanged = (setOpen, setMessage, setDisableButton, setStatus) => {
 	window.ethereum.on("chainChanged", () => {
-		if (window.ethereum.chainId != "0x38" && window.ethereum.networkVersion != "1") {
+		if (window.ethereum.chainId != "0x38") {
 			setOpen(true);
 			setDisableButton("none");
 			setStatus("warning");

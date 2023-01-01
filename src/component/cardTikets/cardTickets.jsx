@@ -10,8 +10,10 @@ import img from "./assets/Vector.png";
 import Modal from "react-bootstrap/Modal";
 import ModalRegalarTiket from "../modalRegalarTiket/modalRegalarTiket";
 import DisplayMessage from "../displayMessage/displayMessage";
+import { useLocation } from "react-router-dom";
 
 const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
+	const location = useLocation();
 	const [smShow, setSmShow] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [messageDisplay, setMessageDisplay] = useState({});
@@ -112,7 +114,10 @@ const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => 
 
 	function rutaParaCompartir() {
 		const add = localStorage.getItem("address");
-		const urlCompartir = window.location.href.slice(0, -8) + `share/${ticketId}/owner/${add}`;
+		const route = location.pathname;
+		const routeLength = route.length;
+		const url = window.location.href.length - (routeLength - 1);
+		const urlCompartir = window.location.href.substring(0, url) + `share/${ticketId}/owner/${add}`;
 
 		return urlCompartir;
 	}
