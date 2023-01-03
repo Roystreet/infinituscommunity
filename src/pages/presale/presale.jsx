@@ -31,17 +31,33 @@ export default function Presale() {
 			<div className="container_presale">
 				{PresalePackage.length > 0 && totalSupply ? (
 					PresalePackage.map((data) => {
-						return (
-							<CardPresale
-								key={data.id}
-								id={data.id}
-								name={data.name}
-								image={data.image}
-								value={data.value}
-								amount={data.cantidad}
-								supply={totalSupply ? totalSupply.filter((filter) => filter.packageId == data.id)[0].totalForPresale : null}
-							/>
-						);
+						if (data.id == 1) {
+							return (
+								<CardPresale
+									key={data.id}
+									id={data.id}
+									name={data.name}
+									image={data.image}
+									value={data.value}
+									amount={data.cantidad}
+									supply={totalSupply ? totalSupply.filter((filter) => filter.packageId == data.id)[0].totalForPresale : null}
+									topMargin={true}
+								/>
+							);
+						} else {
+							return (
+								<CardPresale
+									key={data.id}
+									id={data.id}
+									name={data.name}
+									image={data.image}
+									value={data.value}
+									amount={data.cantidad}
+									supply={totalSupply ? totalSupply.filter((filter) => filter.packageId == data.id)[0].totalForPresale : null}
+									topMargin={false}
+								/>
+							);
+						}
 					})
 				) : (
 					<p></p>

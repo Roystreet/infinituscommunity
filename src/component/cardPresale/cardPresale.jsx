@@ -24,7 +24,7 @@ function getAddres() {
 	return address;
 }
 
-export default function CardPresale({ id, name, value, image, amount, supply }) {
+export default function CardPresale({ id, name, value, image, amount, supply, topMargin }) {
 	const [message, setMessage] = useState({});
 	const [open, setOpen] = useState(false);
 	const [status, setStatus] = useState("");
@@ -54,8 +54,16 @@ export default function CardPresale({ id, name, value, image, amount, supply }) 
 		}
 	};
 
+	function tMargin(tm) {
+		if (tm == true) {
+			return "20px";
+		} else {
+			return "0px";
+		}
+	}
+
 	return (
-		<div className="card_presale">
+		<Box className="card_presale" sx={{ marginTop: tMargin(topMargin) }}>
 			<Box
 				component="div"
 				sx={{
@@ -174,6 +182,6 @@ export default function CardPresale({ id, name, value, image, amount, supply }) 
 				</Box>
 			</Box>
 			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} status={status} />
-		</div>
+		</Box>
 	);
 }

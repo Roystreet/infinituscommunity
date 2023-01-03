@@ -11,6 +11,7 @@ export default function Package() {
 	const [message, setMessage] = useState({});
 	const [exitRoute, setExitRoute] = useState(null);
 	const [status, setStatus] = useState("");
+	let count = 1;
 
 	useEffect(() => {
 		const getTikets = async () => {
@@ -42,17 +43,34 @@ export default function Package() {
 				myTickets
 					.filter((e) => e.collected !== true)
 					.map((e) => {
-						return (
-							<div className={style.cards} key={e.ticketId}>
-								<CardTickets
-									ticketId={e.ticketId}
-									referals={e.referals}
-									packageId={e.packageId}
-									collected={e.collected}
-									imgRoute={e.imgRoute}
-								/>
-							</div>
-						);
+						if (count == 1) {
+							count = count + 1;
+							return (
+								<div className={style.cards} key={e.ticketId}>
+									<CardTickets
+										ticketId={e.ticketId}
+										referals={e.referals}
+										packageId={e.packageId}
+										collected={e.collected}
+										imgRoute={e.imgRoute}
+										marginTop={true}
+									/>
+								</div>
+							);
+						} else {
+							return (
+								<div className={style.cards} key={e.ticketId}>
+									<CardTickets
+										ticketId={e.ticketId}
+										referals={e.referals}
+										packageId={e.packageId}
+										collected={e.collected}
+										imgRoute={e.imgRoute}
+										marginTop={false}
+									/>
+								</div>
+							);
+						}
 					})
 			) : (
 				<h3> You have no tickets </h3>
