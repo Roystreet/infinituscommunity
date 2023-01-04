@@ -11,8 +11,9 @@ import Modal from "react-bootstrap/Modal";
 import ModalRegalarTiket from "../modalRegalarTiket/modalRegalarTiket";
 import DisplayMessage from "../displayMessage/displayMessage";
 import { useLocation } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => {
+const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute, marginTop }) => {
 	const location = useLocation();
 	const [smShow, setSmShow] = useState(false);
 	const [open, setOpen] = useState(false);
@@ -140,8 +141,16 @@ const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => 
 		}
 	}
 
+	function tMargin(tm) {
+		if (tm == true) {
+			return "20px";
+		} else {
+			return "0px";
+		}
+	}
+
 	return (
-		<div className={style.card}>
+		<Box className={style.card} sx={{ marginTop: tMargin(marginTop) }}>
 			<div>
 				<div>
 					<img className={style.img} src={`/packages/${mosImg(imgRoute)}.png`} alt="" />
@@ -172,7 +181,7 @@ const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => 
 							>
 								<Modal.Header closeButton className={style.modalHeader}>
 									<Modal.Title id="example-modal-sizes-title-sm">
-										<h2 className={style.titleModal}>Share white</h2>
+										<h2 className={style.titleModal}>Share</h2>
 									</Modal.Title>
 								</Modal.Header>
 								<Modal.Body className={style.modaldiv}>
@@ -227,7 +236,7 @@ const CardTickets = ({ ticketId, referals, packageId, collected, imgRoute }) => 
 				exitRoute={exitRoute}
 				status={status}
 			/>
-		</div>
+		</Box>
 	);
 };
 export default CardTickets;

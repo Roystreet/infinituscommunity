@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Select, TextField, MenuItem, Alert, AlertTitle } from "@mui/material";
+import { Box, Typography, Select, TextField, MenuItem, Alert, AlertTitle, IconButton } from "@mui/material";
 import lineSetting from "./assets/lineSetting.svg";
 import imgProfile from "./assets/imgProfile.svg";
-import editIcon from "./assets/editIcon.svg";
+import saveIcon from "./assets/save.svg";
 import lineDiv from "./assets/lineDiv.svg";
 import style from "./styles/settings.module.css";
 import SwitchComponent from "./assets/switchComponent.svg";
@@ -34,27 +34,33 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 
 	const setChangeName = async () => {
 		setActiveTexBox(true);
-		const response = await sendServerPost(
-			{
-				address: localStorage.getItem("address"),
-				oldNickName: obtainedName,
-				newNickName: temporalName,
-			},
-			"/user/changenickname",
-			"json",
-			localStorage.getItem("jwt")
-		);
+		if (temporalName != "") {
+			const response = await sendServerPost(
+				{
+					address: localStorage.getItem("address"),
+					oldNickName: obtainedName,
+					newNickName: temporalName,
+				},
+				"/user/changenickname",
+				"json",
+				localStorage.getItem("jwt")
+			);
 
-		if (response.tittle == "Error") {
-			setOpenMessagesDisplay(true);
-			setStatus("error");
-			setMessage(response);
+			if (response.tittle == "Error") {
+				setOpenMessagesDisplay(true);
+				setStatus("error");
+				setMessage(response);
+			} else {
+				setNewName(temporalName);
+				setTemporalName("");
+				setStatus("success");
+				setOpenMessagesDisplay(true);
+				setMessage(response);
+			}
 		} else {
-			setNewName(temporalName);
-			setTemporalName("");
-			setStatus("success");
 			setOpenMessagesDisplay(true);
-			setMessage(response);
+			setStatus("info");
+			setMessage({ tittle: "Notification", message: "You must write at least three character Nickname" });
 		}
 	};
 
@@ -131,9 +137,9 @@ const Settings = ({ setUserJWT, setUserLogged }) => {
 							onClick={inputActive}
 						/>
 					</Box>
-					<button style={{ border: "none", background: "none" }}>
-						<img src={editIcon} className={style.editIcon} onClick={setChangeName} />
-					</button>
+					<IconButton sx={{ border: "none", background: "none" }} onClick={setChangeName}>
+						<img src={saveIcon} className={style.editIcon} />
+					</IconButton>
 				</Box>
 			</Box>
 			<Box

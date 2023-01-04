@@ -6,6 +6,7 @@ import { clearUnusedProcess } from "./clearUnusedProcess";
  	@param {*} setMessage - useState para setear el mensaje a desplegar al usuario
 	@param {*} setExitRoute - useState para setear la ruta de salida
 	@param {*} setUserLogged - useState para setear el estatus de logeado del usuario
+	@param {*} setUserJWT - useState para setear el estatus del JWT del usuario
  *@Desc Retorna: N/A
  */
 export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUserLogged, setUserJWT) => {
@@ -34,6 +35,8 @@ export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUse
  *@Desc Entradas:
  	@param {*} setOpen - useState para setear la apaertura del modal
  	@param {*} setMessage - useState para setear el mensaje a desplegar al usuario
+	@param {*} setDisableButton - useState para setear si el boton del modal estara deshabilitado 
+	@param {*} setStatus - useState para setear status del componente antD
  *@Desc Retorna: N/A
  */
 export const ListenerNetworkChanged = (setOpen, setMessage, setDisableButton, setStatus) => {

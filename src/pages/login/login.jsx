@@ -35,6 +35,7 @@ export default function Login({ setUserJWT, setUserLogged }) {
 										setMessage(aux);
 									} else {
 										setOpen(true);
+										setStatus("success");
 										setMessage(aux);
 									}
 								})
