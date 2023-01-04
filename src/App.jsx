@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import DisplayMessage from "./component/displayMessage/displayMessage";
 import Message from "./component/message/message";
@@ -14,8 +14,6 @@ import Profile from "./pages/profile/profile";
 /* import Ranking from "./pages/ranking/ranking"; */
 // Ruta para mostrar los paquetes
 import Package from "./pages/package/package";
-// Ruta de error
-import Error from "./pages/error/error";
 //Ruta de Settings
 import Settings from "./pages/settings/Settings";
 // Ruta de  invitado
@@ -23,18 +21,19 @@ import Invitado from "./pages/invitado/invitado";
 import { deactivateEventListeners, ListenerAccountChanged, ListenerNetworkChanged } from "./functions/eventListeners";
 
 function App({ userConnected }) {
-	const [userJWT, setUserJWT] = useState(userConnected);
-	const [userLogged, setUserLogged] = useState(false);
+	const [userLogged, setUserLogged] = useState(userConnected);
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
 	const [exitRoute, setExitRoute] = useState(null);
 	const [displayButton, setDisplayButton] = useState("");
-	const [status, setStatus] = useState("");
+	const [status, setStatus] = useState(null);
+	const [finalF, setfinalF] = useState(null);
 
 	useEffect(() => {
 		if (window.ethereum) {
 			if (userLogged == true) {
-				ListenerAccountChanged(setOpen, setMessage, setExitRoute, setUserLogged, setUserJWT);
+				ListenerAccountChanged(setOpen, setMessage, setExitRoute, setUserLogged, setStatus, setDisplayButton);
+				ListenerNetworkChanged(setOpen, setMessage, setDisplayButton, setStatus);
 			} else {
 				deactivateEventListeners();
 				ListenerNetworkChanged(setOpen, setMessage, setDisplayButton, setStatus);
@@ -44,48 +43,23 @@ function App({ userConnected }) {
 
 	return (
 		<>
-			{userJWT ? (
+			{userLogged ? (
 				<Layout>
 					<Routes>
-						<Route
-							path="/"
-							element={<Profile userJWT={userJWT} setUserJWT={setUserJWT} userLogged={userLogged} setUserLogged={setUserLogged} />}
-						/>
-						<Route
-							path="/login"
-							element={
-								!userJWT ? (
-									<Login setUserJWT={setUserJWT} setUserLogged={setUserLogged} />
-								) : (
-									<DisplayMessage
-										open={true}
-										setOpen={setOpen}
-										messageData={{ tittle: "Notification", message: "You're already connected" }}
-										allowBackdropClick={false}
-										exitRoute={"/"}
-									/>
-								)
-							}
-						/>
+						<Route path="/profile" element={<Profile setUserLogged={setUserLogged} />} />
+						<Route path="/mytickets" element={<Package />} />
 						<Route path="/presale" element={<Presale />} />
+						<Route path="/settings" element={<Settings setUserLogged={setUserLogged} />} />
+						<Route path="/share/:idticket/owner/:address" element={<Invitado />} />
 						<Route
-							path="/profile"
-							element={<Profile userJWT={userJWT} setUserJWT={setUserJWT} userLogged={userLogged} setUserLogged={setUserLogged} />}
-						/>
-						<Route path="/mytickets" element={<Package setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
-						<Route path="/error" element={<Error />} />
-						<Route path="/settings" element={<Settings setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
-						<Route path="/share/:idticket/owner/:address" element={<Invitado setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
-						<Route
-							path="*"
+							path={"*"}
 							element={
 								<DisplayMessage
 									open={true}
 									setOpen={setOpen}
-									messageData={{ tittle: "Error", message: "This route doesn't exist or is on work" }}
-									allowBackdropClick={true}
+									messageData={{ tittle: "Notification", message: "This Page doesn't Exist or is on Work" }}
+									allowBackdropClick={false}
 									exitRoute={"/"}
-									status={"warning"}
 								/>
 							}
 						/>
@@ -95,17 +69,16 @@ function App({ userConnected }) {
 				<>
 					<Message />
 					<Routes>
-						<Route path="/" element={<Login setUserJWT={setUserJWT} setUserLogged={setUserLogged} />} />
+						<Route exact path="/" element={<Login setUserLogged={setUserLogged} />} />
 						<Route
-							path="*"
+							path={"*"}
 							element={
 								<DisplayMessage
-									open={!open}
+									open={true}
 									setOpen={setOpen}
-									messageData={{ tittle: "Notification", message: "You need Login" }}
-									allowBackdropClick={true}
+									messageData={{ tittle: "Notification", message: "This Page doesn't Exist or is on Work" }}
+									allowBackdropClick={false}
 									exitRoute={"/"}
-									status={"warning"}
 								/>
 							}
 						/>

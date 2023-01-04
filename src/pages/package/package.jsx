@@ -24,7 +24,7 @@ export default function Package() {
 
 			if (MyTickets.tittle == "Error") {
 				setStatus("error");
-				setExitRoute("/");
+				setExitRoute("/profile");
 				setMessage(MyTickets);
 				setOpen(true);
 			} else {

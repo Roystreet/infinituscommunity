@@ -6,27 +6,28 @@ import { clearUnusedProcess } from "./clearUnusedProcess";
  	@param {*} setMessage - useState para setear el mensaje a desplegar al usuario
 	@param {*} setExitRoute - useState para setear la ruta de salida
 	@param {*} setUserLogged - useState para setear el estatus de logeado del usuario
-	@param {*} setUserJWT - useState para setear el estatus del JWT del usuario
+	@param {*} setStatus - useState para setear el status del componente antD
+	@param {*} setDisplayButton - useState para setear si el boton del modal estara deshabilitado 
  *@Desc Retorna: N/A
  */
-export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUserLogged, setUserJWT) => {
+export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUserLogged, setStatus, setDisplayButton) => {
 	window.ethereum.on("accountsChanged", (accounts) => {
 		if (accounts.length === 0) {
 			setOpen(true);
 			setExitRoute("/");
 			setUserLogged(false);
-			setUserJWT(false);
 			clearUnusedProcess();
-			setDisableButton("none");
+			setDisplayButton("");
+			setStatus("info");
 			setMessage({ tittle: "Notification", message: "Please connect at least one Metamask account" });
 		} else {
 			setOpen(true);
 			setExitRoute("/");
 			setUserLogged(false);
-			setUserJWT(false);
 			clearUnusedProcess();
-			setDisableButton("");
-			setMessage({ tittle: "Notification", message: "Connected account has changed, make login again" });
+			setDisplayButton("");
+			setStatus("info");
+			setMessage({ tittle: "Notification", message: "Connected account has changed, login again" });
 		}
 	});
 };
@@ -35,15 +36,15 @@ export const ListenerAccountChanged = (setOpen, setMessage, setExitRoute, setUse
  *@Desc Entradas:
  	@param {*} setOpen - useState para setear la apaertura del modal
  	@param {*} setMessage - useState para setear el mensaje a desplegar al usuario
-	@param {*} setDisableButton - useState para setear si el boton del modal estara deshabilitado 
+	@param {*} setDisplayButton - useState para setear si el boton del modal estara deshabilitado 
 	@param {*} setStatus - useState para setear status del componente antD
  *@Desc Retorna: N/A
  */
-export const ListenerNetworkChanged = (setOpen, setMessage, setDisableButton, setStatus) => {
+export const ListenerNetworkChanged = (setOpen, setMessage, setDisplayButton, setStatus) => {
 	window.ethereum.on("chainChanged", () => {
 		if (window.ethereum.chainId != "0x38") {
 			setOpen(true);
-			setDisableButton("none");
+			setDisplayButton("none");
 			setStatus("warning");
 			setMessage({ tittle: "Notification", message: "Go Back to BSC Network" });
 		} else setOpen(false);

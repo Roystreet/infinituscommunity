@@ -9,9 +9,8 @@ import loginSvg from "./assets/login.svg";
 import MetaIcon from "./assets/metaSvg.svg";
 import union from "./assets/union.svg";
 import logoInfinitus from "../../component/header/assets/infinitus.svg";
-import { useEffect } from "react";
 
-export default function Login({ setUserJWT, setUserLogged }) {
+export default function Login({ setUserLogged }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState({});
@@ -78,7 +77,6 @@ export default function Login({ setUserJWT, setUserLogged }) {
 
 									if (jwt.jwt) {
 										localStorage.setItem("jwt", jwt.jwt);
-										setUserJWT(true);
 										setUserLogged(true);
 										navigate("/profile");
 									} else {
@@ -110,17 +108,6 @@ export default function Login({ setUserJWT, setUserLogged }) {
 			setMessage({ tittle: "Metamask Error", message: error.code + "  " + error.reason });
 		}
 	};
-
-	useEffect(() => {
-		if (window.ethereum) {
-			/* window.ethereum.on("chainChanged", () => {
-				if (window.ethereum.chainId != "0x38" && window.ethereum.networkVersion != "1") {
-					setOpen(true);
-					setMessage({ tittle: "Notificacion", message: "Vuelve a la Red BSC" });
-				}
-			}); */
-		}
-	}, []);
 
 	return (
 		<>
