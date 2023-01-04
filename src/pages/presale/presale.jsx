@@ -18,7 +18,7 @@ export default function Presale() {
 				setTotalSupply(data);
 			} catch (err) {
 				setMessage(err);
-				setExitRoute("/");
+				setExitRoute("/profile");
 				setStatus("error");
 				setOpen(true);
 			}

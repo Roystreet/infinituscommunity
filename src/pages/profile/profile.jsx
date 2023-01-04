@@ -11,7 +11,7 @@ import { sendServerGet, sendServerPost } from "../../functions/serverInteraction
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged }) {
+export default function Profile({ setUserLogged }) {
 	const navigate = useNavigate();
 	const [myInfo, setmyInfo] = useState({});
 	const [balanceBUSD, setbalanceBUSD] = useState("");
@@ -74,34 +74,19 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 		);
 
 		if (response.tittle == "Error") {
-			if (userJWT == true && userLogged == false) {
-				clearUnusedProcess();
-				setUserJWT(false);
-				navigate("/");
-			} else if (userJWT == true && userLogged == true) {
-				setStatus("error");
-				setUserLogged(false);
-				setUserJWT(false);
-				setOpen(true);
-				setMessage(response);
-			}
+			setStatus("error");
+			setOpen(true);
+			setMessage(response);
 		} else {
-			setUserLogged(true);
 			setmyInfo(response);
+			balnceInfi();
+			balnceBusd();
 		}
 	};
 
 	useEffect(() => {
 		data();
 	}, []);
-
-	useEffect(() => {
-		balnceInfi();
-	}, [balanceINFI]);
-
-	useEffect(() => {
-		balnceBusd();
-	}, [balanceBUSD]);
 
 	return (
 		<>
@@ -156,7 +141,6 @@ export default function Profile({ userJWT, setUserJWT, userLogged, setUserLogged
 				allowBackdropClick={true}
 				exitRoute={"/"}
 				finalFunction={() => {
-					setUserJWT(false);
 					setUserLogged(false);
 					clearUnusedProcess();
 				}}

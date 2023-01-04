@@ -5,11 +5,10 @@ import style from "./Invitado.module.css";
 import { useState, useEffect } from "react";
 import { sendServerGet, sendServerPost } from "../../functions/serverInteractions";
 import { useParams } from "react-router-dom";
-import { ListenerAccountChanged } from "../../functions/eventListeners";
 import DisplayMessage from "../../component/displayMessage/displayMessage";
 import { clearUnusedProcess } from "../../functions/clearUnusedProcess";
 
-export default function Invitado({ setUserJWT, setUserLogged }) {
+export default function Invitado() {
 	const [nickName, setNickname] = useState("");
 	const [packages, setPackages] = useState({});
 	const [ticket, setTicket] = useState([]);
@@ -17,6 +16,8 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 	const [message, setMessage] = useState({});
 	const { address, idticket } = useParams();
 	const [status, setStatus] = useState("");
+	const [exitRoute, setExitRoute] = useState(null);
+	const [finalF, setFinalF] = useState(null);
 
 	useEffect(() => {
 		const getObjs = async () => {
@@ -27,11 +28,16 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 			if (pack.tittle == "Error" || ticket.tittle == "Error") {
 				setOpen(true);
 				setStatus("error");
+				setExitRoute("/");
+				setFinalF(() => {
+					clearUnusedProcess();
+				});
 				if (pack.tittle == "Error") setMessage(pack);
-				setMessage(ticket);
+				else setMessage(ticket);
 			} else if (ticket[0].referals > 3) {
 				setOpen(true);
 				setStatus("error");
+				setExitRoute("/profile");
 				setMessage({ tittle: "Notification", message: "The referrer ticket has completed all the task" });
 			} else {
 				setPackages(pack);
@@ -39,7 +45,7 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 				setNickname(ticket[0].nickName);
 			}
 		};
-		setUserLogged(true);
+
 		getObjs();
 	}, []);
 
@@ -71,7 +77,15 @@ export default function Invitado({ setUserJWT, setUserLogged }) {
 					<img src={imgI} className={style.imgInf} alt="Logoicon" />
 				</div>
 			</div>
-			<DisplayMessage open={open} setOpen={setOpen} messageData={message} allowBackdropClick={true} status={status} exitRoute={"/"} />
+			<DisplayMessage
+				open={open}
+				setOpen={setOpen}
+				messageData={message}
+				allowBackdropClick={true}
+				status={status}
+				exitRoute={exitRoute}
+				finalFunction={finalF}
+			/>
 		</>
 	);
 }
